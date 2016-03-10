@@ -7,13 +7,12 @@
   <meta name="360-site-verification" content="67fbcc5a67f4c65c057315b28fa0b2c8" />
 <meta name="google-site-verification" content="2GzxQ0VtXwTSUdmGm6DzcmhTzM_I9QmzCb_pzpMzD88" />
   
-    <title>Pyleus 介绍：使用纯Python编写Storm程序的开源框架 | 那些你不知道的事</title>
+    <title>Ubuntu下nginx+uwsgi部署django项目 | 那些你不知道的事</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="Mr Ren">
     
-    <meta name="description" content="Pyleus是一个新的开源框架，其目的就像另外一个Yelp的开源项目mrjob对Hadoop所做的那样：让纯Python的开发者能够处理大量数据并迅速迭代，让他们有更多的时间来解决业务问题而不是去关注与底层平台。
-Centos上安装Pyleus我们在python2.7的虚拟环境下安装1[rdy@ma">
+    <meta name="description" content="一到公司就一直用django写项目，但我一直没有尝试跟nginx结合，每次都是在pycharm中在8000端口运行，今天有时间在ubuntu下折腾一下django和nginx结合。环境：    python3.4.1    nginx1.4.6（通过apt-get install安装）    uWs">
     
     
     
@@ -228,15 +227,15 @@ Centos上安装Pyleus我们在python2.7的虚拟环境下安装1[rdy@ma">
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/01/13/pyleus-use/" title="Pyleus 介绍：使用纯Python编写Storm程序的开源框架" itemprop="url">Pyleus 介绍：使用纯Python编写Storm程序的开源框架</a>
+      <a href="/2016/03/02/nginx-django/" title="Ubuntu下nginx+uwsgi部署django项目" itemprop="url">Ubuntu下nginx+uwsgi部署django项目</a>
   </h1>
   <p class="article-author">By
     
       <a href="http://yoursite.com" title="Mr Ren">Mr Ren</a>
     </p>
   <p class="article-time">
-    <time datetime="2016-01-13T11:01:47.000Z" itemprop="datePublished">2016-01-13</time>
-    更新日期:<time datetime="2016-01-13T11:09:50.000Z" itemprop="dateModified">2016-01-13</time>
+    <time datetime="2016-03-02T01:19:11.000Z" itemprop="datePublished">2016-03-02</time>
+    更新日期:<time datetime="2016-03-02T02:06:57.793Z" itemprop="dateModified">2016-03-02</time>
     
   </p>
 </header>
@@ -245,34 +244,25 @@ Centos上安装Pyleus我们在python2.7的虚拟环境下安装1[rdy@ma">
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
-		<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Centos_u4E0A_u5B89_u88C5Pyleus"><span class="toc-number">1.</span> <span class="toc-text">Centos上安装Pyleus</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u7F16_u8BD1_u62D3_u6251_uFF08python_uFF09"><span class="toc-number">2.</span> <span class="toc-text">编译拓扑（python）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u63D0_u4EA4_u4EFB_u52A1"><span class="toc-number">3.</span> <span class="toc-text">提交任务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u6740_u6389_u62D3_u6251"><span class="toc-number">4.</span> <span class="toc-text">杀掉拓扑</span></a></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#u521B_u5EFADjango_u9879_u76EE"><span class="toc-number">1.</span> <span class="toc-text">创建Django项目</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u7F16_u8F91nginx_u914D_u7F6E_u6587_u4EF6"><span class="toc-number">2.</span> <span class="toc-text">编辑nginx配置文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u914D_u7F6EuWsgi"><span class="toc-number">3.</span> <span class="toc-text">配置uWsgi</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u542F_u52A8_u670D_u52A1"><span class="toc-number">4.</span> <span class="toc-text">启动服务</span></a></li></ol>
 		</div>
 		
-		<p><a href="https://github.com/Yelp/pyleus" target="_blank" rel="external">Pyleus</a>是一个新的开源框架，其目的就像另外一个Yelp的开源项目mrjob对Hadoop所做的那样：让纯Python的开发者能够处理大量数据并迅速迭代，让他们有更多的时间来解决业务问题而不是去关注与底层平台。</p>
-<h3 id="Centos_u4E0A_u5B89_u88C5Pyleus"><a href="#Centos_u4E0A_u5B89_u88C5Pyleus" class="headerlink" title="Centos上安装Pyleus"></a>Centos上安装Pyleus</h3><p>我们在python2.7的虚拟环境下安装<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[rdy@master ~]$ <span class="built_in">source</span> /home/rdy/workspace/python27/bin/activate</span><br></pre></td></tr></table></figure></p>
-<p>使用pip安装pyleus：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(python27)[rdy@master ~]$ pip install pyleus -i http://pypi.douban.com/simple/ --trusted-host pypi.douban.com</span><br></pre></td></tr></table></figure></p>
-<p>验证安装：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(python27)[rdy@master ~]$ pyleus</span><br><span class="line">usage: pyleus [-h] [-c CONFIG_FILE] [-v] [--version] COMMAND ...</span><br><span class="line">pyleus: error: too few arguments</span><br><span class="line">(python27)[rdy@master ~]$</span><br></pre></td></tr></table></figure></p>
-<p>至此pyleus安装成功，接下来我们开始实战先从github上迁一份事列<a href="https://github.com/Yelp/pyleus" target="_blank" rel="external">https://github.com/Yelp/pyleus</a></p>
-<h3 id="u7F16_u8BD1_u62D3_u6251_uFF08python_uFF09"><a href="#u7F16_u8BD1_u62D3_u6251_uFF08python_uFF09" class="headerlink" title="编译拓扑（python）"></a>编译拓扑（python）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(python27)[rdy@master ~]$ git <span class="built_in">clone</span> https://github.com/Yelp/pyleus.git</span><br><span class="line">(python27)[rdy@master ~]$ pyleus build pyleus/examples/exclamation_topology/pyleus_topology.yaml</span><br><span class="line">(python27)[rdy@master ~]$ pyleus <span class="built_in">local</span> exclamation_topology.jar</span><br></pre></td></tr></table></figure>
-<p>编译python版本的代码用<code>build</code>命令，在这里可能会出错提示找不到<code>storm</code>路径之类的，此时我们需要制定pyleus的配置文件<br>pyleus将优先从以下三个地方找配置文件</p>
-<ul>
-<li>/etc/pyleus.conf</li>
-<li>~/.config/pyleus.conf</li>
-<li>~/.pyleus.conf</li>
-</ul>
-<p>当然也可以手动制定配置文件路径<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(python27)[rdy@master ~]$ pyleus -c /path/to/config_file CMD</span><br></pre></td></tr></table></figure></p>
-<p>配置文件示例：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">[storm]</span><br><span class="line"><span class="comment"># path to Storm executable (pyleus will automatically look in PATH)</span></span><br><span class="line">storm_cmd_path: /home/rdy/storm/bin/storm</span><br><span class="line"></span><br><span class="line"><span class="comment"># optional: use -n option of pyleus CLI instead</span></span><br><span class="line">nimbus_host: <span class="number">192.168</span>.<span class="number">1.54</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># optional: use -p option of pyleus CLI instead</span></span><br><span class="line">nimbus_port: <span class="number">6628</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># java options to pass to Storm CLI</span></span><br><span class="line">jvm_opts: -Djava.io.tmpdir=/home/myuser/tmp</span><br><span class="line"></span><br><span class="line">[build]</span><br><span class="line"><span class="comment"># PyPI server to use during the build of your topologies</span></span><br><span class="line"><span class="comment"># 这个需要制定好，因为pyleus在编译时需要到这个地址下载一些必须的包，若不正确将导致无法编译成 jar 文件</span></span><br><span class="line">pypi_index_url: http://pypi.douban.com/simple/      </span><br><span class="line"></span><br><span class="line"><span class="comment"># always use system-site-packages for pyleus virtualenvs (default: false)</span></span><br><span class="line">system_site_packages: <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># list of packages to always include in your topologies</span></span><br><span class="line"><span class="comment"># 这个并没有什么用</span></span><br><span class="line"><span class="comment"># include_packages: foo bar&lt;4.0 baz==0.1</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="u63D0_u4EA4_u4EFB_u52A1"><a href="#u63D0_u4EA4_u4EFB_u52A1" class="headerlink" title="提交任务"></a>提交任务</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(python27)[rdy@master ~]$ pyleus --verbose submit -n <span class="number">127.0</span>.<span class="number">0.1</span> <span class="built_in">test</span>_py_topology.jar</span><br></pre></td></tr></table></figure>
-<p>使用submit命令向集群提交代码，原生storm用jar的方法提交，<code>verbose</code>参数是用来查看详细信息。</p>
-<h3 id="u6740_u6389_u62D3_u6251"><a href="#u6740_u6389_u62D3_u6251" class="headerlink" title="杀掉拓扑"></a>杀掉拓扑</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(python27)[rdy@master ~]$ pyleus --verbose <span class="built_in">kill</span> <span class="built_in">test</span>_py_topology -n master</span><br></pre></td></tr></table></figure>
-<p>使用kill命令杀掉拓扑，这个跟storm原生是一样的<br>对于Pyleus topology(拓扑)来说代码是非常简单的，但是有一个非常有意思的特征值得我们关注的是它自己内部对virtualenv(<a href="https://virtualenv.readthedocs.org/" target="_blank" rel="external">https://virtualenv.readthedocs.org/</a>) 的集成。简单的包含一个requirements.txt文件和你自己的pyleus_topology.yaml,pyleus build将会产生一个virtualenv使得你的代码在这个JAR包中使用以及嵌入。你甚至可以重用Pyleus相关的组建包，并且在pyleus_topology.yaml里面直接关联他们接可以了！</p>
+		<p>一到公司就一直用django写项目，但我一直没有尝试跟nginx结合，每次都是在pycharm中在8000端口运行，今天有时间在ubuntu下折腾一下django和nginx结合。<br>环境：<br>    python3.4.1<br>    nginx1.4.6（通过apt-get install安装）<br>    uWsgi：2.0.10（pip install uwsgi直接安装，安装完成将/home/rdy/virtualENv/xingxingEnv/bin下的uwsgi软链到/usr/bin下方便直接运行）<br>    django1.7.6</p>
+<h4 id="u521B_u5EFADjango_u9879_u76EE"><a href="#u521B_u5EFADjango_u9879_u76EE" class="headerlink" title="创建Django项目"></a>创建Django项目</h4><p>接下来先建立一个django项目，我这里直接通过IDE（pycharm）创建，项目路径<code>/home/rdy/workspace/xingxing</code>，在项目下有一个<code>wsgi.py</code>的文件，我的在<code>/home/rdy/workspace/xingxing/xingxing/</code>（xingxing，xingxing都是我的项目名），直接复制这个<code>wagi.py</code>的文件到项目根目录下，并重命名为<code>django_wsgi.py</code>，为什么是这个文件名呢，因为你在nginx配置文件和uwsgi配置文件的module都是写的这个文件名。如果没找到<code>wsgi.py</code>这个文件,那就直接在django项目的根目录下手工创建一个<code>django_wsgi.py</code>文件<br>django_wsgi.py<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line">os.environ[<span class="string">'DJANGO_SETTINGS_MODULE'</span>] = <span class="string">'xingxing.settings'</span> <span class="comment">#注意xingxing要改成你的项目名</span></span><br><span class="line"><span class="keyword">from</span> django.core.wsgi <span class="keyword">import</span> get_wsgi_application</span><br><span class="line">application = get_wsgi_application()</span><br></pre></td></tr></table></figure></p>
+<h4 id="u7F16_u8F91nginx_u914D_u7F6E_u6587_u4EF6"><a href="#u7F16_u8F91nginx_u914D_u7F6E_u6587_u4EF6" class="headerlink" title="编辑nginx配置文件"></a>编辑nginx配置文件</h4><p>我的nginx是通过<code>apt-get</code>安装，我的配置文件在<code>/etc/nginx/</code>目录下，说明:<code>/etc/nginx/nginx.conf</code>是主配置文件,真正的配置文件在<code>/etc/nginx/sites-enabled/</code>目录中的<code>default</code>文件。我们编写一个自己的配置文件<code>django.conf</code><br>django.conf<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">        listen  <span class="number">80</span>;</span><br><span class="line">        server_name localhost;</span><br><span class="line"> </span><br><span class="line">        location / &#123;</span><br><span class="line">            root /home/rdy/workspace/xingxing;  <span class="comment">#这个是我django项目所在的绝对路径,cmdb04是我的项目名,下同</span></span><br><span class="line">            include     uwsgi_params;</span><br><span class="line">            uwsgi_pass   <span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">9000</span>; <span class="comment">#这个要跟之后配置的uwsgi配置文件保持一致</span></span><br><span class="line">            uwsgi_param UWSGI_CHDIR  /home/rdy/workspace/xingxing; <span class="comment">#这个也是我django项目所在的绝对路径</span></span><br><span class="line">            uwsgi_param UWSGI_SCRIPT django_wsgi;<span class="comment">#这个要和uwsgi配置文件里module的内容一致,嗯,应该是这样</span></span><br><span class="line">            <span class="comment">#access_log  off;</span></span><br><span class="line">            access_<span class="built_in">log</span> /var/<span class="built_in">log</span>/nginx/access.log; <span class="comment">#日志存放目录，当然前提是这个目录要事先存在，不然启动nginx会报错，手动创建就好了。</span></span><br><span class="line">            &#125;</span><br><span class="line">        location /static/ &#123;            <span class="comment">#这个statics名称要跟django setting文件里静态目录的配置保持一致，不然的话css等静态文件会找不到。</span></span><br><span class="line">       <span class="built_in">alias</span> /home/rdy/workspace/xingxing/static/; <span class="comment">#这个就是statics所在的目录</span></span><br><span class="line">       index index.html;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后软链到<code>/etc/nginx/sites-enabled/</code>目录下。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln <span class="operator">-s</span> django.conf /etc/nginx/sites-enabled/django.conf</span><br></pre></td></tr></table></figure></p>
+<h4 id="u914D_u7F6EuWsgi"><a href="#u914D_u7F6EuWsgi" class="headerlink" title="配置uWsgi"></a>配置uWsgi</h4><p>在nginx配置文件目录下创建一个uwsgi的配置文件（当然这个文件在哪里都可以，只要你找的见。为了方便我就先放在/etc/nginx/目录下了<br>uwsgi.xml<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">uwsgi</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="title">socket</span>&gt;</span>127.0.0.1:9000 <span class="tag">&lt;/<span class="title">socket</span>&gt;</span> #和nginx配置一致</span><br><span class="line"> <span class="tag">&lt;<span class="title">listen</span>&gt;</span>80<span class="tag">&lt;/<span class="title">listen</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="title">master</span>&gt;</span>true <span class="tag">&lt;/<span class="title">master</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="title">pidfile</span>&gt;</span>/usr/local/nginx/uwsgi.pid <span class="tag">&lt;/<span class="title">pidfile</span>&gt;</span> #这个目录要存在并且要有访问权限，建议把/usr/local/nginx权限改为777</span><br><span class="line"> <span class="tag">&lt;<span class="title">processes</span>&gt;</span>8 <span class="tag">&lt;/<span class="title">processes</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="title">pythonpath</span>&gt;</span>/home/rdy/workspace/xingxing <span class="tag">&lt;/<span class="title">pythonpath</span>&gt;</span> #我的django项目路径</span><br><span class="line"> <span class="tag">&lt;<span class="title">module</span>&gt;</span>django_wsgi<span class="tag">&lt;/<span class="title">module</span>&gt;</span> #和nginx里配置一致</span><br><span class="line"> <span class="tag">&lt;<span class="title">profiler</span>&gt;</span>true <span class="tag">&lt;/<span class="title">profiler</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="title">memory-report</span>&gt;</span>true <span class="tag">&lt;/<span class="title">memory-report</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="title">enable-threads</span>&gt;</span>true <span class="tag">&lt;/<span class="title">enable-threads</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="title">logdate</span>&gt;</span>true <span class="tag">&lt;/<span class="title">logdate</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="title">limit-as</span>&gt;</span>6048 <span class="tag">&lt;/<span class="title">limit-as</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="title">daemonize</span>&gt;</span>/tmp/uwsgi.log<span class="tag">&lt;/<span class="title">daemonize</span>&gt;</span> #日志存放位置</span><br><span class="line"><span class="tag">&lt;/<span class="title">uwsgi</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>uwsgi.xml里其他一些配置暂且保持一致就行了，可根据自己要求修改。</p>
+<h4 id="u542F_u52A8_u670D_u52A1"><a href="#u542F_u52A8_u670D_u52A1" class="headerlink" title="启动服务"></a>启动服务</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo service nginx restart	<span class="comment">#启动nginx</span></span><br><span class="line">/usr/bin/uwsgi -x /etc/nginx/uwsgi.xml	<span class="comment">#启动uwsgi</span></span><br></pre></td></tr></table></figure>
+<p>可以查看uwsgi的日志文件查看启动信息<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">rdy@cherry:~$ netstat -antpl | grep uwsgi</span><br><span class="line">(Not all processes could be identified, non-owned process info</span><br><span class="line"> will not be shown, you would have to be root to see it all.)</span><br><span class="line">tcp        <span class="number">0</span>      <span class="number">0</span> <span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">9000</span>          <span class="number">0.0</span>.<span class="number">0.0</span>:*               LISTEN      <span class="number">4742</span>/uwsgi</span><br></pre></td></tr></table></figure></p>
+<p>然后在浏览器访问<code>127.0.0.1</code>就可以访问到你的页面了</p>
   
 	</div>
 		<footer class="article-footer clearfix">
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/pyleus/">pyleus</a><a href="/tags/python/">python</a>
+  <span></span> <a href="/tags/django/">django</a><a href="/tags/nginx/">nginx</a>
   </div>
 
 
@@ -280,7 +270,7 @@ Centos上安装Pyleus我们在python2.7的虚拟环境下安装1[rdy@ma">
 
 <div class="article-share" id="share">
 
-  <div data-url="http://yoursite.com/2016/01/13/pyleus-use/" data-title="Pyleus 介绍：使用纯Python编写Storm程序的开源框架 | 那些你不知道的事" data-tsina="null" class="share clearfix">
+  <div data-url="http://yoursite.com/2016/03/02/nginx-django/" data-title="Ubuntu下nginx+uwsgi部署django项目 | 那些你不知道的事" data-tsina="null" class="share clearfix">
   </div>
 
 </div>
@@ -290,18 +280,18 @@ Centos上安装Pyleus我们在python2.7的虚拟环境下安装1[rdy@ma">
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2016/01/18/hello-world/" title="Hello World">
+ <a href="/2016/03/02/nginx/" title="Ubuntu搭建nginx服务器">
   <strong>PREVIOUS:</strong><br/>
   <span>
-  Hello World</span>
+  Ubuntu搭建nginx服务器</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2016/01/11/python-yield/"  title="python之yield的使用">
+<a href="/2016/02/18/supervisor-use/"  title="supervisor-进程管理工具">
  <strong>NEXT:</strong><br/> 
- <span>python之yield的使用
+ <span>supervisor-进程管理工具
 </span>
 </a>
 </div>
@@ -311,7 +301,7 @@ Centos上安装Pyleus我们在python2.7的虚拟环境下安装1[rdy@ma">
 	
 <section class="comment">
 	
-	<div class="ds-thread" data-title="Pyleus 介绍：使用纯Python编写Storm程序的开源框架" data-thread-key="pyleus-use" data-author-key="Mr Ren" data-url="http://yoursite.com/post/pyleus-use"></div>
+	<div class="ds-thread" data-title="Ubuntu下nginx+uwsgi部署django项目" data-thread-key="nginx-django" data-author-key="Mr Ren" data-url="http://yoursite.com/post/nginx-django"></div>
 	
 </section>
 
@@ -321,7 +311,7 @@ Centos上安装Pyleus我们在python2.7的虚拟环境下安装1[rdy@ma">
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
-  <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Centos_u4E0A_u5B89_u88C5Pyleus"><span class="toc-number">1.</span> <span class="toc-text">Centos上安装Pyleus</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u7F16_u8BD1_u62D3_u6251_uFF08python_uFF09"><span class="toc-number">2.</span> <span class="toc-text">编译拓扑（python）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u63D0_u4EA4_u4EFB_u52A1"><span class="toc-number">3.</span> <span class="toc-text">提交任务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u6740_u6389_u62D3_u6251"><span class="toc-number">4.</span> <span class="toc-text">杀掉拓扑</span></a></li></ol>
+  <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#u521B_u5EFADjango_u9879_u76EE"><span class="toc-number">1.</span> <span class="toc-text">创建Django项目</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u7F16_u8F91nginx_u914D_u7F6E_u6587_u4EF6"><span class="toc-number">2.</span> <span class="toc-text">编辑nginx配置文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u914D_u7F6EuWsgi"><span class="toc-number">3.</span> <span class="toc-text">配置uWsgi</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u542F_u52A8_u670D_u52A1"><span class="toc-number">4.</span> <span class="toc-text">启动服务</span></a></li></ol>
   </div>
 
 <div id="asidepart">

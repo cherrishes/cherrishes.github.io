@@ -1,0 +1,657 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="baidu_union_verify" content="d1952c66cf48912e21c18c7c581f382a">
+  <meta name="360-site-verification" content="67fbcc5a67f4c65c057315b28fa0b2c8" />
+<meta name="google-site-verification" content="2GzxQ0VtXwTSUdmGm6DzcmhTzM_I9QmzCb_pzpMzD88" />
+  
+    <title>zookeeper服务注册与发现 | 那些你不知道的事</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="Mr Ren">
+    
+    <meta name="description" content="Zookeeper是什么？按照Apache官网的描述是：    ZooKeeper is a centralized service for maintaining configuration information,         naming, providing distributed sy">
+    
+    
+    
+    
+    <link rel="alternate" href="atom.xml" title="那些你不知道的事" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            var _bdId ='391982416296a0d54221f59fe35250d4';
+             hm.src = "//hm.baidu.com/hm.js?" + _bdId;
+             var s = document.getElementsByTagName("script")[0]; 
+             s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+     
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="那些你不知道的事">那些你不知道的事</a></h1>
+				<a class="blog-motto">你不知道我为什么离开你</a>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li> <a title="把这个链接拖到你的Chrome收藏夹工具栏中" href='javascript:(function() {
+	function c() {
+		var e = document.createElement("link");
+		e.setAttribute("type", "text/css");
+		e.setAttribute("rel", "stylesheet");
+		e.setAttribute("href", f);
+		e.setAttribute("class", l);
+		document.body.appendChild(e)
+	}
+ 
+	function h() {
+		var e = document.getElementsByClassName(l);
+		for (var t = 0; t < e.length; t++) {
+			document.body.removeChild(e[t])
+		}
+	}
+ 
+	function p() {
+		var e = document.createElement("div");
+		e.setAttribute("class", a);
+		document.body.appendChild(e);
+		setTimeout(function() {
+			document.body.removeChild(e)
+		}, 100)
+	}
+ 
+	function d(e) {
+		return {
+			height : e.offsetHeight,
+			width : e.offsetWidth
+		}
+	}
+ 
+	function v(i) {
+		var s = d(i);
+		return s.height > e && s.height < n && s.width > t && s.width < r
+	}
+ 
+	function m(e) {
+		var t = e;
+		var n = 0;
+		while (!!t) {
+			n += t.offsetTop;
+			t = t.offsetParent
+		}
+		return n
+	}
+ 
+	function g() {
+		var e = document.documentElement;
+		if (!!window.innerWidth) {
+			return window.innerHeight
+		} else if (e && !isNaN(e.clientHeight)) {
+			return e.clientHeight
+		}
+		return 0
+	}
+ 
+	function y() {
+		if (window.pageYOffset) {
+			return window.pageYOffset
+		}
+		return Math.max(document.documentElement.scrollTop, document.body.scrollTop)
+	}
+ 
+	function E(e) {
+		var t = m(e);
+		return t >= w && t <= b + w
+	}
+ 
+	function S() {
+		var e = document.createElement("audio");
+		e.setAttribute("class", l);
+		e.src = i;
+		e.loop = false;
+		e.addEventListener("canplay", function() {
+			setTimeout(function() {
+				x(k)
+			}, 500);
+			setTimeout(function() {
+				N();
+				p();
+				for (var e = 0; e < O.length; e++) {
+					T(O[e])
+				}
+			}, 15500)
+		}, true);
+		e.addEventListener("ended", function() {
+			N();
+			h()
+		}, true);
+		e.innerHTML = " <p>If you are reading this, it is because your browser does not support the audio element. We recommend that you get a new browser.</p> <p>";
+		document.body.appendChild(e);
+		e.play()
+	}
+ 
+	function x(e) {
+		e.className += " " + s + " " + o
+	}
+ 
+	function T(e) {
+		e.className += " " + s + " " + u[Math.floor(Math.random() * u.length)]
+	}
+ 
+	function N() {
+		var e = document.getElementsByClassName(s);
+		var t = new RegExp("\\b" + s + "\\b");
+		for (var n = 0; n < e.length; ) {
+			e[n].className = e[n].className.replace(t, "")
+		}
+	}
+ 
+	var e = 30;
+	var t = 30;
+	var n = 350;
+	var r = 350;
+	var i = "//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake.mp3";
+	var s = "mw-harlem_shake_me";
+	var o = "im_first";
+	var u = ["im_drunk", "im_baked", "im_trippin", "im_blown"];
+	var a = "mw-strobe_light";
+	var f = "//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake-style.css";
+	var l = "mw_added_css";
+	var b = g();
+	var w = y();
+	var C = document.getElementsByTagName("*");
+	var k = null;
+	for (var L = 0; L < C.length; L++) {
+		var A = C[L];
+		if (v(A)) {
+			if (E(A)) {
+				k = A;
+				break
+			}
+		}
+	}
+	if (A === null) {
+		console.warn("Could not find a node of the right size. Please try a different page.");
+		return
+	}
+	c();
+	S();
+	var O = [];
+	for (var L = 0; L < C.length; L++) {
+		var A = C[L];
+		if (v(A)) {
+			O.push(A)
+		}
+	}
+})()    '>High一下</a> </li>
+               				<li>
+                                        
+                                            <form class="search" action=http://zhannei.baidu.com/cse/search target="_blank">
+                                            <label>Search</label>
+                                        <input name="s" type="hidden" value= null ><input type="text" name="q" size="30" placeholder="搜索"><br>
+                                        
+                                        </li>
+
+				</ul>
+                            </nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/03/10/python-zookeeper/" title="zookeeper服务注册与发现" itemprop="url">zookeeper服务注册与发现</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="http://yoursite.com" title="Mr Ren">Mr Ren</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2016-03-10T02:28:23.000Z" itemprop="datePublished">2016-03-10</time>
+    更新日期:<time datetime="2016-03-10T03:21:14.288Z" itemprop="dateModified">2016-03-10</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#u57FA_u4E8EZookeeper_u7684_u670D_u52A1_u6CE8_u518C_u4E0E_u53D1_u73B0_u67B6_u6784"><span class="toc-number">1.</span> <span class="toc-text">基于Zookeeper的服务注册与发现架构</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#u670D_u52A1_u63D0_u4F9B_u8005"><span class="toc-number">1.1.</span> <span class="toc-text">服务提供者</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#u670D_u52A1_u6CE8_u518C_u4E2D_u5FC3"><span class="toc-number">1.2.</span> <span class="toc-text">服务注册中心</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#u670D_u52A1_u6D88_u8D39_u8005"><span class="toc-number">1.3.</span> <span class="toc-text">服务消费者</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Zookeeper_u6570_u636E_u6A21_u578B_u4ECB_u7ECD"><span class="toc-number">2.</span> <span class="toc-text">Zookeeper数据模型介绍</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u793A_u4F8B_u4EE3_u7801"><span class="toc-number">3.</span> <span class="toc-text">示例代码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u6CE8_u518C"><span class="toc-number">4.</span> <span class="toc-text">注册</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u53D1_u73B0"><span class="toc-number">5.</span> <span class="toc-text">发现</span></a></li></ol>
+		</div>
+		
+		<p>Zookeeper是什么？按照Apache官网的描述是：<br>    ZooKeeper is a centralized service for maintaining configuration information,         naming, providing distributed synchronization, and providing group services.<br>参照官网的定义，它能够做：</p>
+<ol>
+<li>作为配置信息的存储的中心服务器</li>
+<li>命名服务</li>
+<li>分布式的协调</li>
+<li>Mater选举等</li>
+<li>当然还有很多自由组合…</li>
+</ol>
+<p>在定义中特别提到了命名服务。在调研之后，Zookeeper作为服务注册与发现的解决方案，它有如下优点：</p>
+<ol>
+<li>它提供的简单API</li>
+<li>已有互联网公司(例如：Pinterest，Airbnb)使用它来进行服务注册与发现</li>
+<li>支持多语言的客户端</li>
+<li>通过Watcher机制实现Push模型，服务注册信息的变更能够及时通知服务消费方</li>
+</ol>
+<p>缺点是：</p>
+<ol>
+<li>引入新的Zookeeper组件，带来新的复杂性和运维问题</li>
+<li>需自己通过它提供的API来实现服务注册与发现逻辑（包含Python与Java版本）</li>
+</ol>
+<h4 id="u57FA_u4E8EZookeeper_u7684_u670D_u52A1_u6CE8_u518C_u4E0E_u53D1_u73B0_u67B6_u6784"><a href="#u57FA_u4E8EZookeeper_u7684_u670D_u52A1_u6CE8_u518C_u4E0E_u53D1_u73B0_u67B6_u6784" class="headerlink" title="基于Zookeeper的服务注册与发现架构"></a>基于Zookeeper的服务注册与发现架构</h4><p><img src="http://7xq1xx.com1.z0.glb.clouddn.com/discover.png" alt=""><br>    在此架构中有三类角色：服务提供者，服务注册中心，服务消费者。根据业务需要可以在节点上添加权重信息等数据</p>
+<h5 id="u670D_u52A1_u63D0_u4F9B_u8005"><a href="#u670D_u52A1_u63D0_u4F9B_u8005" class="headerlink" title="服务提供者"></a>服务提供者</h5><p>服务提供者作为服务的提供方将自身的服务信息注册到服务注册中心中。服务信息包含：</p>
+<ul>
+<li>隶属于哪个系统</li>
+<li>服务的IP，端口</li>
+<li>服务的请求URL</li>
+<li>服务的权重等等</li>
+</ul>
+<h5 id="u670D_u52A1_u6CE8_u518C_u4E2D_u5FC3"><a href="#u670D_u52A1_u6CE8_u518C_u4E2D_u5FC3" class="headerlink" title="服务注册中心"></a>服务注册中心</h5><p>服务注册中心主要提供所有服务注册信息的中心存储，同时负责将服务注册信息的更新通知实时的Push给服务消费者（主要是通过Zookeeper的Watcher机制来实现的）。</p>
+<h5 id="u670D_u52A1_u6D88_u8D39_u8005"><a href="#u670D_u52A1_u6D88_u8D39_u8005" class="headerlink" title="服务消费者"></a>服务消费者</h5><p>服务消费者主要职责如下：</p>
+<ul>
+<li>服务消费者在启动时从服务注册中心获取需要的服务注册信息</li>
+<li>将服务注册信息缓存在本地</li>
+<li>监听服务注册信息的变更，如接收到服务注册中心的服务变更通知，则在本地缓存中更新服务的注册信息</li>
+<li>根据本地缓存中的服务注册信息构建服务调用请求，并根据负载均衡策略（随机负载均衡，Round－Robin负载均衡等）来转发请求</li>
+<li>对服务提供方的存活进行检测，如果出现服务不可用的服务提供方，将从本地缓存中剔除</li>
+</ul>
+<p>服务消费者只在自己初始化以及服务变更时会依赖服务注册中心，在此阶段的单点故障通过Zookeeper集群来进行保障。在整个服务调用过程中，服务消费者不依赖于任何第三方服务。</p>
+<h4 id="Zookeeper_u6570_u636E_u6A21_u578B_u4ECB_u7ECD"><a href="#Zookeeper_u6570_u636E_u6A21_u578B_u4ECB_u7ECD" class="headerlink" title="Zookeeper数据模型介绍"></a>Zookeeper数据模型介绍</h4><p>在整个服务注册与发现的设计中，最重要是如何来存储服务的注册信息。在设计基于Zookeeper的服务注册结构之前，我们先来看一下Zookeeper的数据模型。Zookeeper的数据模型如下图所示：<br><img src="http://7xq1xx.com1.z0.glb.clouddn.com/file.jpg" alt=""><br>Zookeeper数据模型结构与Unix文件系统很类似，是一个树状层次结构。每个节点叫做Znode，节点可以拥有子节点，同时允许将少量数据存储在该节点下。客户端可以通过监听节点的数据变更和子节点变更来实时获取Znode的变更（Wather机制）。</p>
+<h4 id="u793A_u4F8B_u4EE3_u7801"><a href="#u793A_u4F8B_u4EE3_u7801" class="headerlink" title="示例代码"></a>示例代码</h4><p>zk_helper.py(服务注册与发现封装)<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> kazoo.client <span class="keyword">import</span> KazooClient</span><br><span class="line"><span class="keyword">from</span> kazoo.protocol.states <span class="keyword">import</span> KazooState, KeeperState</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ZookeeperHandler</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, zk_hosts, prefix, host=None, port=None)</span>:</span></span><br><span class="line">        self.zk = KazooClient(hosts=zk_hosts)</span><br><span class="line">        self.prefix = prefix</span><br><span class="line">        self.is_service = host</span><br><span class="line">        self.root_path = self.prefix + <span class="string">"/&#123;0&#125;:&#123;1&#125;"</span>.format(host, port)</span><br><span class="line"></span><br><span class="line"><span class="decorator">        @self.zk.add_listener</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">zk_listener</span><span class="params">(state)</span>:</span></span><br><span class="line">            <span class="comment"># 这个方法也要放在start前面</span></span><br><span class="line">            <span class="keyword">if</span> state == KazooState.LOST:</span><br><span class="line">                print(<span class="string">"lost"</span>, state)</span><br><span class="line">            <span class="keyword">elif</span> state == KazooState.CONNECTED:</span><br><span class="line">                <span class="comment"># 检查是否是只读的客户端</span></span><br><span class="line">                <span class="keyword">if</span> self.zk.client_state == KeeperState.CONNECTED_RO:</span><br><span class="line">                    print(<span class="string">"Read only mode!"</span>)</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    print(<span class="string">"Read/Write mode!"</span>)</span><br><span class="line">            <span class="keyword">elif</span> state == KazooState.SUSPENDED:</span><br><span class="line">                print(<span class="string">"SUSPENDED"</span>, state)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                print(<span class="string">"other"</span>, state)</span><br><span class="line"></span><br><span class="line">        self.zk.start()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">register</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="string">"""</span><br><span class="line">        服务注册</span><br><span class="line">        :return:</span><br><span class="line">        """</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> self.is_service:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> self.zk.exists(self.prefix):</span><br><span class="line">            <span class="comment"># 注册这个目录，如果不存在的话就创建，可以连着创建几个目录（但是不能存储数据）</span></span><br><span class="line">            print(<span class="string">"创建节点了"</span>, self.prefix)</span><br><span class="line">            self.zk.ensure_path(self.prefix)</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> self.zk.exists(self.root_path):</span><br><span class="line">            self.zk.create(self.root_path, <span class="string">b'&#123;"weight":1&#125;'</span>, ephemeral=<span class="keyword">True</span>, sequence=<span class="keyword">False</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">discover</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="string">"""</span><br><span class="line">        服务发现</span><br><span class="line">        :return:</span><br><span class="line">        """</span></span><br><span class="line">        <span class="comment"># 获取子节点</span></span><br><span class="line">        ret = self.zk.get_children(self.prefix)</span><br><span class="line">        <span class="comment"># 监视子节点变化</span></span><br><span class="line"><span class="decorator">        @self.zk.ChildrenWatch(self.prefix)</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">watch_children</span><span class="params">(children)</span>:</span></span><br><span class="line">            print(<span class="string">"子节点变化了（需要更新服务列表了）: %s"</span> % children)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 实时监视数据的变化(可以做动态配置)</span></span><br><span class="line"><span class="decorator">        @self.zk.DataWatch(self.root_path)</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">watch_node</span><span class="params">(data, stat)</span>:</span></span><br><span class="line">            print(<span class="string">"节点下的数据变化了(这边可以写些处理逻辑)："</span>, data, stat)</span><br><span class="line">            <span class="keyword">if</span> stat:</span><br><span class="line">                print(<span class="string">"Version: %s, data: %s"</span> % (stat.version, data.decode(<span class="string">"utf-8"</span>)))</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> ret</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line">    <span class="comment"># from media.config import ZK_HOSTS, PREFIX, HOST, PORT</span></span><br><span class="line">    <span class="comment"># from media.config import PREFIX, ZK_HOSTS</span></span><br><span class="line">    <span class="comment"># client = ZookeeperHandler(ZK_HOSTS, PREFIX, HOST, PORT)</span></span><br><span class="line">    <span class="comment"># client.register()</span></span><br><span class="line">    <span class="comment"># client = ZookeeperHandler(ZK_HOSTS, PREFIX)</span></span><br><span class="line">    <span class="comment"># r = client.discover()</span></span><br><span class="line">    <span class="comment"># print(r)</span></span><br></pre></td></tr></table></figure></p>
+<p>config.py（配置文件）<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># zookeeper服务的端口号和地址</span></span><br><span class="line">ZK_HOSTS = <span class="string">'192.168.0.62:2181'</span></span><br><span class="line">HOST = <span class="string">"192.168.1.63"</span></span><br><span class="line">PORT = <span class="number">6001</span></span><br><span class="line"></span><br><span class="line">PREFIX= <span class="string">"/rpc/smartsys/video/1"</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="u6CE8_u518C"><a href="#u6CE8_u518C" class="headerlink" title="注册"></a>注册</h4><p>thrift 服务端注册<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> uuid</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> thriftpy</span><br><span class="line"><span class="keyword">from</span> thriftpy.rpc <span class="keyword">import</span> make_server</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> media.config <span class="keyword">import</span> PORT, ZK_HOSTS, PREFIX, HOST</span><br><span class="line"><span class="keyword">from</span> media.zk_helper <span class="keyword">import</span> ZookeeperHandler</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> media.pipeffmpeg <span class="keyword">import</span> get_info</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">media_thrift = thriftpy.load(<span class="string">"video.thrift"</span>,</span><br><span class="line">                             module_name=<span class="string">"media_thrift"</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MediaHandler</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">getVideoInfo</span><span class="params">(self, file, params)</span>:</span></span><br><span class="line">        print(params)</span><br><span class="line">        vt = media_thrift.VideoThumb()</span><br><span class="line">        <span class="keyword">return</span> vt</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    server = make_server(media_thrift.Video, MediaHandler(), host=<span class="string">'0.0.0.0'</span>, port=PORT)</span><br><span class="line">    print(<span class="string">"serving media.thrift..."</span>)</span><br><span class="line">    <span class="comment"># 整合zookeeper</span></span><br><span class="line">    client = ZookeeperHandler(ZK_HOSTS, PREFIX, HOST, PORT)</span><br><span class="line">    client.register()</span><br><span class="line">    server.serve()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure></p>
+<h4 id="u53D1_u73B0"><a href="#u53D1_u73B0" class="headerlink" title="发现"></a>发现</h4><p>thrift客户端调用<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">from</span> random <span class="keyword">import</span> randint</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> ebcloudstore.client <span class="keyword">import</span> EbStore</span><br><span class="line"><span class="keyword">import</span> thriftpy</span><br><span class="line"><span class="keyword">from</span> thriftpy.rpc <span class="keyword">import</span> client_context</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> media.config <span class="keyword">import</span> ZK_HOSTS, PREFIX</span><br><span class="line"><span class="keyword">from</span> media.zk_helper <span class="keyword">import</span> ZookeeperHandler</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">media_thrift = thriftpy.load(<span class="string">"video.thrift"</span>,</span><br><span class="line">                             module_name=<span class="string">"media_thrift"</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="comment"># 获取服务列表</span></span><br><span class="line">    <span class="comment">#（对于后台守护的程序，比如celery、apscheduler等需要将数据缓存到本地，监听到数据变化时再更新本地数据。django等web程序的调用暂时先每次都获取）</span></span><br><span class="line">    client = ZookeeperHandler(ZK_HOSTS, PREFIX)</span><br><span class="line">    ret = client.discover()</span><br><span class="line">    print(ret)</span><br><span class="line">    <span class="keyword">if</span> len(ret) &lt; <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">raise</span> Exception(<span class="string">"没有可用的服务"</span>)</span><br><span class="line">    <span class="comment"># 随机方式实现负载均衡</span></span><br><span class="line">    server = ret[randint(<span class="number">0</span>, len(ret) - <span class="number">1</span>)].split(<span class="string">":"</span>)</span><br><span class="line">    server_addr = server[<span class="number">0</span>]</span><br><span class="line">    server_port = int(server[<span class="number">1</span>])</span><br><span class="line">    print(<span class="string">"这个就是要调用的服务："</span>,server_addr,server_port)</span><br><span class="line">    <span class="keyword">with</span> client_context(media_thrift.Video,</span><br><span class="line">                        server_addr, server_port, timeout=<span class="keyword">None</span>, socket_timeout=<span class="number">20000</span>) <span class="keyword">as</span> client:</span><br><span class="line">        a = open(<span class="string">"test.mp4"</span>, <span class="string">"rb"</span>)</span><br><span class="line">        r = client.getVideoInfo(a.read(), <span class="number">4</span>)</span><br><span class="line">        print(r)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    main()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果需要监视子节点或者节点数据的变化时需要阻塞主进程，否则不需要</span></span><br><span class="line"><span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">    time.sleep(<span class="number">2</span>)</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">message&#27880;&#35299;&#10;&#10;&#23458;&#25143;&#31471;&#30340;&#36127;&#36733;&#22343;&#34913;&#21487;&#20197;&#20351;&#29992;Round Robin&#65288;&#36718;&#35810;&#35843;&#24230;&#65292;&#35828;&#30333;&#20102;&#23601;&#26159;&#19968;&#20010;&#20010;&#20381;&#27425;&#35843;&#29992;&#65289;&#12289;&#38543;&#26426;&#12289;failover&#65288;&#25925;&#38556;&#20999;&#25442;&#65289;&#31561;&#12290;&#10;&#10;&#26368;&#21518;&#26469;&#24352;&#22270;&#23089;&#20048;&#19979;^~^</span><br></pre></td></tr></table></figure>
+<p><img src="http://7xq1xx.com1.z0.glb.clouddn.com/zookeeper11.jpg" alt=""></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/python/">python</a><a href="/tags/zookeeper/">zookeeper</a>
+  </div>
+
+
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://yoursite.com/2016/03/10/python-zookeeper/" data-title="zookeeper服务注册与发现 | 那些你不知道的事" data-tsina="null" class="share clearfix">
+  </div>
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2016/03/02/nginx/"  title="Ubuntu搭建nginx服务器">
+ <strong>NEXT:</strong><br/> 
+ <span>Ubuntu搭建nginx服务器
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section class="comment">
+	
+	<div class="ds-thread" data-title="zookeeper服务注册与发现" data-thread-key="python-zookeeper" data-author-key="Mr Ren" data-url="http://yoursite.com/post/python-zookeeper"></div>
+	
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+  <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#u57FA_u4E8EZookeeper_u7684_u670D_u52A1_u6CE8_u518C_u4E0E_u53D1_u73B0_u67B6_u6784"><span class="toc-number">1.</span> <span class="toc-text">基于Zookeeper的服务注册与发现架构</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#u670D_u52A1_u63D0_u4F9B_u8005"><span class="toc-number">1.1.</span> <span class="toc-text">服务提供者</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#u670D_u52A1_u6CE8_u518C_u4E2D_u5FC3"><span class="toc-number">1.2.</span> <span class="toc-text">服务注册中心</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#u670D_u52A1_u6D88_u8D39_u8005"><span class="toc-number">1.3.</span> <span class="toc-text">服务消费者</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Zookeeper_u6570_u636E_u6A21_u578B_u4ECB_u7ECD"><span class="toc-number">2.</span> <span class="toc-text">Zookeeper数据模型介绍</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u793A_u4F8B_u4EE3_u7801"><span class="toc-number">3.</span> <span class="toc-text">示例代码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u6CE8_u518C"><span class="toc-number">4.</span> <span class="toc-text">注册</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u53D1_u73B0"><span class="toc-number">5.</span> <span class="toc-text">发现</span></a></li></ol>
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+<div id="authorInfo">
+	
+		<div class="author-logo"></div>		
+	
+	<div class="social-list" class="clearfix">
+		
+		
+		
+		
+		
+	</div>
+</div>
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+			<li><a href="/categories/工具/" title="工具">工具<sup>3</sup></a></li>
+		
+			<li><a href="/categories/软件/" title="软件">软件<sup>2</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/apscheduler/" title="apscheduler">apscheduler<sup>1</sup></a></li>
+		
+			<li><a href="/tags/celery/" title="celery">celery<sup>1</sup></a></li>
+		
+			<li><a href="/tags/coney/" title="coney">coney<sup>1</sup></a></li>
+		
+			<li><a href="/tags/django/" title="django">django<sup>1</sup></a></li>
+		
+			<li><a href="/tags/git/" title="git">git<sup>1</sup></a></li>
+		
+			<li><a href="/tags/linux-python/" title="linux,python">linux,python<sup>1</sup></a></li>
+		
+			<li><a href="/tags/mosquitto-mqtt/" title="mosquitto,mqtt">mosquitto,mqtt<sup>1</sup></a></li>
+		
+			<li><a href="/tags/mysql/" title="mysql">mysql<sup>1</sup></a></li>
+		
+			<li><a href="/tags/nginx/" title="nginx">nginx<sup>2</sup></a></li>
+		
+			<li><a href="/tags/pyleus/" title="pyleus">pyleus<sup>1</sup></a></li>
+		
+			<li><a href="/tags/python/" title="python">python<sup>6</sup></a></li>
+		
+			<li><a href="/tags/python-yield/" title="python yield">python yield<sup>1</sup></a></li>
+		
+			<li><a href="/tags/redis/" title="redis">redis<sup>1</sup></a></li>
+		
+			<li><a href="/tags/zookeeper/" title="zookeeper">zookeeper<sup>1</sup></a></li>
+		
+			<li><a href="/tags/消息验证/" title="消息验证">消息验证<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+      <li><a href="http://hexo.io" target="_blank" title="Hexo">Hexo</a></li>
+      <li><a href="http://www.cnblogs.com" target="_blank" title="coney">博客园</a></li>
+    </ul>
+</div>
+
+
+  <div class="rsspart">
+	<a href="atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">标签云</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/apscheduler/" style="font-size: 10px;">apscheduler</a> <a href="/tags/celery/" style="font-size: 10px;">celery</a> <a href="/tags/coney/" style="font-size: 10px;">coney</a> <a href="/tags/django/" style="font-size: 10px;">django</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/linux-python/" style="font-size: 10px;">linux,python</a> <a href="/tags/mosquitto-mqtt/" style="font-size: 10px;">mosquitto,mqtt</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nginx/" style="font-size: 15px;">nginx</a> <a href="/tags/pyleus/" style="font-size: 10px;">pyleus</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/python-yield/" style="font-size: 10px;">python yield</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/消息验证/" style="font-size: 10px;">消息验证</a>
+    </div>
+  </div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+    
+            <p class="copyright"> © 2016 
+		
+		<a href="http://yoursite.com" target="_blank" title="Mr Ren">Mr Ren</a>
+		
+            && Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> && Theme by <a href="http://gengbiao.me" target="_blank" title="coney">coney</a>
+            </div>
+</footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"cherrish"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+<script>
+    
+        var _bdImg = '2';
+    
+    window._bd_share_config={
+        "common":{
+            "bdSnsKey":{
+
+            },
+            "bdText":"",
+            "bdMini":"2",
+            "bdMiniList":[
+                "qzone",
+                "tsina",
+                "weixin",
+                "renren",
+                "tqq",
+                "tieba",
+                "douban",
+                "sqq",
+                "diandian",
+                "huaban",
+                "youdao",
+                "mail",
+                "ty",
+                "fbook",
+                "twi",
+                "linkedin",
+                "copy",
+                "print"
+            ],
+            "bdPic":"",
+            "bdStyle":"0",
+            "bdSize":"16"
+        },
+        "slide":{
+            "type":"slide",
+            "bdImg":_bdImg,
+            "bdPos":"right",
+            "bdTop":"350"
+        },
+        "image":{
+            "viewList":[
+                "weixin",
+                "qzone",
+                "tsina",
+                "renren",
+                "douban",
+                "tqq"
+            ],
+            "viewText":"分享：",
+            "viewSize":"16"
+        },
+        "selectShare":{
+            "bdContainerClass":null,
+            "bdSelectMiniList":[
+                "weixin",
+                "qzone",
+                "tsina",
+                "renren",
+                "douban",
+                "tqq"
+            ]
+        }
+    };
+    with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+
+
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'null', 'null');  
+ga('send', 'pageview');
+</script>
+
+
+  </body>
+</html>
+

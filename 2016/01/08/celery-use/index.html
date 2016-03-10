@@ -235,7 +235,7 @@
     </p>
   <p class="article-time">
     <time datetime="2016-01-08T09:17:55.000Z" itemprop="datePublished">2016-01-08</time>
-    更新日期:<time datetime="2016-01-08T09:25:08.000Z" itemprop="dateModified">2016-01-08</time>
+    更新日期:<time datetime="2016-02-22T04:12:16.279Z" itemprop="dateModified">2016-02-22</time>
     
   </p>
 </header>
@@ -269,7 +269,7 @@
 <p>现在使用任务也很简单，直接在客户端代码调用 proj.tasks 里的函数即可。</p>
 <h3 id="Scheduler"><a href="#Scheduler" class="headerlink" title="Scheduler"></a>Scheduler</h3><p>一种常见的需求是每隔一段时间执行一个任务。配置如下</p>
 <p>config.py<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> absolute_import</span><br><span class="line"> </span><br><span class="line">CELERY_RESULT_BACKEND = <span class="string">'redis://127.0.0.1:6379/5'</span></span><br><span class="line">BROKER_URL = <span class="string">'redis://127.0.0.1:6379/6'</span></span><br><span class="line"> </span><br><span class="line">CELERY_TIMEZONE = <span class="string">'Asia/Shanghai'</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> timedelta</span><br><span class="line"> </span><br><span class="line">CELERYBEAT_SCHEDULE = &#123;</span><br><span class="line">    <span class="string">'add-every-30-seconds'</span>: &#123;</span><br><span class="line">         <span class="string">'task'</span>: <span class="string">'proj.tasks.add'</span>,</span><br><span class="line">         <span class="string">'schedule'</span>: timedelta(seconds=<span class="number">30</span>),</span><br><span class="line">         <span class="string">'args'</span>: (<span class="number">16</span>, <span class="number">16</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>注意配置文件需要指定时区。这段代码表示每隔30秒执行 add 函数。<br>一旦使用了 scheduler, 启动 celery需要加上-B 参数<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">celery -A proj worker -B <span class="operator">-l</span> info</span><br></pre></td></tr></table></figure></p>
+<p>注意配置文件需要指定时区。这段代码表示每隔30秒执行 add 函数。<br>一旦使用了 scheduler, 启动 celery需要加上-B 参数<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">celery -A proj worker -B <span class="operator">-l</span> info</span><br><span class="line">eg:celery -A tasks worker --app=common.celerytask --workdir=/home/rdy/workspace/xingxingserver/ --loglevel=info</span><br></pre></td></tr></table></figure></p>
 <h3 id="crontab"><a href="#crontab" class="headerlink" title="crontab"></a>crontab</h3><p>计划任务当然也可以用crontab实现，celery也有crontab模式。修改 config.py<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> absolute_import</span><br><span class="line"> </span><br><span class="line">CELERY_RESULT_BACKEND = <span class="string">'redis://127.0.0.1:6379/5'</span></span><br><span class="line">BROKER_URL = <span class="string">'redis://127.0.0.1:6379/6'</span></span><br><span class="line"> </span><br><span class="line">CELERY_TIMEZONE = <span class="string">'Asia/Shanghai'</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">from</span> celery.schedules <span class="keyword">import</span> crontab</span><br><span class="line"> </span><br><span class="line">CELERYBEAT_SCHEDULE = &#123;</span><br><span class="line">    <span class="comment"># Executes every Monday morning at 7:30 A.M</span></span><br><span class="line">    <span class="string">'add-every-monday-morning'</span>: &#123;</span><br><span class="line">        <span class="string">'task'</span>: <span class="string">'tasks.add'</span>,</span><br><span class="line">        <span class="string">'schedule'</span>: crontab(hour=<span class="number">7</span>, minute=<span class="number">30</span>, day_of_week=<span class="number">1</span>),</span><br><span class="line">        <span class="string">'args'</span>: (<span class="number">16</span>, <span class="number">16</span>),</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>总而言之，scheduler的切分度更细，可以精确到秒。crontab模式就不用说了。当然celery还有更高级的用法，比如多个机器使用，启用多个worker并发处理等。</p>
   
@@ -375,19 +375,27 @@
 		
 			<li><a href="/tags/coney/" title="coney">coney<sup>1</sup></a></li>
 		
+			<li><a href="/tags/django/" title="django">django<sup>1</sup></a></li>
+		
 			<li><a href="/tags/git/" title="git">git<sup>1</sup></a></li>
+		
+			<li><a href="/tags/linux-python/" title="linux,python">linux,python<sup>1</sup></a></li>
 		
 			<li><a href="/tags/mosquitto-mqtt/" title="mosquitto,mqtt">mosquitto,mqtt<sup>1</sup></a></li>
 		
 			<li><a href="/tags/mysql/" title="mysql">mysql<sup>1</sup></a></li>
 		
+			<li><a href="/tags/nginx/" title="nginx">nginx<sup>2</sup></a></li>
+		
 			<li><a href="/tags/pyleus/" title="pyleus">pyleus<sup>1</sup></a></li>
 		
-			<li><a href="/tags/python/" title="python">python<sup>5</sup></a></li>
+			<li><a href="/tags/python/" title="python">python<sup>6</sup></a></li>
 		
 			<li><a href="/tags/python-yield/" title="python yield">python yield<sup>1</sup></a></li>
 		
 			<li><a href="/tags/redis/" title="redis">redis<sup>1</sup></a></li>
+		
+			<li><a href="/tags/zookeeper/" title="zookeeper">zookeeper<sup>1</sup></a></li>
 		
 			<li><a href="/tags/消息验证/" title="消息验证">消息验证<sup>1</sup></a></li>
 		
@@ -412,7 +420,7 @@
   <div class="tagcloudlist">
     <p class="asidetitle">标签云</p>
     <div class="tagcloudlist clearfix">
-       <a href="/tags/apscheduler/" style="font-size: 10px;">apscheduler</a> <a href="/tags/celery/" style="font-size: 10px;">celery</a> <a href="/tags/coney/" style="font-size: 10px;">coney</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/mosquitto-mqtt/" style="font-size: 10px;">mosquitto,mqtt</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/pyleus/" style="font-size: 10px;">pyleus</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/python-yield/" style="font-size: 10px;">python yield</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/消息验证/" style="font-size: 10px;">消息验证</a>
+       <a href="/tags/apscheduler/" style="font-size: 10px;">apscheduler</a> <a href="/tags/celery/" style="font-size: 10px;">celery</a> <a href="/tags/coney/" style="font-size: 10px;">coney</a> <a href="/tags/django/" style="font-size: 10px;">django</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/linux-python/" style="font-size: 10px;">linux,python</a> <a href="/tags/mosquitto-mqtt/" style="font-size: 10px;">mosquitto,mqtt</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nginx/" style="font-size: 15px;">nginx</a> <a href="/tags/pyleus/" style="font-size: 10px;">pyleus</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/python-yield/" style="font-size: 10px;">python yield</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/消息验证/" style="font-size: 10px;">消息验证</a>
     </div>
   </div>
 
