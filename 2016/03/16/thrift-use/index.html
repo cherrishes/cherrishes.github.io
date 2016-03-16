@@ -7,13 +7,12 @@
   <meta name="360-site-verification" content="67fbcc5a67f4c65c057315b28fa0b2c8" />
 <meta name="google-site-verification" content="2GzxQ0VtXwTSUdmGm6DzcmhTzM_I9QmzCb_pzpMzD88" />
   
-    <title>Pyleus 介绍：使用纯Python编写Storm程序的开源框架 | 那些你不知道的事</title>
+    <title>Apache Thrift的简单使用 | 那些你不知道的事</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="Mr Ren">
     
-    <meta name="description" content="Pyleus是一个新的开源框架，其目的就像另外一个Yelp的开源项目mrjob对Hadoop所做的那样：让纯Python的开发者能够处理大量数据并迅速迭代，让他们有更多的时间来解决业务问题而不是去关注与底层平台。
-Centos上安装Pyleus我们在python2.7的虚拟环境下安装1[rdy@ma">
+    <meta name="description" content="Thrift是Facebook的一个开源项目，主要是一个跨语言的服务开发框架。它有一个代码生成器来对它所定义的IDL定义文件自动生成服务代码框架。用户只要在其之前进行二次开发就行，对于底层的RPC通讯等都是透明的。目前它支持的语言有C++, Java, Python, PHP, Ruby, Erla">
     
     
     
@@ -228,15 +227,15 @@ Centos上安装Pyleus我们在python2.7的虚拟环境下安装1[rdy@ma">
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/01/13/pyleus-use/" title="Pyleus 介绍：使用纯Python编写Storm程序的开源框架" itemprop="url">Pyleus 介绍：使用纯Python编写Storm程序的开源框架</a>
+      <a href="/2016/03/16/thrift-use/" title="Apache Thrift的简单使用" itemprop="url">Apache Thrift的简单使用</a>
   </h1>
   <p class="article-author">By
     
       <a href="http://yoursite.com" title="Mr Ren">Mr Ren</a>
     </p>
   <p class="article-time">
-    <time datetime="2016-01-13T11:01:47.000Z" itemprop="datePublished">2016-01-13</time>
-    更新日期:<time datetime="2016-01-13T11:09:50.000Z" itemprop="dateModified">2016-01-13</time>
+    <time datetime="2016-03-16T01:50:52.000Z" itemprop="datePublished">2016-03-16</time>
+    更新日期:<time datetime="2016-03-16T03:09:52.151Z" itemprop="dateModified">2016-03-16</time>
     
   </p>
 </header>
@@ -245,34 +244,43 @@ Centos上安装Pyleus我们在python2.7的虚拟环境下安装1[rdy@ma">
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
-		<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Centos_u4E0A_u5B89_u88C5Pyleus"><span class="toc-number">1.</span> <span class="toc-text">Centos上安装Pyleus</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u7F16_u8BD1_u62D3_u6251_uFF08python_uFF09"><span class="toc-number">2.</span> <span class="toc-text">编译拓扑（python）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u63D0_u4EA4_u4EFB_u52A1"><span class="toc-number">3.</span> <span class="toc-text">提交任务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u6740_u6389_u62D3_u6251"><span class="toc-number">4.</span> <span class="toc-text">杀掉拓扑</span></a></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#u4E0B_u8F7D_u5B89_u88C5"><span class="toc-number">1.</span> <span class="toc-text">下载安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u4E00_u4E2A_u5C0F_u5217_u5B50"><span class="toc-number">2.</span> <span class="toc-text">一个小列子</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u5176_u4ED6_u4EE3_u7801_u5B9E_u73B0"><span class="toc-number">3.</span> <span class="toc-text">其他代码实现</span></a></li></ol>
 		</div>
 		
-		<p><a href="https://github.com/Yelp/pyleus" target="_blank" rel="external">Pyleus</a>是一个新的开源框架，其目的就像另外一个Yelp的开源项目mrjob对Hadoop所做的那样：让纯Python的开发者能够处理大量数据并迅速迭代，让他们有更多的时间来解决业务问题而不是去关注与底层平台。</p>
-<h3 id="Centos_u4E0A_u5B89_u88C5Pyleus"><a href="#Centos_u4E0A_u5B89_u88C5Pyleus" class="headerlink" title="Centos上安装Pyleus"></a>Centos上安装Pyleus</h3><p>我们在python2.7的虚拟环境下安装<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[rdy@master ~]$ <span class="built_in">source</span> /home/rdy/workspace/python27/bin/activate</span><br></pre></td></tr></table></figure></p>
-<p>使用pip安装pyleus：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(python27)[rdy@master ~]$ pip install pyleus -i http://pypi.douban.com/simple/ --trusted-host pypi.douban.com</span><br></pre></td></tr></table></figure></p>
-<p>验证安装：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(python27)[rdy@master ~]$ pyleus</span><br><span class="line">usage: pyleus [-h] [-c CONFIG_FILE] [-v] [--version] COMMAND ...</span><br><span class="line">pyleus: error: too few arguments</span><br><span class="line">(python27)[rdy@master ~]$</span><br></pre></td></tr></table></figure></p>
-<p>至此pyleus安装成功，接下来我们开始实战先从github上迁一份事列<a href="https://github.com/Yelp/pyleus" target="_blank" rel="external">https://github.com/Yelp/pyleus</a></p>
-<h3 id="u7F16_u8BD1_u62D3_u6251_uFF08python_uFF09"><a href="#u7F16_u8BD1_u62D3_u6251_uFF08python_uFF09" class="headerlink" title="编译拓扑（python）"></a>编译拓扑（python）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(python27)[rdy@master ~]$ git <span class="built_in">clone</span> https://github.com/Yelp/pyleus.git</span><br><span class="line">(python27)[rdy@master ~]$ pyleus build pyleus/examples/exclamation_topology/pyleus_topology.yaml</span><br><span class="line">(python27)[rdy@master ~]$ pyleus <span class="built_in">local</span> exclamation_topology.jar</span><br></pre></td></tr></table></figure>
-<p>编译python版本的代码用<code>build</code>命令，在这里可能会出错提示找不到<code>storm</code>路径之类的，此时我们需要制定pyleus的配置文件<br>pyleus将优先从以下三个地方找配置文件</p>
+		<p>Thrift是Facebook的一个开源项目，主要是一个跨语言的服务开发框架。它有一个代码生成器来对它所定义的IDL定义文件自动生成服务代码框架。用户只要在其之前进行二次开发就行，对于底层的RPC通讯等都是透明的。目前它支持的语言有C++, Java, Python, PHP, Ruby, Erlang, Perl, Haskell, C#, Cocoa, Smalltalk, and OCaml.</p>
+<h4 id="u4E0B_u8F7D_u5B89_u88C5"><a href="#u4E0B_u8F7D_u5B89_u88C5" class="headerlink" title="下载安装"></a>下载安装</h4><p>可以在<a href="http://www.apache.org/dyn/closer.cgi?path=/thrift/0.9.3/thrift-0.9.3.tar.gz" target="_blank" rel="external">http://www.apache.org/dyn/closer.cgi?path=/thrift/0.9.3/thrift-0.9.3.tar.gz</a> 去下载新版本<br>在安装thrift之前有一些依赖要先安装</p>
 <ul>
-<li>/etc/pyleus.conf</li>
-<li>~/.config/pyleus.conf</li>
-<li>~/.pyleus.conf</li>
+<li>libssl-dev</li>
+<li>automake </li>
+<li>libtool</li>
 </ul>
-<p>当然也可以手动制定配置文件路径<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(python27)[rdy@master ~]$ pyleus -c /path/to/config_file CMD</span><br></pre></td></tr></table></figure></p>
-<p>配置文件示例：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">[storm]</span><br><span class="line"><span class="comment"># path to Storm executable (pyleus will automatically look in PATH)</span></span><br><span class="line">storm_cmd_path: /home/rdy/storm/bin/storm</span><br><span class="line"></span><br><span class="line"><span class="comment"># optional: use -n option of pyleus CLI instead</span></span><br><span class="line">nimbus_host: <span class="number">192.168</span>.<span class="number">1.54</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># optional: use -p option of pyleus CLI instead</span></span><br><span class="line">nimbus_port: <span class="number">6628</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># java options to pass to Storm CLI</span></span><br><span class="line">jvm_opts: -Djava.io.tmpdir=/home/myuser/tmp</span><br><span class="line"></span><br><span class="line">[build]</span><br><span class="line"><span class="comment"># PyPI server to use during the build of your topologies</span></span><br><span class="line"><span class="comment"># 这个需要制定好，因为pyleus在编译时需要到这个地址下载一些必须的包，若不正确将导致无法编译成 jar 文件</span></span><br><span class="line">pypi_index_url: http://pypi.douban.com/simple/      </span><br><span class="line"></span><br><span class="line"><span class="comment"># always use system-site-packages for pyleus virtualenvs (default: false)</span></span><br><span class="line">system_site_packages: <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># list of packages to always include in your topologies</span></span><br><span class="line"><span class="comment"># 这个并没有什么用</span></span><br><span class="line"><span class="comment"># include_packages: foo bar&lt;4.0 baz==0.1</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="u63D0_u4EA4_u4EFB_u52A1"><a href="#u63D0_u4EA4_u4EFB_u52A1" class="headerlink" title="提交任务"></a>提交任务</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(python27)[rdy@master ~]$ pyleus --verbose submit -n <span class="number">127.0</span>.<span class="number">0.1</span> <span class="built_in">test</span>_py_topology.jar</span><br></pre></td></tr></table></figure>
-<p>使用submit命令向集群提交代码，原生storm用jar的方法提交，<code>verbose</code>参数是用来查看详细信息。</p>
-<h3 id="u6740_u6389_u62D3_u6251"><a href="#u6740_u6389_u62D3_u6251" class="headerlink" title="杀掉拓扑"></a>杀掉拓扑</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(python27)[rdy@master ~]$ pyleus --verbose <span class="built_in">kill</span> <span class="built_in">test</span>_py_topology -n master</span><br></pre></td></tr></table></figure>
-<p>使用kill命令杀掉拓扑，这个跟storm原生是一样的<br>对于Pyleus topology(拓扑)来说代码是非常简单的，但是有一个非常有意思的特征值得我们关注的是它自己内部对virtualenv(<a href="https://virtualenv.readthedocs.org/" target="_blank" rel="external">https://virtualenv.readthedocs.org/</a>) 的集成。简单的包含一个requirements.txt文件和你自己的pyleus_topology.yaml,pyleus build将会产生一个virtualenv使得你的代码在这个JAR包中使用以及嵌入。你甚至可以重用Pyleus相关的组建包，并且在pyleus_topology.yaml里面直接关联他们接可以了！</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install libssl-dev automake libtool</span><br></pre></td></tr></table></figure>
+<p>ubuntu系统下使用以上命令即可安装，接下来可以进行编译,安装<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">./bootstrap.sh</span><br><span class="line">./configure</span><br><span class="line">make</span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure></p>
+<p>安装过程的一些问题</p>
+<ol>
+<li><p>flex: command not found</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">solution: sudo apt-get install flex</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>yacc: command not found</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">solution: sudo apt-get install byacc</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>安装完成可以用以下命令查看thrift版本<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(pyleus27Env)rdy@cherry:~/thrift-work/gen-py$ thrift -version</span><br><span class="line">Thrift version <span class="number">0.9</span>.<span class="number">3</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="u4E00_u4E2A_u5C0F_u5217_u5B50"><a href="#u4E00_u4E2A_u5C0F_u5217_u5B50" class="headerlink" title="一个小列子"></a>一个小列子</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vim helloworld.thrift</span><br><span class="line">service HelloWorld &#123;</span><br><span class="line">    string getservtime(<span class="number">1</span>:string clientname)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight thrift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">thrift -r --gen py helloworld.thrift <span class="comment">// -r对其中include的文件也生成服务代码 -gen是生成服务代码的语言</span></span><br></pre></td></tr></table></figure>
+<p>生成的代码在gen-py目录下。<br>创建server.py文件<br>server.py<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line">sys.path.append(<span class="string">'./gen-py'</span>)</span><br><span class="line"> </span><br><span class="line"><span class="keyword">from</span> helloworld <span class="keyword">import</span> HelloWorld</span><br><span class="line"><span class="keyword">from</span> helloworld.ttypes <span class="keyword">import</span> *</span><br><span class="line"> </span><br><span class="line"><span class="keyword">from</span> thrift.transport <span class="keyword">import</span> TSocket</span><br><span class="line"><span class="keyword">from</span> thrift.transport <span class="keyword">import</span> TTransport</span><br><span class="line"><span class="keyword">from</span> thrift.protocol <span class="keyword">import</span> TBinaryProtocol</span><br><span class="line"><span class="keyword">from</span> thrift.server <span class="keyword">import</span> TServer</span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HelloWorldHandler</span>:</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">getservtime</span><span class="params">(self, clientname)</span>:</span>   </span><br><span class="line">    <span class="keyword">return</span> time.strftime( <span class="string">'%Y-%m-%d %H:%M:%S'</span>, time.localtime() )</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">handler = HelloWorldHandler()</span><br><span class="line">processor = HelloWorld.Processor(handler)</span><br><span class="line">transport = TSocket.TServerSocket(<span class="string">"localhost"</span>, <span class="number">9090</span>)</span><br><span class="line">tfactory = TTransport.TBufferedTransportFactory()</span><br><span class="line">pfactory = TBinaryProtocol.TBinaryProtocolFactory()</span><br><span class="line"> </span><br><span class="line">server = TServer.TSimpleServer(processor, transport, tfactory, pfactory)</span><br><span class="line"> </span><br><span class="line"><span class="keyword">print</span> <span class="string">"Starting thrift server in python..."</span></span><br><span class="line">server.serve()</span><br><span class="line"><span class="keyword">print</span> <span class="string">"done!"</span></span><br></pre></td></tr></table></figure></p>
+<p>client.py<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">sys.path.append(<span class="string">'./gen-py'</span>)</span><br><span class="line"> </span><br><span class="line"><span class="keyword">from</span> helloworld <span class="keyword">import</span> HelloWorld</span><br><span class="line"> </span><br><span class="line"><span class="keyword">from</span> thrift <span class="keyword">import</span> Thrift</span><br><span class="line"><span class="keyword">from</span> thrift.transport <span class="keyword">import</span> TSocket</span><br><span class="line"><span class="keyword">from</span> thrift.transport <span class="keyword">import</span> TTransport</span><br><span class="line"><span class="keyword">from</span> thrift.protocol <span class="keyword">import</span> TBinaryProtocol</span><br><span class="line"> </span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">  transport = TSocket.TSocket(<span class="string">'localhost'</span>, <span class="number">9090</span>)</span><br><span class="line">  transport = TTransport.TBufferedTransport(transport)</span><br><span class="line">  protocol = TBinaryProtocol.TBinaryProtocol(transport)</span><br><span class="line">  client = HelloWorld.Client(protocol)</span><br><span class="line">  transport.open()</span><br><span class="line"> </span><br><span class="line">  <span class="keyword">print</span> <span class="string">"client - get serv time"</span></span><br><span class="line">  <span class="keyword">print</span> <span class="string">"server - "</span> + client.getservtime(<span class="string">'testclient'</span>)</span><br><span class="line">  transport.close()</span><br><span class="line"> </span><br><span class="line"><span class="keyword">except</span> Thrift.TException, ex:</span><br><span class="line">  <span class="keyword">print</span> <span class="string">"%s"</span> % (ex.message)</span><br></pre></td></tr></table></figure></p>
+<p>这里主要用到了python的thrift库，目前支持python2.X<br>切换运行环境<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> /home/rdy/virtualENv/pyleus27Env/bin/activate</span><br><span class="line">(pyleus27Env)rdy@cherry:~/thrift-work/gen-py$</span><br></pre></td></tr></table></figure></p>
+<p>执行服务端代码<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(pyleus27Env)rdy@cherry:~/thrift-work/gen-py$ python server.py </span><br><span class="line">Starting thrift server <span class="keyword">in</span> python...</span><br></pre></td></tr></table></figure></p>
+<p>执行客户端程序<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(pyleus27Env)rdy@cherry:~/thrift-work/gen-py$ python client.py </span><br><span class="line">client - get serv time</span><br><span class="line">server - <span class="number">2016</span>-<span class="number">03</span>-<span class="number">16</span> <span class="number">10</span>:<span class="number">57</span>:<span class="number">01</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="u5176_u4ED6_u4EE3_u7801_u5B9E_u73B0"><a href="#u5176_u4ED6_u4EE3_u7801_u5B9E_u73B0" class="headerlink" title="其他代码实现"></a>其他代码实现</h4><p>在thrift源码tutorial目录中有其它代码的例子，如erl,java,c++,perl,ruby等。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/pyleus/">pyleus</a><a href="/tags/python/">python</a>
+  <span></span> <a href="/tags/apache/">apache</a><a href="/tags/thrift/">thrift</a>
   </div>
 
 
@@ -280,7 +288,7 @@ Centos上安装Pyleus我们在python2.7的虚拟环境下安装1[rdy@ma">
 
 <div class="article-share" id="share">
 
-  <div data-url="http://yoursite.com/2016/01/13/pyleus-use/" data-title="Pyleus 介绍：使用纯Python编写Storm程序的开源框架 | 那些你不知道的事" data-tsina="null" class="share clearfix">
+  <div data-url="http://yoursite.com/2016/03/16/thrift-use/" data-title="Apache Thrift的简单使用 | 那些你不知道的事" data-tsina="null" class="share clearfix">
   </div>
 
 </div>
@@ -289,19 +297,11 @@ Centos上安装Pyleus我们在python2.7的虚拟环境下安装1[rdy@ma">
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2016/01/18/hello-world/" title="Hello World">
-  <strong>PREVIOUS:</strong><br/>
-  <span>
-  Hello World</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2016/01/11/python-yield/"  title="python之yield的使用">
+<a href="/2016/03/10/python-zookeeper/"  title="zookeeper服务注册与发现">
  <strong>NEXT:</strong><br/> 
- <span>python之yield的使用
+ <span>zookeeper服务注册与发现
 </span>
 </a>
 </div>
@@ -311,7 +311,7 @@ Centos上安装Pyleus我们在python2.7的虚拟环境下安装1[rdy@ma">
 	
 <section class="comment">
 	
-	<div class="ds-thread" data-title="Pyleus 介绍：使用纯Python编写Storm程序的开源框架" data-thread-key="pyleus-use" data-author-key="Mr Ren" data-url="http://yoursite.com/post/pyleus-use"></div>
+	<div class="ds-thread" data-title="Apache Thrift的简单使用" data-thread-key="thrift-use" data-author-key="Mr Ren" data-url="http://yoursite.com/post/thrift-use"></div>
 	
 </section>
 
@@ -321,7 +321,7 @@ Centos上安装Pyleus我们在python2.7的虚拟环境下安装1[rdy@ma">
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
-  <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Centos_u4E0A_u5B89_u88C5Pyleus"><span class="toc-number">1.</span> <span class="toc-text">Centos上安装Pyleus</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u7F16_u8BD1_u62D3_u6251_uFF08python_uFF09"><span class="toc-number">2.</span> <span class="toc-text">编译拓扑（python）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u63D0_u4EA4_u4EFB_u52A1"><span class="toc-number">3.</span> <span class="toc-text">提交任务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u6740_u6389_u62D3_u6251"><span class="toc-number">4.</span> <span class="toc-text">杀掉拓扑</span></a></li></ol>
+  <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#u4E0B_u8F7D_u5B89_u88C5"><span class="toc-number">1.</span> <span class="toc-text">下载安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u4E00_u4E2A_u5C0F_u5217_u5B50"><span class="toc-number">2.</span> <span class="toc-text">一个小列子</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u5176_u4ED6_u4EE3_u7801_u5B9E_u73B0"><span class="toc-number">3.</span> <span class="toc-text">其他代码实现</span></a></li></ol>
   </div>
 
 <div id="asidepart">

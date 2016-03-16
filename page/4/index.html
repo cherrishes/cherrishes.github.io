@@ -227,79 +227,21 @@
 
   <section class="post" itemscope itemprop="blogPost">
   
-    <a href="/2016/03/16/thrift-use/" title="Apache Thrift的简单使用" itemprop="url">
+    <a href="/2015/12/23/message-signature/" title="消息验证" itemprop="url">
   
-      <time datetime="2016-03-16T01:50:52.000Z" itemprop="datePublished">2016-03-16</time>
-    <h1 itemprop="name">Apache Thrift的简单使用</h1>
+      <time datetime="2015-12-23T05:03:54.000Z" itemprop="datePublished">2015-12-23</time>
+    <h1 itemprop="name">消息验证</h1>
     
      
-           <p itemprop="description" >Thrift是Facebook的一个开源项目，主要是一个跨语言的服务开发框架。它有一个代码生成器来对它所定义的IDL定义文件自动生成服务代码框架。用户只要在其之前进行二次开发就行，对于底层的RPC通讯等都是透明的。目前它支持的语言有C++, Java, Python, PHP, </p>
-        
-    
-  </a>
-</section>
-
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2016/03/10/python-zookeeper/" title="zookeeper服务注册与发现" itemprop="url">
-  
-      <time datetime="2016-03-10T02:28:23.000Z" itemprop="datePublished">2016-03-10</time>
-    <h1 itemprop="name">zookeeper服务注册与发现</h1>
-    
-     
-           <p itemprop="description" >Zookeeper是什么？按照Apache官网的描述是：    ZooKeeper is a centralized service for maintaining configuration information,         naming, providing dist</p>
-        
-    
-  </a>
-</section>
-
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2016/03/02/nginx/" title="Ubuntu搭建nginx服务器" itemprop="url">
-  
-      <time datetime="2016-03-02T02:35:04.000Z" itemprop="datePublished">2016-03-02</time>
-    <h1 itemprop="name">Ubuntu搭建nginx服务器</h1>
-    
-     
-           <p itemprop="description" >这里简单通过nginx配置访问一个静态网页，首先更新软件源1sudo apt-get update
-安装nginx1sudo apt-get install nginx
-默认安装nginx配置文件在/etc/nginx/nginx.conf启动nginx1sudo service</p>
-        
-    
-  </a>
-</section>
-
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2016/03/02/nginx-django/" title="Ubuntu下nginx+uwsgi部署django项目" itemprop="url">
-  
-      <time datetime="2016-03-02T01:19:11.000Z" itemprop="datePublished">2016-03-02</time>
-    <h1 itemprop="name">Ubuntu下nginx+uwsgi部署django项目</h1>
-    
-     
-           <p itemprop="description" >一到公司就一直用django写项目，但我一直没有尝试跟nginx结合，每次都是在pycharm中在8000端口运行，今天有时间在ubuntu下折腾一下django和nginx结合。环境：    python3.4.1    nginx1.4.6（通过apt-get install</p>
-        
-    
-  </a>
-</section>
-
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2016/02/18/supervisor-use/" title="supervisor-进程管理工具" itemprop="url">
-  
-      <time datetime="2016-02-18T01:02:37.000Z" itemprop="datePublished">2016-02-18</time>
-    <h1 itemprop="name">supervisor-进程管理工具</h1>
-    
-     
-           <p itemprop="description" >Supervisord是用Python实现的一款非常实用的进程管理工具，monit和supervisord的一个比较大的差异是supervisord管理的进程必须由supervisord来启动，monit可以管理已经在运行的程序；supervisord还要求管理的程序是非daem</p>
-        
+       <p itemprop="description" >签名算法在开发者首次提交验证申请时，服务器将会发送GET请求到填写的URL上，并且带上四个参数（signature、timestamp、nonce、echostr），开发者通过对签名（即signature）的效验，来判断此条消息的真实性。</p>
+      
     
   </a>
 </section>
 
 
   <nav id="page-nav" class="clearfix">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
   </nav>
 
 </div>
