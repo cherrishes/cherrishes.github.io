@@ -7,12 +7,17 @@
   <meta name="360-site-verification" content="67fbcc5a67f4c65c057315b28fa0b2c8" />
 <meta name="google-site-verification" content="2GzxQ0VtXwTSUdmGm6DzcmhTzM_I9QmzCb_pzpMzD88" />
   
-    <title>Hello World | 那些你不知道的事</title>
+    <title>ubuntu使用小技巧 | 那些你不知道的事</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="Mr Ren">
     
-    <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in ">
+    <meta name="description" content="这里总结一些ubuntu使用的小技巧，持续更新中…
+
+为ubuntu右键菜单添加在terminal打开
+ 12345sudo apt-get install nautilus-open-terminal# 立即生效nautilus -q# 失效解决办法sudo nautilus
+
+为ubuntu安装">
     
     
     
@@ -227,15 +232,15 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/01/18/hello-world/" title="Hello World" itemprop="url">Hello World</a>
+      <a href="/2016/03/17/ubuntu-use/" title="ubuntu使用小技巧" itemprop="url">ubuntu使用小技巧</a>
   </h1>
   <p class="article-author">By
     
       <a href="http://yoursite.com" title="Mr Ren">Mr Ren</a>
     </p>
   <p class="article-time">
-    <time datetime="2016-01-18T08:41:16.113Z" itemprop="datePublished">2016-01-18</time>
-    更新日期:<time datetime="2015-12-23T03:07:56.000Z" itemprop="dateModified">2015-12-23</time>
+    <time datetime="2016-03-17T01:16:56.000Z" itemprop="datePublished">2016-03-17</time>
+    更新日期:<time datetime="2016-03-17T01:27:29.056Z" itemprop="dateModified">2016-03-17</time>
     
   </p>
 </header>
@@ -244,28 +249,36 @@
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
-		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick_Start"><span class="toc-number">1.</span> <span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create_a_new_post"><span class="toc-number">1.1.</span> <span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run_server"><span class="toc-number">1.2.</span> <span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate_static_files"><span class="toc-number">1.3.</span> <span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy_to_remote_sites"><span class="toc-number">1.4.</span> <span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+		
 		</div>
 		
-		<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick_Start"><a href="#Quick_Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create_a_new_post"><a href="#Create_a_new_post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run_server"><a href="#Run_server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate_static_files"><a href="#Generate_static_files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy_to_remote_sites"><a href="#Deploy_to_remote_sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+		<p>这里总结一些ubuntu使用的小技巧，持续更新中…</p>
+<ol>
+<li><p>为ubuntu右键菜单添加在terminal打开</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install nautilus-open-terminal</span><br><span class="line"><span class="comment"># 立即生效</span></span><br><span class="line">nautilus -q</span><br><span class="line"><span class="comment"># 失效解决办法</span></span><br><span class="line">sudo nautilus</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>为ubuntu安装软件中心</p>
+ <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get -f install software-center</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>为ubuntu安装启动菜单管理软件</p>
+ <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install ClassicMenu Indicator</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
   
 	</div>
 		<footer class="article-footer clearfix">
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/ubuntu/">ubuntu</a>
+  </div>
 
 
 
 
 <div class="article-share" id="share">
 
-  <div data-url="http://yoursite.com/2016/01/18/hello-world/" data-title="Hello World | 那些你不知道的事" data-tsina="null" class="share clearfix">
+  <div data-url="http://yoursite.com/2016/03/17/ubuntu-use/" data-title="ubuntu使用小技巧 | 那些你不知道的事" data-tsina="null" class="share clearfix">
   </div>
 
 </div>
@@ -275,18 +288,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2016/01/21/redis-use/" title="Redis安装部署和Python调用">
+ <a href="/2016/03/18/mysql-install/" title="Centos6.5下编译安装MySQL 5.6.14">
   <strong>PREVIOUS:</strong><br/>
   <span>
-  Redis安装部署和Python调用</span>
+  Centos6.5下编译安装MySQL 5.6.14</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2016/01/13/pyleus-use/"  title="Pyleus 介绍：使用纯Python编写Storm程序的开源框架">
+<a href="/2016/03/16/thrift-use/"  title="Apache Thrift的简单使用">
  <strong>NEXT:</strong><br/> 
- <span>Pyleus 介绍：使用纯Python编写Storm程序的开源框架
+ <span>Apache Thrift的简单使用
 </span>
 </a>
 </div>
@@ -296,7 +309,7 @@
 	
 <section class="comment">
 	
-	<div class="ds-thread" data-title="Hello World" data-thread-key="hello-world" data-author-key="Mr Ren" data-url="http://yoursite.com/post/hello-world"></div>
+	<div class="ds-thread" data-title="ubuntu使用小技巧" data-thread-key="ubuntu-use" data-author-key="Mr Ren" data-url="http://yoursite.com/post/ubuntu-use"></div>
 	
 </section>
 
@@ -306,7 +319,7 @@
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
-  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick_Start"><span class="toc-number">1.</span> <span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create_a_new_post"><span class="toc-number">1.1.</span> <span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run_server"><span class="toc-number">1.2.</span> <span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate_static_files"><span class="toc-number">1.3.</span> <span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy_to_remote_sites"><span class="toc-number">1.4.</span> <span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+  
   </div>
 
 <div id="asidepart">

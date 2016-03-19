@@ -227,6 +227,40 @@
 
   <section class="post" itemscope itemprop="blogPost">
   
+    <a href="/2016/03/18/mysql-install/" title="Centos6.5下编译安装MySQL 5.6.14" itemprop="url">
+  
+      <time datetime="2016-03-18T06:15:51.000Z" itemprop="datePublished">2016-03-18</time>
+    <h1 itemprop="name">Centos6.5下编译安装MySQL 5.6.14</h1>
+    
+     
+           <p itemprop="description" >CentOS 6.4下通过yum安装的MySQL是5.1版的，比较老，所以就想通过源代码安装高版本的5.6.14。
+卸载旧版本使用下面的命令检查是否安装有MySQL Server1rpm -qa | grep mysql
+有的话通过下面命令卸载掉12rpm -e mysql   </p>
+        
+    
+  </a>
+</section>
+
+  <section class="post" itemscope itemprop="blogPost">
+  
+    <a href="/2016/03/17/ubuntu-use/" title="ubuntu使用小技巧" itemprop="url">
+  
+      <time datetime="2016-03-17T01:16:56.000Z" itemprop="datePublished">2016-03-17</time>
+    <h1 itemprop="name">ubuntu使用小技巧</h1>
+    
+     
+           <p itemprop="description" >这里总结一些ubuntu使用的小技巧，持续更新中…
+
+为ubuntu右键菜单添加在terminal打开
+ 12345sudo apt-get install nautilus-open-terminal# 立即生效nautilus -q# 失效解决办法sudo nautilus
+</p>
+        
+    
+  </a>
+</section>
+
+  <section class="post" itemscope itemprop="blogPost">
+  
     <a href="/2016/03/16/thrift-use/" title="Apache Thrift的简单使用" itemprop="url">
   
       <time datetime="2016-03-16T01:50:52.000Z" itemprop="datePublished">2016-03-16</time>
@@ -264,34 +298,6 @@
            <p itemprop="description" >这里简单通过nginx配置访问一个静态网页，首先更新软件源1sudo apt-get update
 安装nginx1sudo apt-get install nginx
 默认安装nginx配置文件在/etc/nginx/nginx.conf启动nginx1sudo service</p>
-        
-    
-  </a>
-</section>
-
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2016/03/02/nginx-django/" title="Ubuntu下nginx+uwsgi部署django项目" itemprop="url">
-  
-      <time datetime="2016-03-02T01:19:11.000Z" itemprop="datePublished">2016-03-02</time>
-    <h1 itemprop="name">Ubuntu下nginx+uwsgi部署django项目</h1>
-    
-     
-           <p itemprop="description" >一到公司就一直用django写项目，但我一直没有尝试跟nginx结合，每次都是在pycharm中在8000端口运行，今天有时间在ubuntu下折腾一下django和nginx结合。环境：    python3.4.1    nginx1.4.6（通过apt-get install</p>
-        
-    
-  </a>
-</section>
-
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2016/02/18/supervisor-use/" title="supervisor-进程管理工具" itemprop="url">
-  
-      <time datetime="2016-02-18T01:02:37.000Z" itemprop="datePublished">2016-02-18</time>
-    <h1 itemprop="name">supervisor-进程管理工具</h1>
-    
-     
-           <p itemprop="description" >Supervisord是用Python实现的一款非常实用的进程管理工具，monit和supervisord的一个比较大的差异是supervisord管理的进程必须由supervisord来启动，monit可以管理已经在运行的程序；supervisord还要求管理的程序是非daem</p>
         
     
   </a>
@@ -345,6 +351,8 @@
 		
 			<li><a href="/tags/celery/" title="celery">celery<sup>1</sup></a></li>
 		
+			<li><a href="/tags/centos/" title="centos">centos<sup>1</sup></a></li>
+		
 			<li><a href="/tags/coney/" title="coney">coney<sup>1</sup></a></li>
 		
 			<li><a href="/tags/django/" title="django">django<sup>1</sup></a></li>
@@ -355,7 +363,7 @@
 		
 			<li><a href="/tags/mosquitto-mqtt/" title="mosquitto,mqtt">mosquitto,mqtt<sup>1</sup></a></li>
 		
-			<li><a href="/tags/mysql/" title="mysql">mysql<sup>1</sup></a></li>
+			<li><a href="/tags/mysql/" title="mysql">mysql<sup>2</sup></a></li>
 		
 			<li><a href="/tags/nginx/" title="nginx">nginx<sup>2</sup></a></li>
 		
@@ -368,6 +376,8 @@
 			<li><a href="/tags/redis/" title="redis">redis<sup>1</sup></a></li>
 		
 			<li><a href="/tags/thrift/" title="thrift">thrift<sup>1</sup></a></li>
+		
+			<li><a href="/tags/ubuntu/" title="ubuntu">ubuntu<sup>1</sup></a></li>
 		
 			<li><a href="/tags/zookeeper/" title="zookeeper">zookeeper<sup>1</sup></a></li>
 		
@@ -394,7 +404,7 @@
   <div class="tagcloudlist">
     <p class="asidetitle">标签云</p>
     <div class="tagcloudlist clearfix">
-       <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/apscheduler/" style="font-size: 10px;">apscheduler</a> <a href="/tags/celery/" style="font-size: 10px;">celery</a> <a href="/tags/coney/" style="font-size: 10px;">coney</a> <a href="/tags/django/" style="font-size: 10px;">django</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/linux-python/" style="font-size: 10px;">linux,python</a> <a href="/tags/mosquitto-mqtt/" style="font-size: 10px;">mosquitto,mqtt</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nginx/" style="font-size: 15px;">nginx</a> <a href="/tags/pyleus/" style="font-size: 10px;">pyleus</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/python-yield/" style="font-size: 10px;">python yield</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/thrift/" style="font-size: 10px;">thrift</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/消息验证/" style="font-size: 10px;">消息验证</a>
+       <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/apscheduler/" style="font-size: 10px;">apscheduler</a> <a href="/tags/celery/" style="font-size: 10px;">celery</a> <a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/coney/" style="font-size: 10px;">coney</a> <a href="/tags/django/" style="font-size: 10px;">django</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/linux-python/" style="font-size: 10px;">linux,python</a> <a href="/tags/mosquitto-mqtt/" style="font-size: 10px;">mosquitto,mqtt</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/nginx/" style="font-size: 15px;">nginx</a> <a href="/tags/pyleus/" style="font-size: 10px;">pyleus</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/python-yield/" style="font-size: 10px;">python yield</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/thrift/" style="font-size: 10px;">thrift</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/消息验证/" style="font-size: 10px;">消息验证</a>
     </div>
   </div>
 

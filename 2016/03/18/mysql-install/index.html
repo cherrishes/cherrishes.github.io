@@ -7,12 +7,14 @@
   <meta name="360-site-verification" content="67fbcc5a67f4c65c057315b28fa0b2c8" />
 <meta name="google-site-verification" content="2GzxQ0VtXwTSUdmGm6DzcmhTzM_I9QmzCb_pzpMzD88" />
   
-    <title>Hello World | 那些你不知道的事</title>
+    <title>Centos6.5下编译安装MySQL 5.6.14 | 那些你不知道的事</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="Mr Ren">
     
-    <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in ">
+    <meta name="description" content="CentOS 6.4下通过yum安装的MySQL是5.1版的，比较老，所以就想通过源代码安装高版本的5.6.14。
+卸载旧版本使用下面的命令检查是否安装有MySQL Server1rpm -qa | grep mysql
+有的话通过下面命令卸载掉12rpm -e mysql   //普通删除模式rp">
     
     
     
@@ -227,15 +229,15 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/01/18/hello-world/" title="Hello World" itemprop="url">Hello World</a>
+      <a href="/2016/03/18/mysql-install/" title="Centos6.5下编译安装MySQL 5.6.14" itemprop="url">Centos6.5下编译安装MySQL 5.6.14</a>
   </h1>
   <p class="article-author">By
     
       <a href="http://yoursite.com" title="Mr Ren">Mr Ren</a>
     </p>
   <p class="article-time">
-    <time datetime="2016-01-18T08:41:16.113Z" itemprop="datePublished">2016-01-18</time>
-    更新日期:<time datetime="2015-12-23T03:07:56.000Z" itemprop="dateModified">2015-12-23</time>
+    <time datetime="2016-03-18T06:15:51.000Z" itemprop="datePublished">2016-03-18</time>
+    更新日期:<time datetime="2016-03-18T06:54:03.433Z" itemprop="dateModified">2016-03-18</time>
     
   </p>
 </header>
@@ -244,28 +246,47 @@
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
-		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick_Start"><span class="toc-number">1.</span> <span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create_a_new_post"><span class="toc-number">1.1.</span> <span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run_server"><span class="toc-number">1.2.</span> <span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate_static_files"><span class="toc-number">1.3.</span> <span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy_to_remote_sites"><span class="toc-number">1.4.</span> <span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#u5378_u8F7D_u65E7_u7248_u672C"><span class="toc-number">1.</span> <span class="toc-text">卸载旧版本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u5B89_u88C5MySQL"><span class="toc-number">2.</span> <span class="toc-text">安装MySQL</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#u5B89_u88C5_u7F16_u8BD1_u4EE3_u7801_u9700_u8981_u7684_u5305"><span class="toc-number">2.1.</span> <span class="toc-text">安装编译代码需要的包</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#u4E0B_u8F7DMySQL_5-6-14"><span class="toc-number">2.2.</span> <span class="toc-text">下载MySQL 5.6.14</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#u7F16_u8BD1_u5B89_u88C5"><span class="toc-number">2.3.</span> <span class="toc-text">编译安装</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u914D_u7F6EMySQL"><span class="toc-number">3.</span> <span class="toc-text">配置MySQL</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#u8BBE_u7F6E_u6743_u9650"><span class="toc-number">3.1.</span> <span class="toc-text">设置权限</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#u521D_u59CB_u5316_u914D_u7F6E"><span class="toc-number">3.2.</span> <span class="toc-text">初始化配置</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#u542F_u52A8MySQL"><span class="toc-number">3.3.</span> <span class="toc-text">启动MySQL</span></a></li></ol></li></ol>
 		</div>
 		
-		<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick_Start"><a href="#Quick_Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create_a_new_post"><a href="#Create_a_new_post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run_server"><a href="#Run_server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate_static_files"><a href="#Generate_static_files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy_to_remote_sites"><a href="#Deploy_to_remote_sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+		<p>CentOS 6.4下通过yum安装的MySQL是5.1版的，比较老，所以就想通过源代码安装高版本的5.6.14。</p>
+<h4 id="u5378_u8F7D_u65E7_u7248_u672C"><a href="#u5378_u8F7D_u65E7_u7248_u672C" class="headerlink" title="卸载旧版本"></a>卸载旧版本</h4><p>使用下面的命令检查是否安装有MySQL Server<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -qa | grep mysql</span><br></pre></td></tr></table></figure></p>
+<p>有的话通过下面命令卸载掉<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rpm <span class="operator">-e</span> mysql   //普通删除模式</span><br><span class="line">rpm <span class="operator">-e</span> --nodeps mysql    // 强力删除模式，如果使用上面命令删除时，提示有依赖的其它文件，则用该命令可以对其进行强力删除</span><br></pre></td></tr></table></figure></p>
+<h4 id="u5B89_u88C5MySQL"><a href="#u5B89_u88C5MySQL" class="headerlink" title="安装MySQL"></a>安装MySQL</h4><h5 id="u5B89_u88C5_u7F16_u8BD1_u4EE3_u7801_u9700_u8981_u7684_u5305"><a href="#u5B89_u88C5_u7F16_u8BD1_u4EE3_u7801_u9700_u8981_u7684_u5305" class="headerlink" title="安装编译代码需要的包"></a>安装编译代码需要的包</h5><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install make gcc-c++ cmake bison-devel  ncurses-devel</span><br></pre></td></tr></table></figure>
+<h5 id="u4E0B_u8F7DMySQL_5-6-14"><a href="#u4E0B_u8F7DMySQL_5-6-14" class="headerlink" title="下载MySQL 5.6.14"></a>下载MySQL 5.6.14</h5><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http://cdn.mysql.com/Downloads/MySQL-5.6/mysql-5.6.14.tar.gz&#10;tar xvf mysql-5.6.14.tar.gz&#10;cd mysql-5.6.14</span><br></pre></td></tr></table></figure>
+<p>或者可以在<a href="http://7xq1xx.com1.z0.glb.clouddn.com/mysql-5.6.14.tar.gz" target="_blank" rel="external">这里</a>下载</p>
+<h5 id="u7F16_u8BD1_u5B89_u88C5"><a href="#u7F16_u8BD1_u5B89_u88C5" class="headerlink" title="编译安装"></a>编译安装</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">cmake \</span><br><span class="line">-DCMAKE_INSTALL_PREFIX=/usr/<span class="built_in">local</span>/mysql \</span><br><span class="line">-DMYSQL_DATADIR=/usr/<span class="built_in">local</span>/mysql/data \</span><br><span class="line">-DSYSCONFDIR=/etc \</span><br><span class="line">-DWITH_MYISAM_STORAGE_ENGINE=<span class="number">1</span> \</span><br><span class="line">-DWITH_INNOBASE_STORAGE_ENGINE=<span class="number">1</span> \</span><br><span class="line">-DWITH_MEMORY_STORAGE_ENGINE=<span class="number">1</span> \</span><br><span class="line">-DWITH_READLINE=<span class="number">1</span> \</span><br><span class="line">-DMYSQL_UNIX_ADDR=/var/lib/mysql/mysql.sock \</span><br><span class="line">-DMYSQL_TCP_PORT=<span class="number">3306</span> \</span><br><span class="line">-DENABLED_LOCAL_INFILE=<span class="number">1</span> \</span><br><span class="line">-DWITH_PARTITION_STORAGE_ENGINE=<span class="number">1</span> \</span><br><span class="line">-DEXTRA_CHARSETS=all \</span><br><span class="line">-DDEFAULT_CHARSET=utf8 \</span><br><span class="line">-DDEFAULT_COLLATION=utf8_general_ci</span><br><span class="line"></span><br><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+<p>整个过程一般需要30分钟左右，耐心等待</p>
+<h4 id="u914D_u7F6EMySQL"><a href="#u914D_u7F6EMySQL" class="headerlink" title="配置MySQL"></a>配置MySQL</h4><h5 id="u8BBE_u7F6E_u6743_u9650"><a href="#u8BBE_u7F6E_u6743_u9650" class="headerlink" title="设置权限"></a>设置权限</h5><p>使用下面的命令查看是否有mysql用户及用户组<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/passwd <span class="comment"># 查看用户列表</span></span><br><span class="line">cat /etc/group  <span class="comment"># 查看用户组列表</span></span><br></pre></td></tr></table></figure></p>
+<p>如果没有就创建<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">groupadd mysql&#10;useradd -g mysql mysql</span><br></pre></td></tr></table></figure></p>
+<p>修改/usr/local/mysql文件权限<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chown -R mysql:mysql /usr/<span class="built_in">local</span>/mysql</span><br></pre></td></tr></table></figure></p>
+<h5 id="u521D_u59CB_u5316_u914D_u7F6E"><a href="#u521D_u59CB_u5316_u914D_u7F6E" class="headerlink" title="初始化配置"></a>初始化配置</h5><p>进入安装路径<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/mysql</span><br></pre></td></tr></table></figure></p>
+<p>进入安装路径，执行初始化配置脚本，创建系统自带的数据库和表<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scripts/mysql_install_db --basedir=/usr/<span class="built_in">local</span>/mysql --datadir=/usr/<span class="built_in">local</span>/mysql/data --user=mysql</span><br></pre></td></tr></table></figure></p>
+<p><em>注：</em> 在启动MySQL服务时，会按照一定次序搜索my.cnf，先在/etc目录下找，找不到则会搜索”$basedir/my.cnf”，在本例中就是 /usr/local/mysql/my.cnf，这是新版MySQL的配置文件的默认位置！<br><em>注意：在CentOS 6.4版操作系统的最小安装完成后，在/etc目录下会存在一个my.cnf，需要将此文件更名为其他的名字，如：/etc/my.cnf.bak，否则，该文件会干扰源码安装的MySQL的正确配置，造成无法启动。在使用”yum update”更新系统后，需要检查下/etc目录下是否会多出一个my.cnf，如果多出，将它重命名成别的。否则，MySQL将使用这个配置文件启动，可能造成无法正常启动等问题。</em></p>
+<h5 id="u542F_u52A8MySQL"><a href="#u542F_u52A8MySQL" class="headerlink" title="启动MySQL"></a>启动MySQL</h5><p>添加服务，拷贝服务脚本到init.d目录，并设置开机启动<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cp support-files/mysql.server /etc/init.d/mysql</span><br><span class="line">chkconfig mysql on</span><br><span class="line">service mysql start  --启动MySQL</span><br></pre></td></tr></table></figure></p>
+<p>配置环境变量<br>MySQL启动成功后，root默认没有密码，我们需要设置root密码。设置之前，我们需要先设置PATH，要不不能直接调用mysql<br>修改/etc/profile文件，在文件末尾添加<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PATH=/usr/<span class="built_in">local</span>/mysql/bin:<span class="variable">$PATH</span></span><br><span class="line"><span class="built_in">export</span> PATH</span><br></pre></td></tr></table></figure></p>
+<p>关闭文件，运行下面的命令，让配置立即生效<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> /etc/profile</span><br></pre></td></tr></table></figure></p>
+<p>现在，我们可以在终端内直接输入mysql进入，mysql的环境了，执行下面的命令修改root密码<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot  </span><br><span class="line">mysql&gt; SET PASSWORD = PASSWORD(<span class="string">'123456'</span>);</span><br></pre></td></tr></table></figure></p>
+<p>若要设置root用户可以远程访问，执行<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&#62; GRANT ALL PRIVILEGES ON *.* TO &#39;root&#39;@&#39;172.16.%&#39; IDENTIFIED BY &#39;password&#39; WITH GRANT OPTION;</span><br></pre></td></tr></table></figure></p>
+<p>password为远程访问时，root用户的密码，可以和本地不同。<br>防火墙的3306端口默认没有开启，若要远程访问，需要开启这个端口<br>打开/etc/sysconfig/iptables<br>在“-A INPUT –m state –state NEW –m tcp –p –dport 22 –j ACCEPT”，下添加：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-A INPUT -m state --state NEW -m tcp -p -dport <span class="number">3306</span> -j ACCEPT</span><br></pre></td></tr></table></figure></p>
+<p>然后保存，并关闭该文件，在终端内运行下面的命令，刷新防火墙配置：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service iptables restart</span><br></pre></td></tr></table></figure></p>
+<p>CentOS 7中默认使用Firewalld做防火墙，所以修改iptables后，在重启系统后，根本不管用。<br>Firewalld中添加端口方法如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --zone=public --add-port=<span class="number">3306</span>/tcp --permanent</span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure></p>
+<p>OK，一切配置完毕，你可以访问你的MySQL了~</p>
   
 	</div>
 		<footer class="article-footer clearfix">
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/centos/">centos</a><a href="/tags/mysql/">mysql</a>
+  </div>
 
 
 
 
 <div class="article-share" id="share">
 
-  <div data-url="http://yoursite.com/2016/01/18/hello-world/" data-title="Hello World | 那些你不知道的事" data-tsina="null" class="share clearfix">
+  <div data-url="http://yoursite.com/2016/03/18/mysql-install/" data-title="Centos6.5下编译安装MySQL 5.6.14 | 那些你不知道的事" data-tsina="null" class="share clearfix">
   </div>
 
 </div>
@@ -274,19 +295,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2016/01/21/redis-use/" title="Redis安装部署和Python调用">
-  <strong>PREVIOUS:</strong><br/>
-  <span>
-  Redis安装部署和Python调用</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2016/01/13/pyleus-use/"  title="Pyleus 介绍：使用纯Python编写Storm程序的开源框架">
+<a href="/2016/03/17/ubuntu-use/"  title="ubuntu使用小技巧">
  <strong>NEXT:</strong><br/> 
- <span>Pyleus 介绍：使用纯Python编写Storm程序的开源框架
+ <span>ubuntu使用小技巧
 </span>
 </a>
 </div>
@@ -296,7 +309,7 @@
 	
 <section class="comment">
 	
-	<div class="ds-thread" data-title="Hello World" data-thread-key="hello-world" data-author-key="Mr Ren" data-url="http://yoursite.com/post/hello-world"></div>
+	<div class="ds-thread" data-title="Centos6.5下编译安装MySQL 5.6.14" data-thread-key="mysql-install" data-author-key="Mr Ren" data-url="http://yoursite.com/post/mysql-install"></div>
 	
 </section>
 
@@ -306,7 +319,7 @@
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
-  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick_Start"><span class="toc-number">1.</span> <span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create_a_new_post"><span class="toc-number">1.1.</span> <span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run_server"><span class="toc-number">1.2.</span> <span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate_static_files"><span class="toc-number">1.3.</span> <span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy_to_remote_sites"><span class="toc-number">1.4.</span> <span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+  <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#u5378_u8F7D_u65E7_u7248_u672C"><span class="toc-number">1.</span> <span class="toc-text">卸载旧版本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u5B89_u88C5MySQL"><span class="toc-number">2.</span> <span class="toc-text">安装MySQL</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#u5B89_u88C5_u7F16_u8BD1_u4EE3_u7801_u9700_u8981_u7684_u5305"><span class="toc-number">2.1.</span> <span class="toc-text">安装编译代码需要的包</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#u4E0B_u8F7DMySQL_5-6-14"><span class="toc-number">2.2.</span> <span class="toc-text">下载MySQL 5.6.14</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#u7F16_u8BD1_u5B89_u88C5"><span class="toc-number">2.3.</span> <span class="toc-text">编译安装</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u914D_u7F6EMySQL"><span class="toc-number">3.</span> <span class="toc-text">配置MySQL</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#u8BBE_u7F6E_u6743_u9650"><span class="toc-number">3.1.</span> <span class="toc-text">设置权限</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#u521D_u59CB_u5316_u914D_u7F6E"><span class="toc-number">3.2.</span> <span class="toc-text">初始化配置</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#u542F_u52A8MySQL"><span class="toc-number">3.3.</span> <span class="toc-text">启动MySQL</span></a></li></ol></li></ol>
   </div>
 
 <div id="asidepart">
