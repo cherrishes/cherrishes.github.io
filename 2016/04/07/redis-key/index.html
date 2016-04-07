@@ -7,12 +7,16 @@
   <meta name="360-site-verification" content="67fbcc5a67f4c65c057315b28fa0b2c8" />
 <meta name="google-site-verification" content="2GzxQ0VtXwTSUdmGm6DzcmhTzM_I9QmzCb_pzpMzD88" />
   
-    <title>消息验证 | 那些你不知道的事</title>
+    <title>redis键值对存储设置过期时间 | 那些你不知道的事</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="Mr Ren">
     
-    <meta name="description" content="签名算法在开发者首次提交验证申请时，服务器将会发送GET请求到填写的URL上，并且带上四个参数（signature、timestamp、nonce、echostr），开发者通过对签名（即signature）的效验，来判断此条消息的真实性。">
+    <meta name="description" content="redis key过期时间EXPIRE key 100
+设置了过期时间，100秒后，key将自动被删除。
+过期时间删除的方法有三种：
+1、删除这个key，使用del command
+2、用set or getset 命令会将key的expiration清空，事实上set和getset命令是替换了ke">
     
     
     
@@ -227,15 +231,15 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/12/23/message-signature/" title="消息验证" itemprop="url">消息验证</a>
+      <a href="/2016/04/07/redis-key/" title="redis键值对存储设置过期时间" itemprop="url">redis键值对存储设置过期时间</a>
   </h1>
   <p class="article-author">By
     
       <a href="http://yoursite.com" title="Mr Ren">Mr Ren</a>
     </p>
   <p class="article-time">
-    <time datetime="2015-12-23T05:03:54.000Z" itemprop="datePublished">2015-12-23</time>
-    更新日期:<time datetime="2015-12-24T03:34:40.000Z" itemprop="dateModified">2015-12-24</time>
+    <time datetime="2016-04-07T08:16:55.000Z" itemprop="datePublished">2016-04-07</time>
+    更新日期:<time datetime="2016-04-07T08:36:13.832Z" itemprop="dateModified">2016-04-07</time>
     
   </p>
 </header>
@@ -244,63 +248,45 @@
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
-		<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#u7B7E_u540D_u7B97_u6CD5"><span class="toc-number">1.</span> <span class="toc-text">签名算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u9A8C_u8BC1_u53C2_u6570_uFF1A"><span class="toc-number">2.</span> <span class="toc-text">验证参数：</span></a></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#redis_key_u8FC7_u671F_u65F6_u95F4"><span class="toc-number">1.</span> <span class="toc-text">redis key过期时间</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u5237_u65B0_u8FC7_u671F_u65F6_u95F4"><span class="toc-number">2.</span> <span class="toc-text">刷新过期时间</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#redis_u5982_u4F55_u6E05_u9664_u8FC7_u671Fkeys"><span class="toc-number">3.</span> <span class="toc-text">redis如何清除过期keys</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#key__u8FC7_u671F_u5982_u4F55_u89E3_u51B3_u4E3B_u4ECE_u8282_u70B9_u540C_u6B65_u4EE5_u53CAAOF_u6587_u4EF6"><span class="toc-number">4.</span> <span class="toc-text">key 过期如何解决主从节点同步以及AOF文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#expire_u7684_u6301_u4E45_u5316"><span class="toc-number">5.</span> <span class="toc-text">expire的持久化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u5FC3_u5F97"><span class="toc-number">6.</span> <span class="toc-text">心得</span></a></li></ol>
 		</div>
 		
-		<h4 id="u7B7E_u540D_u7B97_u6CD5"><a href="#u7B7E_u540D_u7B97_u6CD5" class="headerlink" title="签名算法"></a>签名算法</h4><p>在开发者首次提交验证申请时，服务器将会发送GET请求到填写的URL上，并且带上四个参数（signature、timestamp、nonce、echostr），开发者通过对签名（即signature）的效验，来判断此条消息的真实性。<br><a id="more"></a><br>此后，每次开发者接收用户消息的时候，微信也都会带上前面三个参数（signature、timestamp、nonce）访问开发者设置的URL，开发者依然通过对签名的效验判断此条消息的真实性。效验方式与首次提交验证申请一致。</p>
-<h4 id="u9A8C_u8BC1_u53C2_u6570_uFF1A"><a href="#u9A8C_u8BC1_u53C2_u6570_uFF1A" class="headerlink" title="验证参数："></a>验证参数：</h4><table>
-<thead>
-<tr>
-<th style="text-align:left">参数</th>
-<th style="text-align:left">描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">signature</td>
-<td style="text-align:left">加密签名，signature结合了开发者填写的token参数和请求中的timestamp参数、nonce参数。</td>
-</tr>
-<tr>
-<td style="text-align:left">timestamp</td>
-<td style="text-align:left">时间戳</td>
-</tr>
-<tr>
-<td style="text-align:left">nonce</td>
-<td style="text-align:left">随机数</td>
-</tr>
-<tr>
-<td style="text-align:left">echostr</td>
-<td style="text-align:left">随机字符串</td>
-</tr>
-</tbody>
-</table>
-<p>开发者通过检验signature对请求进行校验（下面有校验方式）。若确认此次GET请求来自服务器，请原样返回echostr参数内容，则接入生效，否则接入失败。</p>
-<p>加密/校验流程如下：</p>
+		<h3 id="redis_key_u8FC7_u671F_u65F6_u95F4"><a href="#redis_key_u8FC7_u671F_u65F6_u95F4" class="headerlink" title="redis key过期时间"></a>redis key过期时间</h3><p><code>EXPIRE key 100</code></p>
+<p>设置了过期时间，100秒后，<code>key</code>将自动被删除。</p>
+<p>过期时间删除的方法有三种：</p>
+<p>1、删除这个<code>key</code>，使用<code>del command</code></p>
+<p>2、用<code>set or getset</code> 命令会将<code>key</code>的<code>expiration</code>清空，事实上<code>set</code>和<code>getset</code>命令是替换了<code>key</code>对应的<code>value</code>，所以<code>key</code>的过期时间也就不复存在。所以，需要注意的是：<code>incr，LPUSH，HSET</code>命令是不会改变<code>key</code>的过期时间的。原来是多久，这三条命令执行完之后还是多久。</p>
+<p>3、使用<code>persist</code>命令清除<code>key</code>的过期时间。</p>
+<p><code>rename</code>命令是将<code>keyA</code>变为<code>keyB</code>，无论<code>keyB</code>是否已经存在，<code>keyA</code>的过期时间都会被<code>keyB</code>继承过去。</p>
+<h3 id="u5237_u65B0_u8FC7_u671F_u65F6_u95F4"><a href="#u5237_u65B0_u8FC7_u671F_u65F6_u95F4" class="headerlink" title="刷新过期时间"></a>刷新过期时间</h3><p>多次调用<code>expire key 100</code> 可以刷新<code>key</code>的过期时间。</p>
+<p>返回值：<code>1</code>代表过期时间被设置。</p>
+<p>返回值：<code>0</code>代表<code>key</code>不存在或者<code>timeout</code>不能被设置。</p>
+<h3 id="redis_u5982_u4F55_u6E05_u9664_u8FC7_u671Fkeys"><a href="#redis_u5982_u4F55_u6E05_u9664_u8FC7_u671Fkeys" class="headerlink" title="redis如何清除过期keys"></a>redis如何清除过期keys</h3><p><code>redis</code>有两种方式清除过期<code>keys</code>:主动方式，和被动方式。</p>
 <ol>
-<li>将token、timestamp、nonce三个参数进行字典序排序</li>
-<li>将三个参数字符串拼接成一个字符串进行sha1加密</li>
-<li>开发者获得加密后的字符串可与signature对比，标识该请求来源于服务器</li>
+<li>主动方式：当<code>client</code>访问某一个<code>key</code>，<code>redis</code>会<code>check key</code>是否过期，如果已经过期，则被删除。</li>
+<li>被动方式：不是所有的<code>key</code>都能被<code>client</code>访问。<code>redis</code>有一套默认的机制，<code>redis</code>每秒会进行10次以下动作:<br> a. 随机从<code>keys</code>中挑选<code>100</code>个<code>key</code>，这<code>100key</code>是关联了过期时间的<code>key</code>。<br> b. 删除已经过期的<code>key</code>。<br> c. 如果删除的<code>key</code>超过<code>25</code>个，那么重复步骤a。</li>
 </ol>
-<p>检验signature的tornado(python)示例代码：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">class ValidateMessageHandler(BaseHandler):</span><br><span class="line">    def get(self, *args, **kwargs):</span><br><span class="line">        signature = self.get_argument(<span class="string">'signature'</span>)</span><br><span class="line">	timestamp = self.get_argument(<span class="string">'timestamp'</span>)</span><br><span class="line">	nonce = self.get_argument(<span class="string">'nonce'</span>)</span><br><span class="line">	echostr = self.get_argument(<span class="string">'echostr'</span>)</span><br><span class="line">	token = <span class="string">"abc"</span></span><br><span class="line">	<span class="comment"># 字典序排序</span></span><br><span class="line">	rs = [token, timestamp, nonce]</span><br><span class="line">	rs.sort()</span><br><span class="line">	rs = <span class="string">''</span>.join(rs)</span><br><span class="line">	hashcode = sha1_en(rs)</span><br><span class="line">	<span class="keyword">if</span> hashcode == signature:</span><br><span class="line">		<span class="built_in">return</span> self.finish(echostr)</span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		<span class="built_in">return</span> self.finish(<span class="string">''</span>)</span><br></pre></td></tr></table></figure></p>
-<p>注意事项</p>
-<blockquote>
-<p>签名的时间戳不能与正常的时间戳相差超过2个小时</p>
-</blockquote>
+<p>这是一个不是很严格的算法。不过可以基本保证过期的<code>keys</code>小于总数的<code>25%</code>。其实这是一种近似算法。随机选数，检查并删除。随机选key就保证了大致概率，结果只能是近似的。</p>
+<p>这意味着：在任意时间点，那些占用内存并已经过期的keys的数量最多等于每秒写入数量的四分之一。</p>
+<h3 id="key__u8FC7_u671F_u5982_u4F55_u89E3_u51B3_u4E3B_u4ECE_u8282_u70B9_u540C_u6B65_u4EE5_u53CAAOF_u6587_u4EF6"><a href="#key__u8FC7_u671F_u5982_u4F55_u89E3_u51B3_u4E3B_u4ECE_u8282_u70B9_u540C_u6B65_u4EE5_u53CAAOF_u6587_u4EF6" class="headerlink" title="key 过期如何解决主从节点同步以及AOF文件"></a>key 过期如何解决主从节点同步以及AOF文件</h3><p>为了保证结果一致性，当<code>key</code>过期时，从节点会等待主节点的删除命令，从节点不会自己删除已经过期的<code>key</code>，主节点会进行集权控制，保证一致性。不过假如意外掉电，或者节点当机不知道会是什么情况。会不会导致主节点<code>key</code>已经删除，而从节点没有删除的情况。官方网站也没有一个明确的解释。</p>
+<h3 id="expire_u7684_u6301_u4E45_u5316"><a href="#expire_u7684_u6301_u4E45_u5316" class="headerlink" title="expire的持久化"></a>expire的持久化</h3><p><code>redis key</code>的过期时间很有意思：以<code>unix</code>的时间戳存储。也就是说，在<code>redis server</code>不活动的情况下，<code>key</code>的过期时间仍然是有效的。这样会带来什么情况呢，比如数据库文件RDB从一台2013年11月27日00:00:00的服务器上移动到2013年11月30日00:00:00的服务器上，重启<code>redis server</code>，那么RDB中所有过期时间<code>&lt;=3</code>天的<code>keys</code>都会被清除。<br>假如不想所有的<code>keys</code>都被清除的话，可以将服务器时间设置为过去的时间。</p>
+<h3 id="u5FC3_u5F97"><a href="#u5FC3_u5F97" class="headerlink" title="心得"></a>心得</h3><ol>
+<li><code>hmset、rpush、incr</code>不会清除<code>key</code>的<code>timeout</code>。</li>
+<li><code>hmset</code>的<code>fileds</code>的<code>key</code>不能设置<code>timeout</code>。</li>
+<li>我们只能通过<code>ttl</code>来查看 <code>key</code>的过期时间。</li>
+<li>过期时间精准度不是特别的准。比如说，部分<code>keys</code>永远不会被主动<code>access</code>，在被动清除模式中也不一定每次都能被<code>random</code>选中，那么就有可能清除时间会被延后。可能是几毫秒。如果对于过期时间要求非常精准的情况下，需要慎重。</li>
+<li><code>key</code>被清除的时候目前是没有<code>notification</code>的。你也就无法做相应的事件处理。</li>
+</ol>
   
 	</div>
 		<footer class="article-footer clearfix">
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/python/">python</a><a href="/tags/消息验证/">消息验证</a>
-  </div>
 
 
 
 
 <div class="article-share" id="share">
 
-  <div data-url="http://yoursite.com/2015/12/23/message-signature/" data-title="消息验证 | 那些你不知道的事" data-tsina="null" class="share clearfix">
+  <div data-url="http://yoursite.com/2016/04/07/redis-key/" data-title="redis键值对存储设置过期时间 | 那些你不知道的事" data-tsina="null" class="share clearfix">
   </div>
 
 </div>
@@ -309,21 +295,21 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2015/12/24/coney-use/" title="coney主题使用说明">
-  <strong>PREVIOUS:</strong><br/>
-  <span>
-  coney主题使用说明</span>
+
+<div class="next">
+<a href="/2016/04/06/python-bit/"  title="python位运算">
+ <strong>NEXT:</strong><br/> 
+ <span>python位运算
+</span>
 </a>
 </div>
-
 
 </nav>
 
 	
 <section class="comment">
 	
-	<div class="ds-thread" data-title="消息验证" data-thread-key="message-signature" data-author-key="Mr Ren" data-url="http://yoursite.com/post/message-signature"></div>
+	<div class="ds-thread" data-title="redis键值对存储设置过期时间" data-thread-key="redis-key" data-author-key="Mr Ren" data-url="http://yoursite.com/post/redis-key"></div>
 	
 </section>
 
@@ -333,7 +319,7 @@
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
-  <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#u7B7E_u540D_u7B97_u6CD5"><span class="toc-number">1.</span> <span class="toc-text">签名算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u9A8C_u8BC1_u53C2_u6570_uFF1A"><span class="toc-number">2.</span> <span class="toc-text">验证参数：</span></a></li></ol>
+  <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#redis_key_u8FC7_u671F_u65F6_u95F4"><span class="toc-number">1.</span> <span class="toc-text">redis key过期时间</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u5237_u65B0_u8FC7_u671F_u65F6_u95F4"><span class="toc-number">2.</span> <span class="toc-text">刷新过期时间</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#redis_u5982_u4F55_u6E05_u9664_u8FC7_u671Fkeys"><span class="toc-number">3.</span> <span class="toc-text">redis如何清除过期keys</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#key__u8FC7_u671F_u5982_u4F55_u89E3_u51B3_u4E3B_u4ECE_u8282_u70B9_u540C_u6B65_u4EE5_u53CAAOF_u6587_u4EF6"><span class="toc-number">4.</span> <span class="toc-text">key 过期如何解决主从节点同步以及AOF文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#expire_u7684_u6301_u4E45_u5316"><span class="toc-number">5.</span> <span class="toc-text">expire的持久化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u5FC3_u5F97"><span class="toc-number">6.</span> <span class="toc-text">心得</span></a></li></ol>
   </div>
 
 <div id="asidepart">

@@ -1,0 +1,805 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="baidu_union_verify" content="d1952c66cf48912e21c18c7c581f382a">
+  <meta name="360-site-verification" content="67fbcc5a67f4c65c057315b28fa0b2c8" />
+<meta name="google-site-verification" content="2GzxQ0VtXwTSUdmGm6DzcmhTzM_I9QmzCb_pzpMzD88" />
+  
+    <title>python位运算 | 那些你不知道的事</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="Mr Ren">
+    
+    <meta name="description" content="按位运算符是把数字看作二进制来进行计算的。Python中的按位运算法则如下：下表中变量 a 为 60，b 为 13。
+
+
+
+运算符
+描述
+实例
+
+
+
+
+&amp;amp;
+按位与运算符：参与运算的两个值,如果两个相应位都为1,则该位的结果为1,否则为0
+(a &amp;amp; b) 输出结果 12 ，二进制解释：">
+    
+    
+    
+    
+    <link rel="alternate" href="atom.xml" title="那些你不知道的事" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            var _bdId ='391982416296a0d54221f59fe35250d4';
+             hm.src = "//hm.baidu.com/hm.js?" + _bdId;
+             var s = document.getElementsByTagName("script")[0]; 
+             s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+     
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="那些你不知道的事">那些你不知道的事</a></h1>
+				<a class="blog-motto">你不知道我为什么离开你</a>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li> <a title="把这个链接拖到你的Chrome收藏夹工具栏中" href='javascript:(function() {
+	function c() {
+		var e = document.createElement("link");
+		e.setAttribute("type", "text/css");
+		e.setAttribute("rel", "stylesheet");
+		e.setAttribute("href", f);
+		e.setAttribute("class", l);
+		document.body.appendChild(e)
+	}
+ 
+	function h() {
+		var e = document.getElementsByClassName(l);
+		for (var t = 0; t < e.length; t++) {
+			document.body.removeChild(e[t])
+		}
+	}
+ 
+	function p() {
+		var e = document.createElement("div");
+		e.setAttribute("class", a);
+		document.body.appendChild(e);
+		setTimeout(function() {
+			document.body.removeChild(e)
+		}, 100)
+	}
+ 
+	function d(e) {
+		return {
+			height : e.offsetHeight,
+			width : e.offsetWidth
+		}
+	}
+ 
+	function v(i) {
+		var s = d(i);
+		return s.height > e && s.height < n && s.width > t && s.width < r
+	}
+ 
+	function m(e) {
+		var t = e;
+		var n = 0;
+		while (!!t) {
+			n += t.offsetTop;
+			t = t.offsetParent
+		}
+		return n
+	}
+ 
+	function g() {
+		var e = document.documentElement;
+		if (!!window.innerWidth) {
+			return window.innerHeight
+		} else if (e && !isNaN(e.clientHeight)) {
+			return e.clientHeight
+		}
+		return 0
+	}
+ 
+	function y() {
+		if (window.pageYOffset) {
+			return window.pageYOffset
+		}
+		return Math.max(document.documentElement.scrollTop, document.body.scrollTop)
+	}
+ 
+	function E(e) {
+		var t = m(e);
+		return t >= w && t <= b + w
+	}
+ 
+	function S() {
+		var e = document.createElement("audio");
+		e.setAttribute("class", l);
+		e.src = i;
+		e.loop = false;
+		e.addEventListener("canplay", function() {
+			setTimeout(function() {
+				x(k)
+			}, 500);
+			setTimeout(function() {
+				N();
+				p();
+				for (var e = 0; e < O.length; e++) {
+					T(O[e])
+				}
+			}, 15500)
+		}, true);
+		e.addEventListener("ended", function() {
+			N();
+			h()
+		}, true);
+		e.innerHTML = " <p>If you are reading this, it is because your browser does not support the audio element. We recommend that you get a new browser.</p> <p>";
+		document.body.appendChild(e);
+		e.play()
+	}
+ 
+	function x(e) {
+		e.className += " " + s + " " + o
+	}
+ 
+	function T(e) {
+		e.className += " " + s + " " + u[Math.floor(Math.random() * u.length)]
+	}
+ 
+	function N() {
+		var e = document.getElementsByClassName(s);
+		var t = new RegExp("\\b" + s + "\\b");
+		for (var n = 0; n < e.length; ) {
+			e[n].className = e[n].className.replace(t, "")
+		}
+	}
+ 
+	var e = 30;
+	var t = 30;
+	var n = 350;
+	var r = 350;
+	var i = "//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake.mp3";
+	var s = "mw-harlem_shake_me";
+	var o = "im_first";
+	var u = ["im_drunk", "im_baked", "im_trippin", "im_blown"];
+	var a = "mw-strobe_light";
+	var f = "//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake-style.css";
+	var l = "mw_added_css";
+	var b = g();
+	var w = y();
+	var C = document.getElementsByTagName("*");
+	var k = null;
+	for (var L = 0; L < C.length; L++) {
+		var A = C[L];
+		if (v(A)) {
+			if (E(A)) {
+				k = A;
+				break
+			}
+		}
+	}
+	if (A === null) {
+		console.warn("Could not find a node of the right size. Please try a different page.");
+		return
+	}
+	c();
+	S();
+	var O = [];
+	for (var L = 0; L < C.length; L++) {
+		var A = C[L];
+		if (v(A)) {
+			O.push(A)
+		}
+	}
+})()    '>High一下</a> </li>
+               				<li>
+                                        
+                                            <form class="search" action=http://zhannei.baidu.com/cse/search target="_blank">
+                                            <label>Search</label>
+                                        <input name="s" type="hidden" value= null ><input type="text" name="q" size="30" placeholder="搜索"><br>
+                                        
+                                        </li>
+
+				</ul>
+                            </nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/04/06/python-bit/" title="python位运算" itemprop="url">python位运算</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="http://yoursite.com" title="Mr Ren">Mr Ren</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2016-04-06T06:29:09.000Z" itemprop="datePublished">2016-04-06</time>
+    更新日期:<time datetime="2016-04-07T10:41:58.940Z" itemprop="dateModified">2016-04-07</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Python_u903B_u8F91_u8FD0_u7B97_u7B26"><span class="toc-number">1.</span> <span class="toc-text">Python逻辑运算符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Python_u8EAB_u4EFD_u8FD0_u7B97_u7B26"><span class="toc-number">2.</span> <span class="toc-text">Python身份运算符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Python_u8FD0_u7B97_u7B26_u4F18_u5148_u7EA7"><span class="toc-number">3.</span> <span class="toc-text">Python运算符优先级</span></a></li></ol>
+		</div>
+		
+		<p>按位运算符是把数字看作二进制来进行计算的。Python中的按位运算法则如下：<br>下表中变量 a 为 60，b 为 13。</p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>描述</th>
+<th>实例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&amp;</td>
+<td>按位与运算符：参与运算的两个值,如果两个相应位都为1,则该位的结果为1,否则为0</td>
+<td>(a &amp; b) 输出结果 12 ，二进制解释： 0000 1100</td>
+</tr>
+<tr>
+<td>｜</td>
+<td>按位或运算符：只要对应的二个二进位有一个为1时，结果位就为1。</td>
+<td>(a｜b) 输出结果 61 ，二进制解释： 0011 1101</td>
+</tr>
+<tr>
+<td>^</td>
+<td>按位异或运算符：当两对应的二进位相异时，结果为1</td>
+<td>(a ^ b) 输出结果 49 ，二进制解释： 0011 0001</td>
+</tr>
+<tr>
+<td>~</td>
+<td>按位取反运算符：对数据的每个二进制位取反,即把1变为0,把0变为1</td>
+<td>(~a ) 输出结果 -61 ，二进制解释： 1100 0011， 在一个有符号二进制数的补码形式。</td>
+</tr>
+<tr>
+<td>&lt;&lt;</td>
+<td>左移动运算符：运算数的各二进位全部左移若干位，由”&lt;&lt;”右边的数指定移动的位数，高位丢弃，低位补0。</td>
+<td>a &lt;&lt; 2 输出结果 240 ，二进制解释： 1111 0000</td>
+</tr>
+<tr>
+<td>&gt;&gt;</td>
+<td>右移动运算符：把”&gt;&gt;”左边的运算数的各二进位全部右移若干位，”&gt;&gt;”右边的数指定移动的位数</td>
+<td>a &gt;&gt; 2 输出结果 15 ，二进制解释： 0000 1111</td>
+</tr>
+</tbody>
+</table>
+<p>以下实例演示了Python所有位运算符的操作：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="comment"># -*- coding: UTF-8 -*-</span></span><br><span class="line"></span><br><span class="line">a = <span class="number">60</span>            <span class="comment"># 60 = 0011 1100 </span></span><br><span class="line">b = <span class="number">13</span>            <span class="comment"># 13 = 0000 1101 </span></span><br><span class="line">c = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">c = a &amp; b;        <span class="comment"># 12 = 0000 1100</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"1 - c 的值为："</span>, c</span><br><span class="line"></span><br><span class="line">c = a | b;        <span class="comment"># 61 = 0011 1101 </span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"2 - c 的值为："</span>, c</span><br><span class="line"></span><br><span class="line">c = a ^ b;        <span class="comment"># 49 = 0011 0001</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"3 - c 的值为："</span>, c</span><br><span class="line"></span><br><span class="line">c = ~a;           <span class="comment"># -61 = 1100 0011</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"4 - c 的值为："</span>, c</span><br><span class="line"></span><br><span class="line">c = a &lt;&lt; <span class="number">2</span>;       <span class="comment"># 240 = 1111 0000</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"5 - c 的值为："</span>, c</span><br><span class="line"></span><br><span class="line">c = a &gt;&gt; <span class="number">2</span>;       <span class="comment"># 15 = 0000 1111</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"6 - c 的值为："</span>, c</span><br></pre></td></tr></table></figure></p>
+<p>以上实例输出结果：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> - c 的值为： <span class="number">12</span></span><br><span class="line"><span class="number">2</span> - c 的值为： <span class="number">61</span></span><br><span class="line"><span class="number">3</span> - c 的值为： <span class="number">49</span></span><br><span class="line"><span class="number">4</span> - c 的值为： -<span class="number">61</span></span><br><span class="line"><span class="number">5</span> - c 的值为： <span class="number">240</span></span><br><span class="line"><span class="number">6</span> - c 的值为： <span class="number">15</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="Python_u903B_u8F91_u8FD0_u7B97_u7B26"><a href="#Python_u903B_u8F91_u8FD0_u7B97_u7B26" class="headerlink" title="Python逻辑运算符"></a>Python逻辑运算符</h3><p>Python语言支持逻辑运算符，以下假设变量 a 为 10, b为 20:</p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>逻辑表达式</th>
+<th>描述</th>
+<th style="text-align:right">实例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>and</td>
+<td>x and y</td>
+<td>布尔”与” - 如果 x 为 False，x and y 返回 False，否则它返回 y 的计算值。</td>
+<td style="text-align:right">(a and b) 返回 20。</td>
+</tr>
+<tr>
+<td>or</td>
+<td>x or y</td>
+<td>布尔”或”    - 如果 x 是 True，它返回 True，否则它返回 y 的计算值。</td>
+<td style="text-align:right">(a or b) 返回 10。</td>
+</tr>
+<tr>
+<td>not</td>
+<td>not x</td>
+<td>布尔”非” - 如果 x 为 True，返回 False 。如果 x 为 False，它返回 True。</td>
+<td style="text-align:right">not(a and b) 返回 False</td>
+</tr>
+</tbody>
+</table>
+<p>以下实例演示了Python逻辑运算的操作：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="comment"># -*- coding: UTF-8 -*-</span></span><br><span class="line"></span><br><span class="line">a = <span class="number">10</span></span><br><span class="line">b = <span class="number">20</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> ( a <span class="keyword">and</span> b ):</span><br><span class="line">   <span class="keyword">print</span> <span class="string">"1 - 变量 a 和 b 都为 true"</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">   <span class="keyword">print</span> <span class="string">"1 - 变量 a 和 b 有一个不为 true"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> ( a <span class="keyword">or</span> b ):</span><br><span class="line">   <span class="keyword">print</span> <span class="string">"2 - 变量 a 和 b 都为 true，或其中一个变量为 true"</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">   <span class="keyword">print</span> <span class="string">"2 - 变量 a 和 b 都不为 true"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改变量 a 的值</span></span><br><span class="line">a = <span class="number">0</span></span><br><span class="line"><span class="keyword">if</span> ( a <span class="keyword">and</span> b ):</span><br><span class="line">   <span class="keyword">print</span> <span class="string">"3 - 变量 a 和 b 都为 true"</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">   <span class="keyword">print</span> <span class="string">"3 - 变量 a 和 b 有一个不为 true"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> ( a <span class="keyword">or</span> b ):</span><br><span class="line">   <span class="keyword">print</span> <span class="string">"4 - 变量 a 和 b 都为 true，或其中一个变量为 true"</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">   <span class="keyword">print</span> <span class="string">"4 - 变量 a 和 b 都不为 true"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span>( a <span class="keyword">and</span> b ):</span><br><span class="line">   <span class="keyword">print</span> <span class="string">"5 - 变量 a 和 b 都为 false，或其中一个变量为 false"</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">   <span class="keyword">print</span> <span class="string">"5 - 变量 a 和 b 都为 true"</span></span><br></pre></td></tr></table></figure></p>
+<p>以上实例输出结果：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> - 变量 a 和 b 都为 true</span><br><span class="line"><span class="number">2</span> - 变量 a 和 b 都为 true，或其中一个变量为 true</span><br><span class="line"><span class="number">3</span> - 变量 a 和 b 有一个不为 true</span><br><span class="line"><span class="number">4</span> - 变量 a 和 b 都为 true，或其中一个变量为 true</span><br><span class="line"><span class="number">5</span> - 变量 a 和 b 都为 false，或其中一个变量为 false</span><br></pre></td></tr></table></figure></p>
+<h3 id="Python_u8EAB_u4EFD_u8FD0_u7B97_u7B26"><a href="#Python_u8EAB_u4EFD_u8FD0_u7B97_u7B26" class="headerlink" title="Python身份运算符"></a>Python身份运算符</h3><p>身份运算符用于比较两个对象的存储单元</p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>描述</th>
+<th>实例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>is</td>
+<td>is是判断两个标识符是不是引用自一个对象</td>
+<td>x is y, 如果 id(x) 等于 id(y) , is 返回结果 1</td>
+</tr>
+<tr>
+<td>is not</td>
+<td>is not是判断两个标识符是不是引用自不同对象</td>
+<td>x is not y, 如果 id(x) 不等于 id(y). is not 返回结果 1</td>
+</tr>
+</tbody>
+</table>
+<p>以下实例演示了Python所有身份运算符的操作：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="comment"># -*- coding: UTF-8 -*-</span></span><br><span class="line"></span><br><span class="line">a = <span class="number">20</span></span><br><span class="line">b = <span class="number">20</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> ( a <span class="keyword">is</span> b ):</span><br><span class="line">   <span class="keyword">print</span> <span class="string">"1 - a 和 b 有相同的标识"</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">   <span class="keyword">print</span> <span class="string">"1 - a 和 b 没有相同的标识"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> ( id(a) == id(b) ):</span><br><span class="line">   <span class="keyword">print</span> <span class="string">"2 - a 和 b 有相同的标识"</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">   <span class="keyword">print</span> <span class="string">"2 - a 和 b 没有相同的标识"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改变量 b 的值</span></span><br><span class="line">b = <span class="number">30</span></span><br><span class="line"><span class="keyword">if</span> ( a <span class="keyword">is</span> b ):</span><br><span class="line">   <span class="keyword">print</span> <span class="string">"3 - a 和 b 有相同的标识"</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">   <span class="keyword">print</span> <span class="string">"3 - a 和 b 没有相同的标识"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> ( a <span class="keyword">is</span> <span class="keyword">not</span> b ):</span><br><span class="line">   <span class="keyword">print</span> <span class="string">"4 - a 和 b 没有相同的标识"</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">   <span class="keyword">print</span> <span class="string">"4 - a 和 b 有相同的标识"</span></span><br></pre></td></tr></table></figure></p>
+<p>以上实例输出结果：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> - a 和 b 有相同的标识</span><br><span class="line"><span class="number">2</span> - a 和 b 有相同的标识</span><br><span class="line"><span class="number">3</span> - a 和 b 没有相同的标识</span><br><span class="line"><span class="number">4</span> - a 和 b 没有相同的标识</span><br></pre></td></tr></table></figure></p>
+<h3 id="Python_u8FD0_u7B97_u7B26_u4F18_u5148_u7EA7"><a href="#Python_u8FD0_u7B97_u7B26_u4F18_u5148_u7EA7" class="headerlink" title="Python运算符优先级"></a>Python运算符优先级</h3><p>以下表格列出了从最高到最低优先级的所有运算符：</p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>**</em></td>
+<td>指数 (最高优先级)</td>
+</tr>
+<tr>
+<td>~ + -</td>
+<td>按位翻转, 一元加号和减号 (最后两个的方法名为 +@ 和 -@)</td>
+</tr>
+<tr>
+<td>* / % //</td>
+<td>乘，除，取模和取整除</td>
+</tr>
+<tr>
+<td>+ -</td>
+<td>加法减法</td>
+</tr>
+<tr>
+<td>&gt;&gt; &lt;&lt;</td>
+<td>右移，左移运算符</td>
+</tr>
+<tr>
+<td>&amp;</td>
+<td>位 ‘AND’</td>
+</tr>
+<tr>
+<td>^｜</td>
+<td>位运算符</td>
+</tr>
+<tr>
+<td>&lt;= &lt; &gt; &gt;=</td>
+<td>比较运算符</td>
+</tr>
+<tr>
+<td>= %= /= //= -= +== <em>**</em> =</td>
+<td>赋值运算符</td>
+</tr>
+<tr>
+<td>is is not</td>
+<td>身份运算符</td>
+</tr>
+<tr>
+<td>in not in</td>
+<td>成员运算符</td>
+</tr>
+<tr>
+<td>not or and</td>
+<td>逻辑运算符</td>
+</tr>
+</tbody>
+</table>
+<p>以下实例演示了Python所有运算符优先级的操作：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="comment"># -*- coding: UTF-8 -*-</span></span><br><span class="line"></span><br><span class="line">a = <span class="number">20</span></span><br><span class="line">b = <span class="number">10</span></span><br><span class="line">c = <span class="number">15</span></span><br><span class="line">d = <span class="number">5</span></span><br><span class="line">e = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">e = (a + b) * c / d       <span class="comment">#( 30 * 15 ) / 5</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"(a + b) * c / d 运算结果为："</span>,  e</span><br><span class="line"></span><br><span class="line">e = ((a + b) * c) / d     <span class="comment"># (30 * 15 ) / 5</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"((a + b) * c) / d 运算结果为："</span>,  e</span><br><span class="line"></span><br><span class="line">e = (a + b) * (c / d);    <span class="comment"># (30) * (15/5)</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"(a + b) * (c / d) 运算结果为："</span>,  e</span><br><span class="line"></span><br><span class="line">e = a + (b * c) / d;      <span class="comment">#  20 + (150/5)</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"a + (b * c) / d 运算结果为："</span>,  e</span><br></pre></td></tr></table></figure></p>
+<p>以上实例输出结果：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(a + b) * c / d 运算结果为： <span class="number">90</span></span><br><span class="line">((a + b) * c) / d 运算结果为： <span class="number">90</span></span><br><span class="line">(a + b) * (c / d) 运算结果为： <span class="number">90</span></span><br><span class="line">a + (b * c) / d 运算结果为： <span class="number">50</span></span><br></pre></td></tr></table></figure></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Bit/">Bit</a><a href="/tags/python/">python</a>
+  </div>
+
+
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://yoursite.com/2016/04/06/python-bit/" data-title="python位运算 | 那些你不知道的事" data-tsina="null" class="share clearfix">
+  </div>
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/04/07/redis-key/" title="redis键值对存储设置过期时间">
+  <strong>PREVIOUS:</strong><br/>
+  <span>
+  redis键值对存储设置过期时间</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/03/19/pyenv-use/"  title="pyenv管理开发环境">
+ <strong>NEXT:</strong><br/> 
+ <span>pyenv管理开发环境
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section class="comment">
+	
+	<div class="ds-thread" data-title="python位运算" data-thread-key="python-bit" data-author-key="Mr Ren" data-url="http://yoursite.com/post/python-bit"></div>
+	
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+  <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Python_u903B_u8F91_u8FD0_u7B97_u7B26"><span class="toc-number">1.</span> <span class="toc-text">Python逻辑运算符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Python_u8EAB_u4EFD_u8FD0_u7B97_u7B26"><span class="toc-number">2.</span> <span class="toc-text">Python身份运算符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Python_u8FD0_u7B97_u7B26_u4F18_u5148_u7EA7"><span class="toc-number">3.</span> <span class="toc-text">Python运算符优先级</span></a></li></ol>
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+<div id="authorInfo">
+	
+		<div class="author-logo"></div>		
+	
+	<div class="social-list" class="clearfix">
+		
+		
+		
+		
+		
+	</div>
+</div>
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+			<li><a href="/categories/工具/" title="工具">工具<sup>3</sup></a></li>
+		
+			<li><a href="/categories/软件/" title="软件">软件<sup>2</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/Bit/" title="Bit">Bit<sup>1</sup></a></li>
+		
+			<li><a href="/tags/apache/" title="apache">apache<sup>1</sup></a></li>
+		
+			<li><a href="/tags/apscheduler/" title="apscheduler">apscheduler<sup>1</sup></a></li>
+		
+			<li><a href="/tags/celery/" title="celery">celery<sup>1</sup></a></li>
+		
+			<li><a href="/tags/centos/" title="centos">centos<sup>1</sup></a></li>
+		
+			<li><a href="/tags/coney/" title="coney">coney<sup>1</sup></a></li>
+		
+			<li><a href="/tags/django/" title="django">django<sup>1</sup></a></li>
+		
+			<li><a href="/tags/git/" title="git">git<sup>1</sup></a></li>
+		
+			<li><a href="/tags/linux-python/" title="linux,python">linux,python<sup>1</sup></a></li>
+		
+			<li><a href="/tags/mosquitto-mqtt/" title="mosquitto,mqtt">mosquitto,mqtt<sup>1</sup></a></li>
+		
+			<li><a href="/tags/mysql/" title="mysql">mysql<sup>2</sup></a></li>
+		
+			<li><a href="/tags/nginx/" title="nginx">nginx<sup>2</sup></a></li>
+		
+			<li><a href="/tags/pyenv/" title="pyenv">pyenv<sup>1</sup></a></li>
+		
+			<li><a href="/tags/pyleus/" title="pyleus">pyleus<sup>1</sup></a></li>
+		
+			<li><a href="/tags/python/" title="python">python<sup>8</sup></a></li>
+		
+			<li><a href="/tags/python-yield/" title="python yield">python yield<sup>1</sup></a></li>
+		
+			<li><a href="/tags/redis/" title="redis">redis<sup>1</sup></a></li>
+		
+			<li><a href="/tags/thrift/" title="thrift">thrift<sup>1</sup></a></li>
+		
+			<li><a href="/tags/ubuntu/" title="ubuntu">ubuntu<sup>1</sup></a></li>
+		
+			<li><a href="/tags/zookeeper/" title="zookeeper">zookeeper<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+      <li><a href="http://hexo.io" target="_blank" title="Hexo">Hexo</a></li>
+      <li><a href="http://www.cnblogs.com" target="_blank" title="coney">博客园</a></li>
+    </ul>
+</div>
+
+
+  <div class="rsspart">
+	<a href="atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">标签云</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/Bit/" style="font-size: 10px;">Bit</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/apscheduler/" style="font-size: 10px;">apscheduler</a> <a href="/tags/celery/" style="font-size: 10px;">celery</a> <a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/coney/" style="font-size: 10px;">coney</a> <a href="/tags/django/" style="font-size: 10px;">django</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/linux-python/" style="font-size: 10px;">linux,python</a> <a href="/tags/mosquitto-mqtt/" style="font-size: 10px;">mosquitto,mqtt</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/nginx/" style="font-size: 15px;">nginx</a> <a href="/tags/pyenv/" style="font-size: 10px;">pyenv</a> <a href="/tags/pyleus/" style="font-size: 10px;">pyleus</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/python-yield/" style="font-size: 10px;">python yield</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/thrift/" style="font-size: 10px;">thrift</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/消息验证/" style="font-size: 10px;">消息验证</a>
+    </div>
+  </div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+    
+            <p class="copyright"> © 2016 
+		
+		<a href="http://yoursite.com" target="_blank" title="Mr Ren">Mr Ren</a>
+		
+            && Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> && Theme by <a href="http://gengbiao.me" target="_blank" title="coney">coney</a>
+            </div>
+</footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"cherrish"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+<script>
+    
+        var _bdImg = '2';
+    
+    window._bd_share_config={
+        "common":{
+            "bdSnsKey":{
+
+            },
+            "bdText":"",
+            "bdMini":"2",
+            "bdMiniList":[
+                "qzone",
+                "tsina",
+                "weixin",
+                "renren",
+                "tqq",
+                "tieba",
+                "douban",
+                "sqq",
+                "diandian",
+                "huaban",
+                "youdao",
+                "mail",
+                "ty",
+                "fbook",
+                "twi",
+                "linkedin",
+                "copy",
+                "print"
+            ],
+            "bdPic":"",
+            "bdStyle":"0",
+            "bdSize":"16"
+        },
+        "slide":{
+            "type":"slide",
+            "bdImg":_bdImg,
+            "bdPos":"right",
+            "bdTop":"350"
+        },
+        "image":{
+            "viewList":[
+                "weixin",
+                "qzone",
+                "tsina",
+                "renren",
+                "douban",
+                "tqq"
+            ],
+            "viewText":"分享：",
+            "viewSize":"16"
+        },
+        "selectShare":{
+            "bdContainerClass":null,
+            "bdSelectMiniList":[
+                "weixin",
+                "qzone",
+                "tsina",
+                "renren",
+                "douban",
+                "tqq"
+            ]
+        }
+    };
+    with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+
+
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'null', 'null');  
+ga('send', 'pageview');
+</script>
+
+
+  </body>
+</html>
+
