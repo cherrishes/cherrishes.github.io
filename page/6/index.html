@@ -7,12 +7,12 @@
   <meta name="360-site-verification" content="67fbcc5a67f4c65c057315b28fa0b2c8" />
 <meta name="google-site-verification" content="2GzxQ0VtXwTSUdmGm6DzcmhTzM_I9QmzCb_pzpMzD88" />
   
-    <title>关于python处理中文时间的问题 | 那些你不知道的事</title>
+    <title>那些你不知道的事</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="Mr Ren">
     
-    <meta name="description" content="python中关于中文字符的处理123456#!/usr/bin/env python3# -*- coding: utf-8 -*-from datetime import datetiment=datetime.now()print(nt.strftime(&#39;%Y年%m月%d日 %H时%M分%S">
+    <meta name="description" content="蝴蝶眨几次眼睛才学会飞行">
     
     
     
@@ -222,95 +222,30 @@
 
     </header>
     <div id="container">
-      <div id="main" class="post" itemscope itemprop="blogPost">
-	<article itemprop="articleBody"> 
-		<header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/05/10/python-deal-time/" title="关于python处理中文时间的问题" itemprop="url">关于python处理中文时间的问题</a>
-  </h1>
-  <p class="article-author">By
-    
-      <a href="http://yoursite.com" title="Mr Ren">Mr Ren</a>
-    </p>
-  <p class="article-time">
-    <time datetime="2016-05-10T05:38:47.000Z" itemprop="datePublished">2016-05-10</time>
-    更新日期:<time datetime="2016-05-10T05:46:42.440Z" itemprop="dateModified">2016-05-10</time>
-    
-  </p>
-</header>
-	<div class="article-content">
-		
-		
-		<div id="toc" class="toc-article">
-			<strong class="toc-title">文章目录</strong>
-		<ol class="toc"><li class="toc-item toc-level-6"><a class="toc-link" href="#u7B2C_u4E00_u79CD_u65B9_u6CD5_uFF1A"><span class="toc-number">1.</span> <span class="toc-text">第一种方法：</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#u7B2C_u4E8C_u79CD_u65B9_u6CD5_uFF1A"><span class="toc-number">2.</span> <span class="toc-text">第二种方法：</span></a></li></ol>
-		</div>
-		
-		<p>python中关于中文字符的处理<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</span><br><span class="line">nt=datetime.now()</span><br><span class="line">print(nt.strftime(<span class="string">'%Y年%m月%d日 %H时%M分%S秒'</span>))</span><br></pre></td></tr></table></figure></p>
-<p>在linux系统下运行不会有问题，但是在windows系统下会报错<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Traceback (most recent call last):</span><br><span class="line"> 	<span class="keyword">File</span> <span class="string">"test.py"</span>, <span class="keyword">line</span> 6, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">   	<span class="keyword">print</span>(nt.strftime('%Y年%<span class="keyword">m</span>月%<span class="keyword">d</span>日 %<span class="keyword">H</span>时%<span class="keyword">M</span>分%S秒'))</span><br><span class="line">UnicodeEncodeError: 'locale' codec can't <span class="keyword">encode</span> character '\u5e74' <span class="keyword">in</span> position 2</span><br><span class="line">: Illegal byte sequence</span><br></pre></td></tr></table></figure></p>
-<p>有以下两种解决方案</p>
-<h6 id="u7B2C_u4E00_u79CD_u65B9_u6CD5_uFF1A"><a href="#u7B2C_u4E00_u79CD_u65B9_u6CD5_uFF1A" class="headerlink" title="第一种方法："></a>第一种方法：</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="keyword">import</span> locale</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>locale.setlocale(locale.LC_CTYPE, <span class="string">'chinese'</span>)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>print(nt.strftime(<span class="string">'%Y年%m月%d日'</span>))</span><br><span class="line"><span class="number">2015</span>年<span class="number">08</span>月<span class="number">10</span>日</span><br></pre></td></tr></table></figure>
-<p>原理是：“在Windows里，time.strftime使用C运行时的多字节字符串函数strftime，这个函数必须先根据当前locale配置来编码格式化字符串（使用PyUnicode_EncodeLocale）。”如果不设置好locale的话，根据默认的”C” locale，底层的wcstombs函数会使用latin-1编码（单字节编码）来编码格式化字符串，然后导致题主提供的多字节编码的字符串在编码时出错。</p>
-<h6 id="u7B2C_u4E8C_u79CD_u65B9_u6CD5_uFF1A"><a href="#u7B2C_u4E8C_u79CD_u65B9_u6CD5_uFF1A" class="headerlink" title="第二种方法："></a>第二种方法：</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(nt.strftime(<span class="string">'%Y&#123;y&#125;%m&#123;m&#125;%d&#123;d&#125;'</span>).format(y=<span class="string">'年'</span>, m=<span class="string">'月'</span>, d=<span class="string">'日'</span>))</span><br></pre></td></tr></table></figure>
-<p>原理是：既然直接丢中文字符进去会出错，那么就绕过这个问题，丢（可能）永远不会出错的ascii字符进去充当占位符，格式化完毕后再将占位符换回中文字符。</p>
+      <div id="main">
+
+
+  <section class="post" itemscope itemprop="blogPost">
   
-	</div>
-		<footer class="article-footer clearfix">
-
-  <div class="article-tags">
+    <a href="/2015/12/23/message-signature/" title="消息验证" itemprop="url">
   
-  <span></span> <a href="/tags/locale/">locale</a><a href="/tags/python/">python</a>
-  </div>
-
-
-
-
-<div class="article-share" id="share">
-
-  <div data-url="http://yoursite.com/2016/05/10/python-deal-time/" data-title="关于python处理中文时间的问题 | 那些你不知道的事" data-tsina="null" class="share clearfix">
-  </div>
-
-</div>
-</footer>   	       
-	</article>
-	
-<nav class="article-nav clearfix">
- 
- <div class="prev" >
- <a href="/2016/05/31/shuiyi/" title="shuiyi">
-  <strong>PREVIOUS:</strong><br/>
-  <span>
-  shuiyi</span>
-</a>
-</div>
-
-
-<div class="next">
-<a href="/2016/04/20/python-requests/"  title="python-requests">
- <strong>NEXT:</strong><br/> 
- <span>python-requests
-</span>
-</a>
-</div>
-
-</nav>
-
-	
-<section class="comment">
-	
-	<div class="ds-thread" data-title="关于python处理中文时间的问题" data-thread-key="python-deal-time" data-author-key="Mr Ren" data-url="http://yoursite.com/post/python-deal-time"></div>
-	
+      <time datetime="2015-12-23T05:03:54.000Z" itemprop="datePublished">2015-12-23</time>
+    <h1 itemprop="name">消息验证</h1>
+    
+     
+       <p itemprop="description" >签名算法在开发者首次提交验证申请时，服务器将会发送GET请求到填写的URL上，并且带上四个参数（signature、timestamp、nonce、echostr），开发者通过对签名（即signature）的效验，来判断此条消息的真实性。</p>
+      
+    
+  </a>
 </section>
 
 
-</div>  
-      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+  <nav id="page-nav" class="clearfix">
+    <a class="extend prev" rel="prev" href="/page/5/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span>
+  </nav>
 
-  <div id="toc" class="toc-aside">
-  <strong class="toc-title">文章目录</strong>
-  <ol class="toc"><li class="toc-item toc-level-6"><a class="toc-link" href="#u7B2C_u4E00_u79CD_u65B9_u6CD5_uFF1A"><span class="toc-number">1.</span> <span class="toc-text">第一种方法：</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#u7B2C_u4E8C_u79CD_u65B9_u6CD5_uFF1A"><span class="toc-number">2.</span> <span class="toc-text">第二种方法：</span></a></li></ol>
-  </div>
+</div>
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
 
 <div id="asidepart">
 <div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
@@ -414,8 +349,8 @@
 
 </aside>
 </div>
-    </div>
-    <footer><div id="footer" >
+  </div>
+  <footer><div id="footer" >
     
             <p class="copyright"> © 2016 
 		
@@ -451,8 +386,6 @@ $(document).ready(function(){
       m.removeClass('moveMain');
       a.css('display', 'block').removeClass('fadeOut');
       o.css('display', 'none');
-      
-      $('#toc.toc-aside').css('display', 'none');
         
     }
   });
@@ -472,79 +405,7 @@ $(document).ready(function(){
 });
 </script>
 
-<script type="text/javascript">
-$(document).ready(function(){ 
-  var ai = $('.article-content>iframe'),
-      ae = $('.article-content>embed'),
-      t  = $('#toc'),
-      h  = $('article h2')
-      ah = $('article h2'),
-      ta = $('#toc.toc-aside'),
-      o  = $('.openaside'),
-      c  = $('.closeaside');
-  if(ai.length>0){
-    ai.wrap('<div class="video-container" />');
-  };
-  if(ae.length>0){
-   ae.wrap('<div class="video-container" />');
-  };
-  if(ah.length==0){
-    t.css('display','none');
-  }else{
-    c.click(function(){
-      ta.css('display', 'block').addClass('fadeIn');
-    });
-    o.click(function(){
-      ta.css('display', 'none');
-    });
-    $(window).scroll(function(){
-      ta.css("top",Math.max(140,320-$(this).scrollTop()));
-    });
-  };
-});
-</script>
 
-
-<script type="text/javascript">
-$(document).ready(function(){ 
-  var $this = $('.share'),
-      url = $this.attr('data-url'),
-      encodedUrl = encodeURIComponent(url),
-      title = $this.attr('data-title'),
-      tsina = $this.attr('data-tsina');
-  var html = [
-  '<a href="#" class="overlay" id="qrcode"></a>',
-  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
-  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
-  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
-  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
-  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
-  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
-  '<span title="Share to"></span>'
-  ].join('');
-  $this.append(html);
-  $('.article-share-qrcode').click(function(){
-    var imgSrc = $('#qrcode-pic').attr('data-src');
-    $('#qrcode-pic').attr('src', imgSrc);
-    $('#qrcode-pic').load(function(){
-        $('.qrcode strong').text(' ');
-    });
-  });
-});     
-</script>
-
-
-<script type="text/javascript">
-  var duoshuoQuery = {short_name:"cherrish"};
-  (function() {
-    var ds = document.createElement('script');
-    ds.type = 'text/javascript';ds.async = true;
-    ds.src = '//static.duoshuo.com/embed.js';
-    ds.charset = 'UTF-8';
-    (document.getElementsByTagName('head')[0] 
-    || document.getElementsByTagName('body')[0]).appendChild(ds);
-  })();
-</script> 
 
 
 
@@ -633,5 +494,5 @@ ga('send', 'pageview');
 
 
   </body>
-</html>
+ </html>
 
