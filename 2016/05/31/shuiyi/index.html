@@ -7,10 +7,12 @@
   <meta name="360-site-verification" content="67fbcc5a67f4c65c057315b28fa0b2c8" />
 <meta name="google-site-verification" content="2GzxQ0VtXwTSUdmGm6DzcmhTzM_I9QmzCb_pzpMzD88" />
   
-    <title>shuiyi | 那些你不知道的事</title>
+    <title>MongoDB 正则表达式 | 那些你不知道的事</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="Mr Ren">
+    
+    <meta name="description" content="正则表达式是使用单个字符串来描述、匹配一系列符合某个句法规则的字符串。许多程序设计语言都支持利用正则表达式进行字符串操作。MongoDB 使用 $regex 操作符来设置匹配字符串的正则表达式。考虑以下 posts 集合的文档结构，该文档包含了文章内容和标签：1234567&amp;#123;   &quot;pos">
     
     
     
@@ -225,7 +227,7 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/05/31/shuiyi/" title="shuiyi" itemprop="url">shuiyi</a>
+      <a href="/2016/05/31/shuiyi/" title="MongoDB 正则表达式" itemprop="url">MongoDB 正则表达式</a>
   </h1>
   <p class="article-author">By
     
@@ -233,7 +235,7 @@
     </p>
   <p class="article-time">
     <time datetime="2016-05-31T11:25:23.000Z" itemprop="datePublished">2016-05-31</time>
-    更新日期:<time datetime="2016-05-31T11:25:23.848Z" itemprop="dateModified">2016-05-31</time>
+    更新日期:<time datetime="2016-06-14T12:22:39.019Z" itemprop="dateModified">2016-06-14</time>
     
   </p>
 </header>
@@ -242,19 +244,33 @@
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
-		
+		<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#u4F7F_u7528_u6B63_u5219_u8868_u8FBE_u5F0F"><span class="toc-number">1.</span> <span class="toc-text">使用正则表达式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u4E0D_u533A_u5206_u5927_u5C0F_u5199_u7684_u6B63_u5219_u8868_u8FBE_u5F0F"><span class="toc-number">2.</span> <span class="toc-text">不区分大小写的正则表达式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u4F18_u5316_u6B63_u5219_u8868_u8FBE_u5F0F_u67E5_u8BE2"><span class="toc-number">3.</span> <span class="toc-text">优化正则表达式查询</span></a></li></ol>
 		</div>
 		
-		  
+		<p>正则表达式是使用单个字符串来描述、匹配一系列符合某个句法规则的字符串。<br>许多程序设计语言都支持利用正则表达式进行字符串操作。<br>MongoDB 使用 $regex 操作符来设置匹配字符串的正则表达式。<br>考虑以下 posts 集合的文档结构，该文档包含了文章内容和标签：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">   <span class="string">"post_text"</span>: <span class="string">"enjoy the mongodb articles on tutorialspoint"</span>,</span><br><span class="line">   <span class="string">"tags"</span>: [</span><br><span class="line">      <span class="string">"mongodb"</span>,</span><br><span class="line">      <span class="string">"tutorialspoint"</span></span><br><span class="line">   ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="u4F7F_u7528_u6B63_u5219_u8868_u8FBE_u5F0F"><a href="#u4F7F_u7528_u6B63_u5219_u8868_u8FBE_u5F0F" class="headerlink" title="使用正则表达式"></a>使用正则表达式</h4><p>以下命令使用正则表达式查找包含 rdy_test 字符串的文章：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.posts.find(&#123;post_text:&#123;$regex:<span class="string">"w3cschool.cc"</span>&#125;&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>以上查询也可以写为：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.posts.find(&#123;post_text:/w3cschool.cc/&#125;)</span><br></pre></td></tr></table></figure></p>
+<h4 id="u4E0D_u533A_u5206_u5927_u5C0F_u5199_u7684_u6B63_u5219_u8868_u8FBE_u5F0F"><a href="#u4E0D_u533A_u5206_u5927_u5C0F_u5199_u7684_u6B63_u5219_u8868_u8FBE_u5F0F" class="headerlink" title="不区分大小写的正则表达式"></a>不区分大小写的正则表达式</h4><p>如果检索需要不区分大小写，我们可以设置 $options 为 $i。<br>以下命令将查找不区分大小写的字符串 rdy_test：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.posts.find(&#123;post_text:&#123;$regex:<span class="string">"w3cschool.cc"</span>,$options:<span class="string">"$i"</span>&#125;&#125;)</span><br></pre></td></tr></table></figure></p>
+<h4 id="u4F18_u5316_u6B63_u5219_u8868_u8FBE_u5F0F_u67E5_u8BE2"><a href="#u4F18_u5316_u6B63_u5219_u8868_u8FBE_u5F0F_u67E5_u8BE2" class="headerlink" title="优化正则表达式查询"></a>优化正则表达式查询</h4><ul>
+<li>如果你的文档中字段设置了索引，那么使用索引相比于正则表达式匹配查找所有的数据查询速度更快。</li>
+<li>如果正则表达式是前缀表达式，所有匹配的数据将以指定的前缀字符串为开始。例如： 如果正则表达式为 ^tut ，查询语句将查找以 tut 为开头的字符串。</li>
+</ul>
+<p><a href="http://www.runoob.com/mongodb/mongodb-regular-expression.html" target="_blank" rel="external">MongoDB学习</a></p>
+  
 	</div>
 		<footer class="article-footer clearfix">
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/MongoDB/">MongoDB</a><a href="/tags/Python/">Python</a>
+  </div>
 
 
 
 
 <div class="article-share" id="share">
 
-  <div data-url="http://yoursite.com/2016/05/31/shuiyi/" data-title="shuiyi | 那些你不知道的事" data-tsina="null" class="share clearfix">
+  <div data-url="http://yoursite.com/2016/05/31/shuiyi/" data-title="MongoDB 正则表达式 | 那些你不知道的事" data-tsina="null" class="share clearfix">
   </div>
 
 </div>
@@ -285,7 +301,7 @@
 	
 <section class="comment">
 	
-	<div class="ds-thread" data-title="shuiyi" data-thread-key="shuiyi" data-author-key="Mr Ren" data-url="http://yoursite.com/post/shuiyi"></div>
+	<div class="ds-thread" data-title="MongoDB 正则表达式" data-thread-key="shuiyi" data-author-key="Mr Ren" data-url="http://yoursite.com/post/shuiyi"></div>
 	
 </section>
 
@@ -295,7 +311,7 @@
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
-  
+  <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#u4F7F_u7528_u6B63_u5219_u8868_u8FBE_u5F0F"><span class="toc-number">1.</span> <span class="toc-text">使用正则表达式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u4E0D_u533A_u5206_u5927_u5C0F_u5199_u7684_u6B63_u5219_u8868_u8FBE_u5F0F"><span class="toc-number">2.</span> <span class="toc-text">不区分大小写的正则表达式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u4F18_u5316_u6B63_u5219_u8868_u8FBE_u5F0F_u67E5_u8BE2"><span class="toc-number">3.</span> <span class="toc-text">优化正则表达式查询</span></a></li></ol>
   </div>
 
 <div id="asidepart">
@@ -336,6 +352,10 @@
 		
 			<li><a href="/tags/IT/" title="IT">IT<sup>1</sup></a></li>
 		
+			<li><a href="/tags/MongoDB/" title="MongoDB">MongoDB<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Python/" title="Python">Python<sup>1</sup></a></li>
+		
 			<li><a href="/tags/apache/" title="apache">apache<sup>1</sup></a></li>
 		
 			<li><a href="/tags/apscheduler/" title="apscheduler">apscheduler<sup>1</sup></a></li>
@@ -368,10 +388,6 @@
 		
 			<li><a href="/tags/pyleus/" title="pyleus">pyleus<sup>1</sup></a></li>
 		
-			<li><a href="/tags/python/" title="python">python<sup>10</sup></a></li>
-		
-			<li><a href="/tags/python-yield/" title="python yield">python yield<sup>1</sup></a></li>
-		
 		</ul>
 </div>
 
@@ -393,7 +409,7 @@
   <div class="tagcloudlist">
     <p class="asidetitle">标签云</p>
     <div class="tagcloudlist clearfix">
-       <a href="/tags/Bit/" style="font-size: 10px;">Bit</a> <a href="/tags/IT/" style="font-size: 10px;">IT</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/apscheduler/" style="font-size: 10px;">apscheduler</a> <a href="/tags/celery/" style="font-size: 10px;">celery</a> <a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/clothing/" style="font-size: 10px;">clothing</a> <a href="/tags/cloud/" style="font-size: 10px;">cloud</a> <a href="/tags/coney/" style="font-size: 10px;">coney</a> <a href="/tags/django/" style="font-size: 10px;">django</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/linux-python/" style="font-size: 10px;">linux,python</a> <a href="/tags/locale/" style="font-size: 10px;">locale</a> <a href="/tags/mosquitto-mqtt/" style="font-size: 10px;">mosquitto,mqtt</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/nginx/" style="font-size: 15px;">nginx</a> <a href="/tags/pyenv/" style="font-size: 10px;">pyenv</a> <a href="/tags/pyleus/" style="font-size: 10px;">pyleus</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/python-yield/" style="font-size: 10px;">python yield</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/requests/" style="font-size: 10px;">requests</a> <a href="/tags/thrift/" style="font-size: 10px;">thrift</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/消息验证/" style="font-size: 10px;">消息验证</a> <a href="/tags/终结/" style="font-size: 10px;">终结</a>
+       <a href="/tags/Bit/" style="font-size: 10px;">Bit</a> <a href="/tags/IT/" style="font-size: 10px;">IT</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/apscheduler/" style="font-size: 10px;">apscheduler</a> <a href="/tags/celery/" style="font-size: 10px;">celery</a> <a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/clothing/" style="font-size: 10px;">clothing</a> <a href="/tags/cloud/" style="font-size: 10px;">cloud</a> <a href="/tags/coney/" style="font-size: 10px;">coney</a> <a href="/tags/django/" style="font-size: 10px;">django</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/linux-python/" style="font-size: 10px;">linux,python</a> <a href="/tags/locale/" style="font-size: 10px;">locale</a> <a href="/tags/mosquitto-mqtt/" style="font-size: 10px;">mosquitto,mqtt</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/nginx/" style="font-size: 15px;">nginx</a> <a href="/tags/pyenv/" style="font-size: 10px;">pyenv</a> <a href="/tags/pyleus/" style="font-size: 10px;">pyleus</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/python-yield/" style="font-size: 10px;">python yield</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/requests/" style="font-size: 10px;">requests</a> <a href="/tags/thrift/" style="font-size: 10px;">thrift</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/消息验证/" style="font-size: 10px;">消息验证</a> <a href="/tags/终结/" style="font-size: 10px;">终结</a>
     </div>
   </div>
 
