@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Python使用的一些小技巧 | 那些你不知道的事</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="123456789x = 6y = 5 x, y = y, x print(x)&amp;gt;&amp;gt;&amp;gt; 5print(y)&amp;gt;&amp;gt;&amp;gt; 6
+if 语句在行内12print(&quot;Hello&quot;) if True else print(&quot;World&quot;)&amp;gt;&amp;gt;&amp;gt; Hello">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python使用的一些小技巧">
+<meta property="og:url" content="http://www.cherrypy.net:82/2016/07/22/python-tips/index.html">
+<meta property="og:site_name" content="那些你不知道的事">
+<meta property="og:description" content="123456789x = 6y = 5 x, y = y, x print(x)&amp;gt;&amp;gt;&amp;gt; 5print(y)&amp;gt;&amp;gt;&amp;gt; 6
+if 语句在行内12print(&quot;Hello&quot;) if True else print(&quot;World&quot;)&amp;gt;&amp;gt;&amp;gt; Hello">
+<meta property="og:updated_time" content="2016-07-22T01:36:27.961Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python使用的一些小技巧">
+<meta name="twitter:description" content="123456789x = 6y = 5 x, y = y, x print(x)&amp;gt;&amp;gt;&amp;gt; 5print(y)&amp;gt;&amp;gt;&amp;gt; 6
+if 语句在行内12print(&quot;Hello&quot;) if True else print(&quot;World&quot;)&amp;gt;&amp;gt;&amp;gt; Hello">
+  
+    <link rel="alternative" href="/atom.xml" title="那些你不知道的事" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/img/me.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Mr Ren</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">你不知道我为什么离开你</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>標籤</li>
+						
+						
+						<li>關於</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/tags/python">随笔</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/cherrishes" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="/#" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Bit/" style="font-size: 10px;">Bit</a> <a href="/tags/IT/" style="font-size: 10px;">IT</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/apscheduler/" style="font-size: 10px;">apscheduler</a> <a href="/tags/celery/" style="font-size: 10px;">celery</a> <a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/clothing/" style="font-size: 10px;">clothing</a> <a href="/tags/cloud/" style="font-size: 10px;">cloud</a> <a href="/tags/coney/" style="font-size: 10px;">coney</a> <a href="/tags/django/" style="font-size: 10px;">django</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/linux-python/" style="font-size: 10px;">linux,python</a> <a href="/tags/locale/" style="font-size: 10px;">locale</a> <a href="/tags/mosquitto-mqtt/" style="font-size: 10px;">mosquitto,mqtt</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/nginx/" style="font-size: 15px;">nginx</a> <a href="/tags/pyenv/" style="font-size: 10px;">pyenv</a> <a href="/tags/pyleus/" style="font-size: 10px;">pyleus</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/python-yield/" style="font-size: 10px;">python yield</a> <a href="/tags/random/" style="font-size: 10px;">random</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/requests/" style="font-size: 10px;">requests</a> <a href="/tags/thrift/" style="font-size: 10px;">thrift</a> <a href="/tags/tips/" style="font-size: 10px;">tips</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/消息验证/" style="font-size: 10px;">消息验证</a> <a href="/tags/终结/" style="font-size: 10px;">终结</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">我就是我，是颜色不一样的烟火…</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Mr Ren</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/img/me.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Mr Ren</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">你不知道我为什么离开你</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/tags/python">随笔</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/cherrishes" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="/#" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-python-tips" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/07/22/python-tips/" class="article-date">
+  	<time datetime="2016-07-22T00:57:07.000Z" itemprop="datePublished">2016-07-22</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Python使用的一些小技巧
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tips/">tips</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="number">6</span></span><br><span class="line">y = <span class="number">5</span></span><br><span class="line"> </span><br><span class="line">x, y = y, x</span><br><span class="line"> </span><br><span class="line">print(x)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="number">5</span></span><br><span class="line">print(y)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="number">6</span></span><br></pre></td></tr></table></figure>
+<h4 id="if__u8BED_u53E5_u5728_u884C_u5185"><a href="#if__u8BED_u53E5_u5728_u884C_u5185" class="headerlink" title="if 语句在行内"></a>if 语句在行内</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="string">"Hello"</span>) <span class="keyword">if</span> <span class="keyword">True</span> <span class="keyword">else</span> print(<span class="string">"World"</span>)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>Hello</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h4 id="u8BA1_u7B97_u6280_u5DE7"><a href="#u8BA1_u7B97_u6280_u5DE7" class="headerlink" title="计算技巧"></a>计算技巧</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#向下取整</span></span><br><span class="line">print(<span class="number">5.0</span>//<span class="number">2</span>)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="number">2</span></span><br><span class="line"><span class="comment"># 2的5次方</span></span><br><span class="line">print(<span class="number">2</span>**<span class="number">5</span>)</span><br><span class="line">&gt;&gt; <span class="number">32</span></span><br></pre></td></tr></table></figure>
+<h4 id="u6CE8_u610F_u6D6E_u70B9_u6570_u7684_u9664_u6CD5"><a href="#u6CE8_u610F_u6D6E_u70B9_u6570_u7684_u9664_u6CD5" class="headerlink" title="注意浮点数的除法"></a>注意浮点数的除法</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="number">.3</span>/<span class="number">.1</span>)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="number">2.9999999999999996</span></span><br><span class="line">print(<span class="number">.3</span>//<span class="number">.1</span>)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="number">2.0</span></span><br></pre></td></tr></table></figure>
+<h4 id="u4E24_u4E2A_u5217_u8868_u540C_u65F6_u8FED_u4EE3"><a href="#u4E24_u4E2A_u5217_u8868_u540C_u65F6_u8FED_u4EE3" class="headerlink" title="两个列表同时迭代"></a>两个列表同时迭代</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">nfc = [<span class="string">"Packers"</span>, <span class="string">"49ers"</span>]</span><br><span class="line">afc = [<span class="string">"Ravens"</span>, <span class="string">"Patriots"</span>]</span><br><span class="line"><span class="keyword">for</span> teama, teamb <span class="keyword">in</span> zip(nfc, afc):</span><br><span class="line">    print(teama + <span class="string">" vs. "</span> + teamb)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>Packers vs. Ravens</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="number">49</span>ers vs. Patriots</span><br></pre></td></tr></table></figure>
+<h4 id="u5E26_u7D22_u5F15_u7684_u5217_u8868_u8FED_u4EE3"><a href="#u5E26_u7D22_u5F15_u7684_u5217_u8868_u8FED_u4EE3" class="headerlink" title="带索引的列表迭代"></a>带索引的列表迭代</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">teams = [<span class="string">"Packers"</span>, <span class="string">"49ers"</span>, <span class="string">"Ravens"</span>, <span class="string">"Patriots"</span>]</span><br><span class="line"><span class="keyword">for</span> index, team <span class="keyword">in</span> enumerate(teams):</span><br><span class="line">    print(index, team)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="number">0</span> Packers</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="number">1</span> <span class="number">49</span>ers</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="number">2</span> Ravens</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="number">3</span> Patriots</span><br></pre></td></tr></table></figure>
+<h4 id="u5217_u8868_u63A8_u5BFC"><a href="#u5217_u8868_u63A8_u5BFC" class="headerlink" title="列表推导"></a>列表推导</h4><p>已知一个列表，刷选出偶数列表方法：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">numbers = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>]</span><br><span class="line">even = []</span><br><span class="line"><span class="keyword">for</span> numberin numbers:</span><br><span class="line">    <span class="keyword">if</span> number%<span class="number">2</span> == <span class="number">0</span>:</span><br><span class="line">        even.append(number)</span><br></pre></td></tr></table></figure></p>
+<p>用下面的代替<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">numbers = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>]</span><br><span class="line">even = [numberfor numberin numbersif number%<span class="number">2</span> == <span class="number">0</span>]</span><br></pre></td></tr></table></figure></p>
+<h4 id="u5B57_u5178_u63A8_u5BFC"><a href="#u5B57_u5178_u63A8_u5BFC" class="headerlink" title="字典推导"></a>字典推导</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">teams = [<span class="string">"Packers"</span>, <span class="string">"49ers"</span>, <span class="string">"Ravens"</span>, <span class="string">"Patriots"</span>]</span><br><span class="line">print(&#123;key: value <span class="keyword">for</span> value, key <span class="keyword">in</span> enumerate(teams)&#125;)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>&#123;<span class="string">'49ers'</span>: <span class="number">1</span>, <span class="string">'Ravens'</span>: <span class="number">2</span>, <span class="string">'Patriots'</span>: <span class="number">3</span>, <span class="string">'Packers'</span>: <span class="number">0</span>&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="u521D_u59CB_u5316_u5217_u8868_u7684_u503C"><a href="#u521D_u59CB_u5316_u5217_u8868_u7684_u503C" class="headerlink" title="初始化列表的值"></a>初始化列表的值</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">items = [<span class="number">0</span>]*<span class="number">3</span></span><br><span class="line">print(items)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>[<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>]</span><br></pre></td></tr></table></figure>
+<h4 id="u5C06_u5217_u8868_u8F6C_u6362_u6210_u5B57_u7B26_u4E32"><a href="#u5C06_u5217_u8868_u8F6C_u6362_u6210_u5B57_u7B26_u4E32" class="headerlink" title="将列表转换成字符串"></a>将列表转换成字符串</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">teams = [<span class="string">"Packers"</span>, <span class="string">"49ers"</span>, <span class="string">"Ravens"</span>, <span class="string">"Patriots"</span>]</span><br><span class="line">print(<span class="string">", "</span>.join(teams))</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="string">'Packers, 49ers, Ravens, Patriots'</span></span><br></pre></td></tr></table></figure>
+<h4 id="u4ECE_u5B57_u5178_u4E2D_u83B7_u53D6_u5143_u7D20"><a href="#u4ECE_u5B57_u5178_u4E2D_u83B7_u53D6_u5143_u7D20" class="headerlink" title="从字典中获取元素"></a>从字典中获取元素</h4><p>不要用下列的方式<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">data = &#123;<span class="string">'user'</span>: <span class="number">1</span>, <span class="string">'name'</span>: <span class="string">'Max'</span>, <span class="string">'three'</span>: <span class="number">4</span>&#125;</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">  is_admin = data[<span class="string">'admin'</span>]</span><br><span class="line"><span class="keyword">except</span> KeyError:</span><br><span class="line">  is_admin = <span class="keyword">False</span></span><br></pre></td></tr></table></figure></p>
+<p>替换为<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">data = &#123;<span class="string">'user'</span>: <span class="number">1</span>, <span class="string">'name'</span>: <span class="string">'Max'</span>, <span class="string">'three'</span>: <span class="number">4</span>&#125;</span><br><span class="line">is_admin = data.get(<span class="string">'admin'</span>, <span class="keyword">False</span>)</span><br></pre></td></tr></table></figure></p>
+<h4 id="u83B7_u53D6_u5B50_u5217_u8868"><a href="#u83B7_u53D6_u5B50_u5217_u8868" class="headerlink" title="获取子列表"></a>获取子列表</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">x = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>]</span><br><span class="line"><span class="comment">#前3个</span></span><br><span class="line"><span class="keyword">print</span> x[:<span class="number">3</span>]</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line"><span class="comment">#中间4个</span></span><br><span class="line"><span class="keyword">print</span> x[<span class="number">1</span>:<span class="number">5</span>]</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>[<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]</span><br><span class="line"><span class="comment">#最后3个</span></span><br><span class="line"><span class="keyword">print</span> x[-<span class="number">3</span>:]</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>[<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>]</span><br><span class="line"><span class="comment">#奇数项</span></span><br><span class="line"><span class="keyword">print</span> x[::<span class="number">2</span>]</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>[<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>]</span><br><span class="line"><span class="comment">#偶数项</span></span><br><span class="line"><span class="keyword">print</span> x[<span class="number">1</span>::<span class="number">2</span>]</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>[<span class="number">2</span>,<span class="number">4</span>,<span class="number">6</span>]</span><br></pre></td></tr></table></figure>
+<h4 id="u96C6_u5408"><a href="#u96C6_u5408" class="headerlink" title="集合"></a>集合</h4><p>用到Counter库<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> Counter</span><br><span class="line">print(Counter(<span class="string">"hello"</span>))</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>Counter(&#123;<span class="string">'l'</span>: <span class="number">2</span>, <span class="string">'h'</span>: <span class="number">1</span>, <span class="string">'e'</span>: <span class="number">1</span>, <span class="string">'o'</span>: <span class="number">1</span>&#125;)</span><br></pre></td></tr></table></figure></p>
+<h4 id="u8FED_u4EE3_u5DE5_u5177"><a href="#u8FED_u4EE3_u5DE5_u5177" class="headerlink" title="迭代工具"></a>迭代工具</h4><p>和collections库一样，还有一个库叫itertools<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> itertools <span class="keyword">import</span> combinations</span><br><span class="line">teams = [<span class="string">"Packers"</span>, <span class="string">"49ers"</span>, <span class="string">"Ravens"</span>, <span class="string">"Patriots"</span>]</span><br><span class="line"><span class="keyword">for</span> game <span class="keyword">in</span> combinations(teams, <span class="number">2</span>):</span><br><span class="line">    print(game)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>(<span class="string">'Packers'</span>, <span class="string">'49ers'</span>)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>(<span class="string">'Packers'</span>, <span class="string">'Ravens'</span>)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>(<span class="string">'Packers'</span>, <span class="string">'Patriots'</span>)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>(<span class="string">'49ers'</span>, <span class="string">'Ravens'</span>)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>(<span class="string">'49ers'</span>, <span class="string">'Patriots'</span>)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>(<span class="string">'Ravens'</span>, <span class="string">'Patriots'</span>)</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/07/25/python-random/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          python random模块
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/06/14/cloud-clothing/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">服装流行趋势预测机制</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="python-tips" data-title="Python使用的一些小技巧" data-url="http://www.cherrypy.net:82/2016/07/22/python-tips/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"cherrish"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 Mr Ren
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
