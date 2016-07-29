@@ -109,7 +109,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Bit/" style="font-size: 10px;">Bit</a> <a href="/tags/IT/" style="font-size: 10px;">IT</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/apscheduler/" style="font-size: 10px;">apscheduler</a> <a href="/tags/celery/" style="font-size: 10px;">celery</a> <a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/clothing/" style="font-size: 10px;">clothing</a> <a href="/tags/cloud/" style="font-size: 10px;">cloud</a> <a href="/tags/coney/" style="font-size: 10px;">coney</a> <a href="/tags/django/" style="font-size: 10px;">django</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/linux-python/" style="font-size: 10px;">linux,python</a> <a href="/tags/locale/" style="font-size: 10px;">locale</a> <a href="/tags/mosquitto-mqtt/" style="font-size: 10px;">mosquitto,mqtt</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/nginx/" style="font-size: 15px;">nginx</a> <a href="/tags/pyenv/" style="font-size: 10px;">pyenv</a> <a href="/tags/pyleus/" style="font-size: 10px;">pyleus</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/python-yield/" style="font-size: 10px;">python yield</a> <a href="/tags/random/" style="font-size: 10px;">random</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/requests/" style="font-size: 10px;">requests</a> <a href="/tags/thrift/" style="font-size: 10px;">thrift</a> <a href="/tags/tips/" style="font-size: 10px;">tips</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/消息验证/" style="font-size: 10px;">消息验证</a> <a href="/tags/终结/" style="font-size: 10px;">终结</a>
+						<a href="/tags/Bit/" style="font-size: 10px;">Bit</a> <a href="/tags/IT/" style="font-size: 10px;">IT</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/apscheduler/" style="font-size: 10px;">apscheduler</a> <a href="/tags/celery/" style="font-size: 10px;">celery</a> <a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/clothing/" style="font-size: 10px;">clothing</a> <a href="/tags/cloud/" style="font-size: 10px;">cloud</a> <a href="/tags/coney/" style="font-size: 10px;">coney</a> <a href="/tags/django/" style="font-size: 10px;">django</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/linux-python/" style="font-size: 10px;">linux,python</a> <a href="/tags/locale/" style="font-size: 10px;">locale</a> <a href="/tags/mosquitto-mqtt/" style="font-size: 10px;">mosquitto,mqtt</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/nginx/" style="font-size: 15px;">nginx</a> <a href="/tags/pycharm/" style="font-size: 10px;">pycharm</a> <a href="/tags/pyenv/" style="font-size: 10px;">pyenv</a> <a href="/tags/pyleus/" style="font-size: 10px;">pyleus</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/python-yield/" style="font-size: 10px;">python yield</a> <a href="/tags/random/" style="font-size: 10px;">random</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/requests/" style="font-size: 10px;">requests</a> <a href="/tags/thrift/" style="font-size: 10px;">thrift</a> <a href="/tags/tips/" style="font-size: 10px;">tips</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/消息验证/" style="font-size: 10px;">消息验证</a> <a href="/tags/终结/" style="font-size: 10px;">终结</a>
 					</div>
 				</section>
 				
@@ -176,6 +176,69 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-python-deal-time" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/05/10/python-deal-time/" class="article-date">
+  	<time datetime="2016-05-10T05:38:47.000Z" itemprop="datePublished">2016-05-10</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/05/10/python-deal-time/">关于python处理中文时间的问题</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>python中关于中文字符的处理<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</span><br><span class="line">nt=datetime.now()</span><br><span class="line">print(nt.strftime(<span class="string">'%Y年%m月%d日 %H时%M分%S秒'</span>))</span><br></pre></td></tr></table></figure></p>
+<p>在linux系统下运行不会有问题，但是在windows系统下会报错<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Traceback (most recent call last):</span><br><span class="line"> 	<span class="keyword">File</span> <span class="string">"test.py"</span>, <span class="keyword">line</span> 6, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">   	<span class="keyword">print</span>(nt.strftime('%Y年%<span class="keyword">m</span>月%<span class="keyword">d</span>日 %<span class="keyword">H</span>时%<span class="keyword">M</span>分%S秒'))</span><br><span class="line">UnicodeEncodeError: 'locale' codec can't <span class="keyword">encode</span> character '\u5e74' <span class="keyword">in</span> position 2</span><br><span class="line">: Illegal byte sequence</span><br></pre></td></tr></table></figure></p>
+<p>有以下两种解决方案</p>
+<h6 id="u7B2C_u4E00_u79CD_u65B9_u6CD5_uFF1A"><a href="#u7B2C_u4E00_u79CD_u65B9_u6CD5_uFF1A" class="headerlink" title="第一种方法："></a>第一种方法：</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="keyword">import</span> locale</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>locale.setlocale(locale.LC_CTYPE, <span class="string">'chinese'</span>)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>print(nt.strftime(<span class="string">'%Y年%m月%d日'</span>))</span><br><span class="line"><span class="number">2015</span>年<span class="number">08</span>月<span class="number">10</span>日</span><br></pre></td></tr></table></figure>
+<p>原理是：“在Windows里，time.strftime使用C运行时的多字节字符串函数strftime，这个函数必须先根据当前locale配置来编码格式化字符串（使用PyUnicode_EncodeLocale）。”如果不设置好locale的话，根据默认的”C” locale，底层的wcstombs函数会使用latin-1编码（单字节编码）来编码格式化字符串，然后导致题主提供的多字节编码的字符串在编码时出错。</p>
+<h6 id="u7B2C_u4E8C_u79CD_u65B9_u6CD5_uFF1A"><a href="#u7B2C_u4E8C_u79CD_u65B9_u6CD5_uFF1A" class="headerlink" title="第二种方法："></a>第二种方法：</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(nt.strftime(<span class="string">'%Y&#123;y&#125;%m&#123;m&#125;%d&#123;d&#125;'</span>).format(y=<span class="string">'年'</span>, m=<span class="string">'月'</span>, d=<span class="string">'日'</span>))</span><br></pre></td></tr></table></figure>
+<p>原理是：既然直接丢中文字符进去会出错，那么就绕过这个问题，丢（可能）永远不会出错的ascii字符进去充当占位符，格式化完毕后再将占位符换回中文字符。</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/locale/">locale</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-python-requests" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -588,83 +651,6 @@
       
 	<div class="article-tag tagcloud">
 		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Bit/">Bit</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-pyenv-use" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/03/19/pyenv-use/" class="article-date">
-  	<time datetime="2016-03-19T06:17:30.000Z" itemprop="datePublished">2016-03-19</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/03/19/pyenv-use/">pyenv管理开发环境</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ul>
-<li>pyenv以plugin的方式自带了virtualenv</li>
-<li>pyenv是pythonbrew的升级版，可以跨python版本切换虚拟环境，虚拟环境名称可以按tab键补全</li>
-</ul>
-<h4 id="u5982_u4F55_u5B89_u88C5"><a href="#u5982_u4F55_u5B89_u88C5" class="headerlink" title="如何安装"></a>如何安装</h4><p>安装依赖<br>Ubuntu/Debian:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev \</span><br><span class="line">libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev</span><br></pre></td></tr></table></figure></p>
-<p>Fedora/CentOS/RHEL:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install zlib-devel bzip2 bzip2-devel readline-devel sqlite sqlite-devel openssl-devel</span><br></pre></td></tr></table></figure></p>
-<p>自动安装<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -L https://raw.githubusercontent.com/yyuu/pyenv-installer/master/bin/pyenv-installer | bash</span><br></pre></td></tr></table></figure></p>
-<p>如果想自己手动安装并进行配置的话，可参考下面的步骤。 Github 检出：</p>
-<ol>
-<li><p>将 pyenv 检出到你想安装的目录。建议路径为：$HOME/.pyenv</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> git://github.com/yyuu/pyenv.git .pyenv</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>添加环境变量。PYENV_ROOT 指向 pyenv 检出的根目录，并向 $PATH 添加 $PYENV_ROOT/bin 以提供访问 pyenv 这条命令的路径</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">   $ <span class="built_in">echo</span> <span class="string">'export PYENV_ROOT="$HOME/.pyenv"'</span> &gt;&gt; ~/.bash_profile</span><br><span class="line">$ <span class="built_in">echo</span> <span class="string">'export PATH="$PYENV_ROOT/bin:$PATH"'</span> &gt;&gt; ~/.bash_profile</span><br></pre></td></tr></table></figure>
-<p> 这里的 shell 配置文件（~/.bash_profile）依不同 Linux 而需作修改</p>
-</li>
-<li>向 shell 添加 pyenv init 以启用 shims 和命令补完功能 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> <span class="string">'eval "$(pyenv init -)"'</span> &gt;&gt; ~/.bash_profile</span><br><span class="line">$ <span class="built_in">source</span> ~/.bash_profile</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h4 id="u57FA_u672C_u7528_u6CD5"><a href="#u57FA_u672C_u7528_u6CD5" class="headerlink" title="基本用法"></a>基本用法</h4><p>管理python版本<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 列出有哪些python版本可以安装</span></span><br><span class="line">pyenv install --list</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装python版本</span></span><br><span class="line">pyenv install <span class="number">3.4</span>.<span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看已经安装的版本</span></span><br><span class="line">pyenv versions</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将当前python版本切换成3.4.1</span></span><br><span class="line">pyenv global <span class="number">3.4</span>.<span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 切换成系统版本</span></span><br><span class="line">pyenv global system</span><br><span class="line"></span><br><span class="line"><span class="comment"># 卸载某个版本的python</span></span><br><span class="line">pyenv uninstall <span class="number">3.4</span>.<span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看所有可用的命令</span></span><br><span class="line">pyenv commands</span><br></pre></td></tr></table></figure></p>
-<p>使用虚拟环境<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建一个3.4.1的虚拟环境</span></span><br><span class="line">pyenv virtualenv <span class="number">3.4</span>.<span class="number">1</span> env341</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看已经创建的虚拟环境</span></span><br><span class="line">pyenv versions</span><br><span class="line"></span><br><span class="line"><span class="comment"># 激活虚拟环境</span></span><br><span class="line">pyenv activate env351</span><br><span class="line"></span><br><span class="line"><span class="comment"># 退出虚拟环境</span></span><br><span class="line">pyenv deactivate</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除虚拟环境只要删除对应的文件夹即可</span></span><br><span class="line">rm -rf /home/tsengdavid/.pyenv/versions/<span class="number">3.4</span>.<span class="number">1</span>/envs/env351</span><br></pre></td></tr></table></figure></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pyenv/">pyenv</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
 	</div>
 
       
