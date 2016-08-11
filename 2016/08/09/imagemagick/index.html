@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>ImageMagick使用简介 | 那些你不知道的事</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="官网http://www.imagemagick.org/script/index.php参考文章　蓝天白云的博客
+图片裁剪imagemagick的convert命令通过crop参数，可以把一幅大图片分成若干块大小一样的图片，同时也可以在大图上截取一块图片来。命令格式为 convert 原始图片 -crop widthxheight+x+y 目标图片；其中widthxheight是目标图片的尺寸，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ImageMagick使用简介">
+<meta property="og:url" content="http://www.cherrypy.net:82/2016/08/09/imagemagick/index.html">
+<meta property="og:site_name" content="那些你不知道的事">
+<meta property="og:description" content="官网http://www.imagemagick.org/script/index.php参考文章　蓝天白云的博客
+图片裁剪imagemagick的convert命令通过crop参数，可以把一幅大图片分成若干块大小一样的图片，同时也可以在大图上截取一块图片来。命令格式为 convert 原始图片 -crop widthxheight+x+y 目标图片；其中widthxheight是目标图片的尺寸，">
+<meta property="og:image" content="http://www.netingcn.com/wp-content/uploads/2011/08/src.jpg">
+<meta property="og:image" content="http://www.netingcn.com/wp-content/uploads/2011/08/src-profile.jpg">
+<meta property="og:image" content="http://www.netingcn.com/wp-content/uploads/2011/08/src-quality85.jpg">
+<meta property="og:image" content="http://www.netingcn.com/wp-content/uploads/2011/08/src-p-q85.jpg">
+<meta property="og:updated_time" content="2016-08-09T07:17:24.800Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ImageMagick使用简介">
+<meta name="twitter:description" content="官网http://www.imagemagick.org/script/index.php参考文章　蓝天白云的博客
+图片裁剪imagemagick的convert命令通过crop参数，可以把一幅大图片分成若干块大小一样的图片，同时也可以在大图上截取一块图片来。命令格式为 convert 原始图片 -crop widthxheight+x+y 目标图片；其中widthxheight是目标图片的尺寸，">
+  
+    <link rel="alternative" href="/atom.xml" title="那些你不知道的事" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/img/me.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Mr Ren</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">你不知道我为什么离开你</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>標籤</li>
+						
+						
+						<li>關於</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/tags/python">随笔</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/cherrishes" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="/#" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Bit/" style="font-size: 10px;">Bit</a> <a href="/tags/IT/" style="font-size: 10px;">IT</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/apscheduler/" style="font-size: 10px;">apscheduler</a> <a href="/tags/celery/" style="font-size: 10px;">celery</a> <a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/clothing/" style="font-size: 10px;">clothing</a> <a href="/tags/cloud/" style="font-size: 10px;">cloud</a> <a href="/tags/coney/" style="font-size: 10px;">coney</a> <a href="/tags/django/" style="font-size: 10px;">django</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/imagemagick/" style="font-size: 10px;">imagemagick</a> <a href="/tags/linux-python/" style="font-size: 10px;">linux,python</a> <a href="/tags/locale/" style="font-size: 10px;">locale</a> <a href="/tags/mosquitto-mqtt/" style="font-size: 10px;">mosquitto,mqtt</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/nginx/" style="font-size: 15px;">nginx</a> <a href="/tags/pycharm/" style="font-size: 10px;">pycharm</a> <a href="/tags/pyenv/" style="font-size: 10px;">pyenv</a> <a href="/tags/pyleus/" style="font-size: 10px;">pyleus</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/python-yield/" style="font-size: 10px;">python yield</a> <a href="/tags/random/" style="font-size: 10px;">random</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/requests/" style="font-size: 10px;">requests</a> <a href="/tags/thrift/" style="font-size: 10px;">thrift</a> <a href="/tags/tips/" style="font-size: 10px;">tips</a> <a href="/tags/tunnello/" style="font-size: 10px;">tunnello</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/消息验证/" style="font-size: 10px;">消息验证</a> <a href="/tags/终结/" style="font-size: 10px;">终结</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">我就是我，是颜色不一样的烟火…</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Mr Ren</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/img/me.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Mr Ren</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">你不知道我为什么离开你</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/tags/python">随笔</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/cherrishes" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="/#" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-imagemagick" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/08/09/imagemagick/" class="article-date">
+  	<time datetime="2016-08-09T06:33:12.000Z" itemprop="datePublished">2016-08-09</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      ImageMagick使用简介
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/imagemagick/">imagemagick</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="u5B98_u7F51"><a href="#u5B98_u7F51" class="headerlink" title="官网"></a>官网</h4><p><a href="http://www.imagemagick.org/script/index.php" target="_blank" rel="external">http://www.imagemagick.org/script/index.php</a><br>参考文章　<a href="http://blog.csdn.net/lan861698789/article/details/7738383" target="_blank" rel="external">蓝天白云的博客</a></p>
+<h4 id="u56FE_u7247_u88C1_u526A"><a href="#u56FE_u7247_u88C1_u526A" class="headerlink" title="图片裁剪"></a>图片裁剪</h4><p>imagemagick的convert命令通过crop参数，可以把一幅大图片分成若干块大小一样的图片，同时也可以在大图上截取一块图片来。命令格式为 convert 原始图片 -crop widthxheight+x+y 目标图片；其中widthxheight是目标图片的尺寸，+x+y是原始图片的坐标点，这两组值至少要出现一组，也可以同时存在。另外该命令也可使用gravity来重新定义坐标系统。关于更多gravity的信息，请参考：<a href="http://www.netingcn.com/imagemagick-gravity.html" target="_blank" rel="external">ImageMagicK之gravity参数详解</a>。下面介绍几种常用的命令。<br><a id="more"></a></p>
+<ul>
+<li><h5 id="u628A_u539F_u59CB_u56FE_u7247_u5206_u5272_u6210_u591A_u5F20_u5C0F_u56FE"><a href="#u628A_u539F_u59CB_u56FE_u7247_u5206_u5272_u6210_u591A_u5F20_u5C0F_u56FE" class="headerlink" title="把原始图片分割成多张小图"></a>把原始图片分割成多张小图</h5>convert src.jpg -crop 100x100 dest.jpg<br>假设src.jpg的大小是300x200,执行命令后将得到名为dest-0.jpg、dest-1.jpg…dest-5.jpg的6张大小为100x100的小图片。注意如果尺寸不是目标图片的整数倍，那么右边缘和下边缘的一部分图片就用实际尺寸</li>
+<li><h5 id="u5728_u539F_u59CB_u56FE_u7247_u4E0A_u526A_u88C1_u4E00_u5F20_u6307_u5B9A_u5C3A_u5BF8_u7684_u5C0F_u56FE"><a href="#u5728_u539F_u59CB_u56FE_u7247_u4E0A_u526A_u88C1_u4E00_u5F20_u6307_u5B9A_u5C3A_u5BF8_u7684_u5C0F_u56FE" class="headerlink" title="在原始图片上剪裁一张指定尺寸的小图"></a>在原始图片上剪裁一张指定尺寸的小图</h5><p>convert src.jpg -crop 100x80+50+30 dest.jpg<br>在原始图片的上距离上部30像素左部50为起点的位置,分别向右向下截取一块大小为100x80的图片。如果x相对于坐标，宽度不够100，那就取实际值。<br>convert src.jpg -gravity center -crop 100x80+0+0 dest.jpg<br>在原始图上截取中心部分一块100x80的图片<br>convert src.jpg -gravity southeast -crop 100x80+10+5 dest.jpg<br>在原始图上截取右下角距离下边缘10个像素，右边缘5个像素一块100x80的图片<br><code>解释2：</code><br>-crop参数是从一个图片截取一个指定区域的子图片.<br>格式如下:convert -crop widthxheight (+/-x) (+/-y)</p>
+<p>  width 子图片宽度<br>  height 子图片高度<br>  x 为正数时为从区域左上角的x坐标,为负数时,左上角坐标为0,然后从截出的子图片右边减去x象素宽度.<br>  y 为正数时为从区域左上角的y坐标,为负数时,左上角坐标为0,然后从截出的子图片上边减去y象素高度.</p>
+<p>  如convert -crop 300x400+10+10 src.jpg dest.jpg 从src.jpg坐标为x:10 y:10截取300x400的图片存为dest.jpg<br>  convert -crop 300x400-10+10 src.jpg dest.jpg 从src.jpg坐标为x:0 y:10截取290x400的图片存为dest.jpg</p>
+</li>
+</ul>
+<h4 id="ImageMagick_u4E4B_u56FE_u7247_u7F29_u653E"><a href="#ImageMagick_u4E4B_u56FE_u7247_u7F29_u653E" class="headerlink" title="ImageMagick之图片缩放"></a>ImageMagick之图片缩放</h4><p>利用ImageMagicK的convert命令，能很方便的实现图片的放大缩小，可以进行等比例缩放，也能缩放到指定的固定大小。缩放的参数resize，由它来指定缩放后图片的宽高，比如“200×100”。</p>
+<ul>
+<li><h5 id="u7B49_u6BD4_u7F29_u653E"><a href="#u7B49_u6BD4_u7F29_u653E" class="headerlink" title="等比缩放"></a>等比缩放</h5><p>例如把图片a.jpg缩放到200×100的尺寸,可以用命令:  convert -resize 200x100 src.jpg dest.jpg<br><code>注意：</code>虽然明确指定了图片大小为200×100，但dest.jpg的不一定就是200×100，因为是等比缩放的，dest.jpg大小取决原始图片比例。假设src.jpg的大小是500×200,那么缩放后dest.jpg的真实大小为200×80,再比如src.jpg的大小是300×200,缩放后的尺寸为150×100。<code>原则是缩放后的尺寸最少有一个是符合宽或高，且另外一个不能大于指定的参数中对应的宽或高。</code>另外可以通过只指定宽或高的方式来进行缩放。例如：<br>convert -resize 200 src.jpg dest.jpg<br>得到图片宽为200，高根据原始图片比例计算而来<br>convert -resize x100 src.jpg dest.jpg<br>得到的图片高位100，宽根据原始图片比例计算而来</p>
+</li>
+<li><h5 id="u56FA_u5B9A_u5BBD_u9AD8_u7F29_u653E"><a href="#u56FA_u5B9A_u5BBD_u9AD8_u7F29_u653E" class="headerlink" title="固定宽高缩放"></a>固定宽高缩放</h5><p>即不考虑原是图宽高的比例，把图片缩放到指定大小。例如命令： convert -resize 200x100! src.jpg dest.jpg<br><code>说明：</code>区别是宽高后面多了一个叹号，此时不管原图片比例如何，缩放后的图片大小都是200×100，这样就可能导致图片变形。注意：在linux环境对参数需要用单引号引起来，而windows下又不能使用单引号。</p>
+</li>
+<li><h5 id="u6709_u6761_u4EF6_u7F29_u653E"><a href="#u6709_u6761_u4EF6_u7F29_u653E" class="headerlink" title="有条件缩放"></a>有条件缩放</h5><p>可以通过<code>&gt;</code>或<code>&lt;</code>符号来控制原始图片是否进行缩放，例如在处理一批尺寸大小各异的图片，只想把尺寸大于给定的值图片才进行缩小，如果没有指定条件，可能会把那些小的图片进行了放大处理。</p>
+<p>  convert -resize “200x100&gt;” src.jpg dest.jpg<br>  <code>注解：</code>只有当src.jpg的宽大于200或高大于100时候，才进行缩小处理，否则生成的dest.jpg和src.jpg具有一样的尺寸。注意在linux下要用单引号替    换成双引号，即’200x100&gt;’。</p>
+<p>  convert -resize “200x100&lt;” src.jpg dest.jpg<br>  <code>注解：</code>只有当src.jpg的宽小于200或高小于100时候，才进行放大处理，否则生成的dest.jpg和src.jpg具有一样的尺寸。注意在linux下要用单引号替    换成双引号，即’200x100&lt;’</p>
+<p>  上述两种有条件缩放是按原始图等比例缩放的，也就是对符合条件的图片进行等比缩放。同时有条件缩放也可以与固定大小缩放联合起来用。例如如下命令。<br>  convert -resize “800x100&gt;!” src.jpg dest.jpg<br>  <code>注解：</code>假设src.jpg尺寸是300x200。很显然src.jpg的宽(200)是大于指定值宽(100)，符合缩小的条件，由于执行的不是等比缩放，所以dest.jpg的    尺寸理论上是800x100，但是800是超过原始图片宽的，故dest.jpg的宽只能是300</p>
+<p>  convert -resize “10x1000&lt;!” src.jpg dest.jpg<br>  <code>注解：</code>假设src.jpg尺寸是300x200，src.jpg的宽(200)小于指定值宽(1000)，因此该命令将执行放大图片操作，dest.jpg的高将放到到1000,由于宽比    原始图片还小，就用原始图片的宽，所以得到的dest.jpg的尺寸是300x1000。</p>
+</li>
+</ul>
+<h4 id="u4F7F_u7528ImageMagicK_u7ED9_u56FE_u7247_u7626_u8EAB"><a href="#u4F7F_u7528ImageMagicK_u7ED9_u56FE_u7247_u7626_u8EAB" class="headerlink" title="使用ImageMagicK给图片瘦身"></a>使用ImageMagicK给图片瘦身</h4><h5 id="u5F71_u54CD_u56FE_u7247_u5927_u5C0F_uFF08_u5360_u7528_u7A7A_u95F4_uFF09_u4E3B_u8981_u53D6_u51B3_u4E8E_u56FE_u7247_u7684profile_u548Cquality_u3002"><a href="#u5F71_u54CD_u56FE_u7247_u5927_u5C0F_uFF08_u5360_u7528_u7A7A_u95F4_uFF09_u4E3B_u8981_u53D6_u51B3_u4E8E_u56FE_u7247_u7684profile_u548Cquality_u3002" class="headerlink" title="影响图片大小（占用空间）主要取决于图片的profile和quality。"></a>影响图片大小（占用空间）主要取决于图片的profile和quality。</h5><ul>
+<li><p>quality：图片的品质，品质越高，占用的空间越大。适当降低品质能很大程度的减少图片的尺寸。一般来说，从品质100降到85，基本上肉眼很难区别其差别，但尺寸上减少很大。imagemagick通过通过<code>-quality</code> 来设置。</p>
+</li>
+<li><p>profile：记录图片一些描述信息。例如相机信息（光圈，相机型号）、photoshop元数据，颜色表等信息。它占用的空间可以从几KB到几百KB，甚至可能更大。ImageMagicK可以通过两种方式来去掉这些信息。<code>+profile “*”</code> 　或　<code>-strip</code></p>
+</li>
+</ul>
+<p>下述图片中第一张原始图片为56KB，第二张图片执行了　<code>convert +profile “*” -strip src.jpg src-profile.jpg</code>　后变成了26.3KB, 第三张设置图片品质为85，<code>convert -quality 85 src.jpg src-quality85.jpg</code>，图片大小变成了19.5KB，第四张是同时使用去掉profile和设置品质为85,<code>convert -quality 85 -strip src.jpg src-p-q85.jpg</code>，图片只有18.7KB。经过一个简单的命令处理，就可以把原始图片体积减小到原来的的三分之一。一般来说jpg格式的图片有比较大的操作空间，而png、gif有时候处理了反而变大。所以具体问题需要具体分析。<br><img src="http://www.netingcn.com/wp-content/uploads/2011/08/src.jpg" alt=""><br>原始图片<br><img src="http://www.netingcn.com/wp-content/uploads/2011/08/src-profile.jpg" alt=""><br>去掉profile<br><img src="http://www.netingcn.com/wp-content/uploads/2011/08/src-quality85.jpg" alt=""><br>quality85<br><img src="http://www.netingcn.com/wp-content/uploads/2011/08/src-p-q85.jpg" alt=""><br>最终图片</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/08/11/Tunnello/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Tunnello：最新免费Chrome翻墙插件
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/07/25/python-random/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">python random模块</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="imagemagick" data-title="ImageMagick使用简介" data-url="http://www.cherrypy.net:82/2016/08/09/imagemagick/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"cherrish"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 Mr Ren
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
