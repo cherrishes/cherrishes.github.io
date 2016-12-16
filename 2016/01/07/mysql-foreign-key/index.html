@@ -4,21 +4,21 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>mysql创建外键关联 | 那些你不知道的事</title>
+  <title>mysql相关操作 | 那些你不知道的事</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="mysql添加外键为已经添加好的数据表添加外键:
 语法:alter table `表名` add constraint FK_ID foreign key(你的外键字段名) REFERENCES `外表表名(对应的表的主键字段名)`;
 例: alter table tb_active add constraint FK_ID foreign key(user_id) REFERENCES tb_u">
 <meta property="og:type" content="article">
-<meta property="og:title" content="mysql创建外键关联">
+<meta property="og:title" content="mysql相关操作">
 <meta property="og:url" content="http://www.cherrypy.net:82/2016/01/07/mysql-foreign-key/index.html">
 <meta property="og:site_name" content="那些你不知道的事">
 <meta property="og:description" content="mysql添加外键为已经添加好的数据表添加外键:
 语法:alter table `表名` add constraint FK_ID foreign key(你的外键字段名) REFERENCES `外表表名(对应的表的主键字段名)`;
 例: alter table tb_active add constraint FK_ID foreign key(user_id) REFERENCES tb_u">
-<meta property="og:updated_time" content="2016-01-07T02:57:02.000Z">
+<meta property="og:updated_time" content="2016-12-10T05:09:01.631Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="mysql创建外键关联">
+<meta name="twitter:title" content="mysql相关操作">
 <meta name="twitter:description" content="mysql添加外键为已经添加好的数据表添加外键:
 语法:alter table `表名` add constraint FK_ID foreign key(你的外键字段名) REFERENCES `外表表名(对应的表的主键字段名)`;
 例: alter table tb_active add constraint FK_ID foreign key(user_id) REFERENCES tb_u">
@@ -116,7 +116,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Bit/" style="font-size: 10px;">Bit</a> <a href="/tags/H5/" style="font-size: 10px;">H5</a> <a href="/tags/IT/" style="font-size: 10px;">IT</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/apscheduler/" style="font-size: 10px;">apscheduler</a> <a href="/tags/celery/" style="font-size: 10px;">celery</a> <a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/clothing/" style="font-size: 10px;">clothing</a> <a href="/tags/cloud/" style="font-size: 10px;">cloud</a> <a href="/tags/coney/" style="font-size: 10px;">coney</a> <a href="/tags/django/" style="font-size: 10px;">django</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/imagemagick/" style="font-size: 10px;">imagemagick</a> <a href="/tags/linux-python/" style="font-size: 10px;">linux,python</a> <a href="/tags/locale/" style="font-size: 10px;">locale</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mosquitto-mqtt/" style="font-size: 10px;">mosquitto,mqtt</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/nginx/" style="font-size: 15px;">nginx</a> <a href="/tags/pycharm/" style="font-size: 10px;">pycharm</a> <a href="/tags/pyenv/" style="font-size: 10px;">pyenv</a> <a href="/tags/pyleus/" style="font-size: 10px;">pyleus</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/python-yield/" style="font-size: 10px;">python yield</a> <a href="/tags/random/" style="font-size: 10px;">random</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/requests/" style="font-size: 10px;">requests</a> <a href="/tags/thrift/" style="font-size: 10px;">thrift</a> <a href="/tags/tips/" style="font-size: 10px;">tips</a> <a href="/tags/tunnello/" style="font-size: 10px;">tunnello</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/wiznote/" style="font-size: 10px;">wiznote</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/文件上传进度条/" style="font-size: 10px;">文件上传进度条</a> <a href="/tags/消息验证/" style="font-size: 10px;">消息验证</a> <a href="/tags/终结/" style="font-size: 10px;">终结</a>
+						<a href="/tags/Bit/" style="font-size: 10px;">Bit</a> <a href="/tags/H5/" style="font-size: 10px;">H5</a> <a href="/tags/IT/" style="font-size: 10px;">IT</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/apscheduler/" style="font-size: 10px;">apscheduler</a> <a href="/tags/celery/" style="font-size: 10px;">celery</a> <a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/clothing/" style="font-size: 10px;">clothing</a> <a href="/tags/cloud/" style="font-size: 10px;">cloud</a> <a href="/tags/coney/" style="font-size: 10px;">coney</a> <a href="/tags/django/" style="font-size: 10px;">django</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/imagemagick/" style="font-size: 10px;">imagemagick</a> <a href="/tags/linux-python/" style="font-size: 10px;">linux,python</a> <a href="/tags/locale/" style="font-size: 10px;">locale</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mosquitto-mqtt/" style="font-size: 10px;">mosquitto,mqtt</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/nginx/" style="font-size: 15px;">nginx</a> <a href="/tags/pycharm/" style="font-size: 10px;">pycharm</a> <a href="/tags/pyenv/" style="font-size: 10px;">pyenv</a> <a href="/tags/pyleus/" style="font-size: 10px;">pyleus</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/python-yield/" style="font-size: 10px;">python yield</a> <a href="/tags/random/" style="font-size: 10px;">random</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/requests/" style="font-size: 10px;">requests</a> <a href="/tags/thrift/" style="font-size: 10px;">thrift</a> <a href="/tags/tips/" style="font-size: 10px;">tips</a> <a href="/tags/tunnello/" style="font-size: 10px;">tunnello</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/wiznote/" style="font-size: 10px;">wiznote</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/产品，知乎，心得/" style="font-size: 10px;">产品，知乎，心得</a> <a href="/tags/文件上传进度条/" style="font-size: 10px;">文件上传进度条</a> <a href="/tags/消息验证/" style="font-size: 10px;">消息验证</a> <a href="/tags/终结/" style="font-size: 10px;">终结</a>
 					</div>
 				</section>
 				
@@ -199,7 +199,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      mysql创建外键关联
+      mysql相关操作
     </h1>
   
 
@@ -260,6 +260,21 @@
 </table>
 <p> 请注意，通过<code>ON UPDATE</code> 和 <code>ON DELETE</code>规则，设置MYSQL能够实现自动操作时，如果键的关系没有设置好，可能会导致严重的数据破坏，<br> 例如：如果一系列的表通过外键关系和<code>ON DELETE CASCADE</code> 规则连接时，任意一个主表的变化都会导致甚至只和原始删除有一些将要联系的记录在没有警告的情况被删除，所以，我们在操作之前还要检查这些规则的，操作之后还要再次检查.</p>
 <h3 id="u5E38_u89C1_u9519_u8BEF"><a href="#u5E38_u89C1_u9519_u8BEF" class="headerlink" title="常见错误"></a>常见错误</h3><p>创建数据库关联外键时提示 “duplicate key” 主要是要设置好<code>FK_ID</code>不要重复。</p>
+<h4 id="mysql__u6570_u636E_u5E93__u5907_u4EFD_u8FD8_u539F_u547D_u4EE4"><a href="#mysql__u6570_u636E_u5E93__u5907_u4EFD_u8FD8_u539F_u547D_u4EE4" class="headerlink" title="mysql 数据库 备份还原命令"></a>mysql 数据库 备份还原命令</h4><ol>
+<li>用 mysqldump 命令进行备份: <pre><code>在命令提示符窗口(注意不是 MySQL 的 MySQL Command Line Client 窗口,直接在Linux终端)中输入：
+mysqldump -h localhost -u root -proot  temp &gt; temp_2011.sql 
+也可以在命令里指定想要存放的目录：比如存放到根目录下，命令如下：
+mysqldump -h localhost -u root -proot  temp &gt; temp_2011.sql &gt; /2011.sql
+</code></pre>其中-h,-u两个参数名与参数值之间可用或不用空格分隔,但-p参数的参数名与参数值之间是一定不能加空格的,也可以这样输入: <pre><code>mysqldump -hlocalhost -uroot -p temp &gt; temp_2011.sql 
+Enter password: root 
+</code></pre> 在后面再输入密码也可以成功.<br> -h指出备份的数据库在本机,-u指出用户名,-p指出密码,temp为数据库名,后面可具体指定备份的数据表.<br> 结果生成的 temp_2011.sql 文件会自动存在指定目录下. <pre><code>mysqldump -hlocalhost -uroot -p temp table1 &gt; temp_2011.sql 
+</code></pre></li>
+<li><p>用mysql 命令进行恢复: </p>
+<p> mysql  -hlocalhost  -uroot  -proot          temp  &lt; temp_20071106.sql </p>
+<p>输入此命令后,数据库中的数据将恢复到备份时的数据. </p>
+<p>注意:恢复时, temp 必须存在,数据库可空.恢复时会自动删除要恢复的表,再重新创建,插入数据. </p>
+</li>
+</ol>
 
       
     </div>
@@ -315,7 +330,7 @@
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="mysql-foreign-key" data-title="mysql创建外键关联" data-url="http://www.cherrypy.net:82/2016/01/07/mysql-foreign-key/"></div>
+	<div class="ds-thread" data-thread-key="mysql-foreign-key" data-title="mysql相关操作" data-url="http://www.cherrypy.net:82/2016/01/07/mysql-foreign-key/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
