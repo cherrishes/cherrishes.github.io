@@ -4,17 +4,27 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>那些你不知道的事</title>
+  <title>调用优酷JSAPI播放视频 | 那些你不知道的事</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="蝴蝶眨几次眼睛才学会飞行">
-<meta property="og:type" content="website">
-<meta property="og:title" content="那些你不知道的事">
-<meta property="og:url" content="http://www.cherrypy.net:82/index.html">
+  <meta name="description" content="优酷提供了相关JS API，来检测视频播放；以及通过JS触发视频播放和暂停．
+需要申请一个youku开发账号：client_id
+视频id ：vid
+123456789101112131415161718192021222324252627282930313233343536373839404142434445464748&amp;lt;!DOCTYPE html&amp;gt;&amp;lt;html lang=&quot;en">
+<meta property="og:type" content="article">
+<meta property="og:title" content="调用优酷JSAPI播放视频">
+<meta property="og:url" content="http://www.cherrypy.net:82/2016/12/14/youku-player/index.html">
 <meta property="og:site_name" content="那些你不知道的事">
-<meta property="og:description" content="蝴蝶眨几次眼睛才学会飞行">
+<meta property="og:description" content="优酷提供了相关JS API，来检测视频播放；以及通过JS触发视频播放和暂停．
+需要申请一个youku开发账号：client_id
+视频id ：vid
+123456789101112131415161718192021222324252627282930313233343536373839404142434445464748&amp;lt;!DOCTYPE html&amp;gt;&amp;lt;html lang=&quot;en">
+<meta property="og:updated_time" content="2017-01-05T06:27:22.045Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="那些你不知道的事">
-<meta name="twitter:description" content="蝴蝶眨几次眼睛才学会飞行">
+<meta name="twitter:title" content="调用优酷JSAPI播放视频">
+<meta name="twitter:description" content="优酷提供了相关JS API，来检测视频播放；以及通过JS触发视频播放和暂停．
+需要申请一个youku开发账号：client_id
+视频id ：vid
+123456789101112131415161718192021222324252627282930313233343536373839404142434445464748&amp;lt;!DOCTYPE html&amp;gt;&amp;lt;html lang=&quot;en">
   
     <link rel="alternative" href="/atom.xml" title="那些你不知道的事" type="application/atom+xml">
   
@@ -175,78 +185,7 @@
 	</div>
 </nav>
 
-      <div class="body-wrap">
-  
-    <article id="post-rdesktop" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/12/23/rdesktop/" class="article-date">
-  	<time datetime="2016-12-23T12:28:12.000Z" itemprop="datePublished">2016-12-23</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/12/23/rdesktop/">rdesktop安装和使用</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Rdesktop是Linux操作系统下的一款远程桌面工具，可以用来链接Windows系统使用rdesktop来指定分辨率。</p>
-<h4 id="u5B89_u88C5"><a href="#u5B89_u88C5" class="headerlink" title="安装"></a>安装</h4><ul>
-<li>到官方网站去下载最新的rdesktop <a href="http://www.rdesktop.org" target="_blank" rel="external">http://www.rdesktop.org</a>, 目前最新版：rdesktop 1.8.3,Source(320KB)</li>
-<li><p>安装必要的依赖库</p>
-<figure class="highlight q"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> install libpcsclite-<span class="built_in">dev</span> libgssglue-<span class="built_in">dev</span> libssl-<span class="built_in">dev</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>解压tar -xvzf rdesktop-1.8.3.tar.gz</p>
-</li>
-<li>编译安装<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cd</span> rdesktop-<span class="number">1.8</span>.<span class="number">3</span>;　./configure </span><br><span class="line"><span class="keyword">make</span> </span><br><span class="line">sudo <span class="keyword">make</span> install</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>编译安装完成之后，就可以连接Win的远程桌面了</p>
-<h4 id="u542F_u52A8_u811A_u672C"><a href="#u542F_u52A8_u811A_u672C" class="headerlink" title="启动脚本"></a>启动脚本</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim run_192.168.0.61.sh&#10;&#10;#!/usr/bin/env bash&#10;rdesktop 192.168.0.61:3389 -u administrator -p &#39;Ab123456&#39; -a 16 -g 1600x900 -r sound:local -5</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rdesktop/">rdesktop</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ubuntu/">ubuntu</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-youku-player" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-youku-player" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
       <a href="/2016/12/14/youku-player/" class="article-date">
@@ -262,12 +201,23 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/12/14/youku-player/">调用优酷JSAPI播放视频</a>
+    <h1 class="article-title" itemprop="name">
+      调用优酷JSAPI播放视频
     </h1>
   
 
       </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/优酷/">优酷</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
       
     
     <div class="article-entry" itemprop="articleBody">
@@ -282,260 +232,77 @@
       
     </div>
     
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/优酷/">优酷</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
   </div>
   
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-good-product" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/12/04/good-product/" class="article-date">
-  	<time datetime="2016-12-04T02:16:59.000Z" itemprop="datePublished">2016-12-04</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
     
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
+<nav id="article-nav">
+  
+    <a href="/2016/12/23/rdesktop/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/12/04/good-product/">怎样做好一个产品</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ol>
-<li>一张图解释什么是PM；</li>
-<li>产品汪的日常；</li>
-<li>既有懒死的猪，也有累死的牛；</li>
-<li>请闭嘴，别动不动就要改变世界；</li>
-<li>去你的“小孩才谈体验，成人只重利益”；</li>
-<li>沟通！沟通！沟通！重要的事情说三遍；</li>
-<li>Stay hungry，Stay foolish；</li>
-<li>取名请考虑输入法；</li>
-</ol>
-<p>作者：SDao<br>链接：<a href="https://www.zhihu.com/question/19635915/answer/66152820">https://www.zhihu.com/question/19635915/answer/66152820</a><br>来源：知乎<br>著作权归作者所有，转载请联系作者获得授权。</p>
-<h3 id="u4E00_u4E2A_u4EA7_u54C1_u7ECF_u7406_u5E94_u8BE5_u5177_u5907_u7684_u80FD_u529B"><a href="#u4E00_u4E2A_u4EA7_u54C1_u7ECF_u7406_u5E94_u8BE5_u5177_u5907_u7684_u80FD_u529B" class="headerlink" title="一个产品经理应该具备的能力"></a>一个产品经理应该具备的能力</h3><p><img src="http://7xq1xx.com1.z0.glb.clouddn.com/sina_pic2.png" alt=""><br>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/产品，知乎，心得/">产品，知乎，心得</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2016/12/04/good-product/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-file-upload-progress" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/11/17/file-upload-progress/" class="article-date">
-  	<time datetime="2016-11-17T02:34:24.000Z" itemprop="datePublished">2016-11-17</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
+          rdesktop安装和使用
         
+      </div>
+    </a>
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/11/17/file-upload-progress/">Ajax+H5实现文件上传进度条</a>
-    </h1>
   
+    <a href="/2016/12/04/good-product/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">怎样做好一个产品</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
 
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h5 id="u4EC0_u4E48_u662F_XMLHttpRequest__u5BF9_u8C61_uFF1F"><a href="#u4EC0_u4E48_u662F_XMLHttpRequest__u5BF9_u8C61_uFF1F" class="headerlink" title="什么是 XMLHttpRequest 对象？"></a>什么是 XMLHttpRequest 对象？</h5><p>XMLHttpRequest 对象用于在后台与服务器交换数据。<br>XMLHttpRequest 对象是开发者的梦想，因为您能够：</p>
-<ul>
-<li>在不重新加载页面的情况下更新网页</li>
-<li>在页面已加载后从服务器请求数据</li>
-<li>在页面已加载后从服务器接收数据</li>
-<li>在后台向服务器发送数据</li>
-</ul>
-<p>所有现代的浏览器都支持 XMLHttpRequest 对象。</p>
-<h4 id="u521B_u5EFA_XMLHttpRequest__u5BF9_u8C61"><a href="#u521B_u5EFA_XMLHttpRequest__u5BF9_u8C61" class="headerlink" title="创建 XMLHttpRequest 对象"></a>创建 XMLHttpRequest 对象</h4><p>所有现代浏览器 (IE7+、Firefox、Chrome、Safari 以及 Opera) 都内建了 XMLHttpRequest 对象。<br>通过一行简单的 JavaScript 代码，我们就可以创建 XMLHttpRequest 对象。<br>创建 XMLHttpRequest 对象的语法：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xmlhttp=<span class="keyword">new</span> XMLHttpRequest();</span><br></pre></td></tr></table></figure></p>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/H5/">H5</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/文件上传进度条/">文件上传进度条</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2016/11/17/file-upload-progress/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
   
 </article>
 
 
-
-
-
-
-
-
-
-  
-    <article id="post-markdown-use" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/11/14/markdown-use/" class="article-date">
-  	<time datetime="2016-11-14T12:54:38.000Z" itemprop="datePublished">2016-11-14</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/11/14/markdown-use/">markdown语法</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="u6B22_u8FCE_u4F7F_u7528Markdown_u7F16_u8F91_u5668_u5199_u535A_u5BA2"><a href="#u6B22_u8FCE_u4F7F_u7528Markdown_u7F16_u8F91_u5668_u5199_u535A_u5BA2" class="headerlink" title="欢迎使用Markdown编辑器写博客"></a>欢迎使用Markdown编辑器写博客</h1><p>本Markdown编辑器使用<a href="https://github.com/benweet/stackedit">StackEdit</a>修改而来，用它写博客，将会带来全新的体验哦：</p>
-<ul>
-<li><strong>Markdown和扩展Markdown简洁的语法</strong></li>
-<li><strong>代码块高亮</strong></li>
-<li><strong>图片链接和图片上传</strong></li>
-<li><strong><em>LaTex</em>数学公式</strong></li>
-<li><strong>UML序列图和流程图</strong></li>
-<li><strong>离线写博客</strong></li>
-<li><strong>导入导出Markdown文件</strong></li>
-<li><strong>丰富的快捷键</strong></li>
-</ul>
-<hr>
-<h2 id="u5FEB_u6377_u952E"><a href="#u5FEB_u6377_u952E" class="headerlink" title="快捷键"></a>快捷键</h2><ul>
-<li>加粗    <code>Ctrl + B</code> </li>
-<li>斜体    <code>Ctrl + I</code> </li>
-<li>引用    <code>Ctrl + Q</code></li>
-<li>插入链接    <code>Ctrl + L</code></li>
-<li>插入代码    <code>Ctrl + K</code></li>
-<li>插入图片    <code>Ctrl + G</code></li>
-<li>提升标题    <code>Ctrl + H</code></li>
-<li>有序列表    <code>Ctrl + O</code></li>
-<li>无序列表    <code>Ctrl + U</code></li>
-<li>横线    <code>Ctrl + R</code></li>
-<li>撤销    <code>Ctrl + Z</code></li>
-<li>重做    <code>Ctrl + Y</code>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/markdown/">markdown</a></li></ul>
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
 	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2016/11/14/markdown-use/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
 
 
 
 
 
 
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="youku-player" data-title="调用优酷JSAPI播放视频" data-url="http://www.cherrypy.net:82/2016/12/14/youku-player/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"cherrish"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
 
 
 
-  
-  
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
-    </nav>
-  
+
 </div>
       <footer id="footer">
   <div class="outer">
@@ -559,8 +326,8 @@
 		fancybox: true,
 		mathjax: true,
 		animate: true,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
