@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>nginx正则和反向代理配置 | 那些你不知道的事</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Nginx 正则匹配配置Nginx服务器的反向代理proxy_pass配置方法讲解Nginx实现静态资源的反向代理实例
+location优先级说明在nginx的location和配置中location的顺序没有太大关系。正location表达式的类型有关。相同类型的表达式，字符串长的会优先匹配。
+以下是按优先级排列说明：
+等号类型（=）的优先级最高。一旦匹配成功，则不再查找其他匹配项。^~类型表达">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nginx正则和反向代理配置">
+<meta property="og:url" content="http://www.cherrypy.net:82/2017/03/09/nginx-regular/index.html">
+<meta property="og:site_name" content="那些你不知道的事">
+<meta property="og:description" content="Nginx 正则匹配配置Nginx服务器的反向代理proxy_pass配置方法讲解Nginx实现静态资源的反向代理实例
+location优先级说明在nginx的location和配置中location的顺序没有太大关系。正location表达式的类型有关。相同类型的表达式，字符串长的会优先匹配。
+以下是按优先级排列说明：
+等号类型（=）的优先级最高。一旦匹配成功，则不再查找其他匹配项。^~类型表达">
+<meta property="og:updated_time" content="2017-03-09T11:28:02.092Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="nginx正则和反向代理配置">
+<meta name="twitter:description" content="Nginx 正则匹配配置Nginx服务器的反向代理proxy_pass配置方法讲解Nginx实现静态资源的反向代理实例
+location优先级说明在nginx的location和配置中location的顺序没有太大关系。正location表达式的类型有关。相同类型的表达式，字符串长的会优先匹配。
+以下是按优先级排列说明：
+等号类型（=）的优先级最高。一旦匹配成功，则不再查找其他匹配项。^~类型表达">
+  
+    <link rel="alternative" href="/atom.xml" title="那些你不知道的事" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/img/me.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Mr Ren</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">你不知道我为什么离开你</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>標籤</li>
+						
+						
+						<li>關於</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/tags/python">随笔</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/cherrishes" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="/#" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Bit/" style="font-size: 10px;">Bit</a> <a href="/tags/H5/" style="font-size: 10px;">H5</a> <a href="/tags/IT/" style="font-size: 10px;">IT</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/apscheduler/" style="font-size: 10px;">apscheduler</a> <a href="/tags/celery/" style="font-size: 10px;">celery</a> <a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/clothing/" style="font-size: 10px;">clothing</a> <a href="/tags/cloud/" style="font-size: 10px;">cloud</a> <a href="/tags/coney/" style="font-size: 10px;">coney</a> <a href="/tags/django/" style="font-size: 10px;">django</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/imagemagick/" style="font-size: 10px;">imagemagick</a> <a href="/tags/linux-python/" style="font-size: 10px;">linux,python</a> <a href="/tags/locale/" style="font-size: 10px;">locale</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mosquitto-mqtt/" style="font-size: 10px;">mosquitto,mqtt</a> <a href="/tags/mysql/" style="font-size: 13.33px;">mysql</a> <a href="/tags/nginx/" style="font-size: 16.67px;">nginx</a> <a href="/tags/nginx正则/" style="font-size: 10px;">nginx正则</a> <a href="/tags/pycharm/" style="font-size: 10px;">pycharm</a> <a href="/tags/pyenv/" style="font-size: 10px;">pyenv</a> <a href="/tags/pyleus/" style="font-size: 10px;">pyleus</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/python-yield/" style="font-size: 10px;">python yield</a> <a href="/tags/random/" style="font-size: 10px;">random</a> <a href="/tags/rdesktop/" style="font-size: 10px;">rdesktop</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/requests/" style="font-size: 10px;">requests</a> <a href="/tags/thrift/" style="font-size: 10px;">thrift</a> <a href="/tags/tips/" style="font-size: 10px;">tips</a> <a href="/tags/tunnello/" style="font-size: 10px;">tunnello</a> <a href="/tags/ubuntu/" style="font-size: 13.33px;">ubuntu</a> <a href="/tags/wiznote/" style="font-size: 10px;">wiznote</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/产品，知乎，心得/" style="font-size: 10px;">产品，知乎，心得</a> <a href="/tags/优酷/" style="font-size: 10px;">优酷</a> <a href="/tags/文件上传进度条/" style="font-size: 10px;">文件上传进度条</a> <a href="/tags/消息验证/" style="font-size: 10px;">消息验证</a> <a href="/tags/终结/" style="font-size: 10px;">终结</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">我就是我，是颜色不一样的烟火…</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Mr Ren</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/img/me.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Mr Ren</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">你不知道我为什么离开你</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/tags/python">随笔</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/cherrishes" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="/#" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-nginx-regular" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/03/09/nginx-regular/" class="article-date">
+  	<time datetime="2017-03-09T11:08:22.000Z" itemprop="datePublished">2017-03-09</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      nginx正则和反向代理配置
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nginx/">nginx</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nginx正则/">nginx正则</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="http://www.itnpc.com/news/web/1474339924117566.html" target="_blank" rel="external">Nginx 正则匹配配置</a><br><a href="http://www.jb51.net/article/78746.htm" target="_blank" rel="external">Nginx服务器的反向代理proxy_pass配置方法讲解</a><br><a href="http://www.aspku.com/fuwuqi/48894.html" target="_blank" rel="external">Nginx实现静态资源的反向代理实例</a></p>
+<h4 id="location_u4F18_u5148_u7EA7_u8BF4_u660E"><a href="#location_u4F18_u5148_u7EA7_u8BF4_u660E" class="headerlink" title="location优先级说明"></a>location优先级说明</h4><p>在nginx的location和配置中location的顺序没有太大关系。正location表达式的类型有关。相同类型的表达式，字符串长的会优先匹配。</p>
+<p>以下是按优先级排列说明：</p>
+<p>等号类型（=）的优先级最高。一旦匹配成功，则不再查找其他匹配项。<br>^~类型表达式。一旦匹配成功，则不再查找其他匹配项。<br>正则表达式类型（~ ~*）的优先级次之。如果有多个location的正则能匹配的话，则使用正则表达式最长的那个。<br>常规字符串匹配类型。按前缀匹配。</p>
+<h4 id="flag_u6807_u5FD7_u4F4D"><a href="#flag_u6807_u5FD7_u4F4D" class="headerlink" title="flag标志位"></a>flag标志位</h4><p><code>last</code> : 相当于Apache的[L]标记，表示完成rewrite<br><code>break</code> : 停止执行当前虚拟主机的后续rewrite指令集<br><code>redirect</code> : 返回302临时重定向，地址栏会显示跳转后的地址<br><code>permanent</code> : 返回301永久重定向，地址栏会显示跳转后的地址<br>因为301和302不能简单的只返回状态码，还必须有重定向的URL，这就是return指令无法返回301,302的原因了。这里 last 和 break 区别有点难以理解：</p>
+<p>last一般写在server和if中，而break一般使用在location中<br>last不终止重写后的url匹配，即新的url会再从server走一遍匹配流程，而break终止重写后的匹配<br>break和last都能组织继续执行后面的rewrite指令</p>
+<h4 id="u5168_u5C40_u53D8_u91CF"><a href="#u5168_u5C40_u53D8_u91CF" class="headerlink" title="全局变量"></a>全局变量</h4><p>下面是可以用作if判断的全局变量</p>
+<p><code>$args</code> ： #这个变量等于请求行中的参数，同<code>$query_string</code><br><code>$content_length</code> ： 请求头中的Content-length字段。<br><code>$content_type</code> ： 请求头中的Content-Type字段。<br><code>$document_roo</code>t ： 当前请求在root指令中指定的值。<br><code>$host</code> ： 请求主机头字段，否则为服务器名称。<br><code>$http_user_agent</code> ： 客户端agent信息<br><code>$http_cookie</code> ： 客户端cookie信息<br><code>$limit_rate</code> ： 这个变量可以限制连接速率。<br><code>$request_method</code> ： 客户端请求的动作，通常为GET或POST。<br><code>$remote_addr</code> ： 客户端的IP地址。<br><code>$remote_port</code> ： 客户端的端口。<br><code>$remote_user</code> ： 已经经过Auth Basic Module验证的用户名。<br><code>$request_filename</code> ： 当前请求的文件路径，由root或alias指令与URI请求生成。<br><code>$scheme</code> ： HTTP方法（如http，https）。<br><code>$server_protocol</code> ： 请求使用的协议，通常是HTTP/1.0或HTTP/1.1。<br><code>$server_addr</code> ： 服务器地址，在完成一次系统调用后可以确定这个值。<br><code>$server_name</code> ： 服务器名称。<br><code>$server_port</code> ： 请求到达服务器的端口号。<br><code>$request_uri</code> ： 包含请求参数的原始URI，不包含主机名，如：”/foo/bar.php?arg=baz”。<br><code>$uri</code> ： 不带请求参数的当前URI，$uri不包含主机名，如”/foo/bar.html”。<br><code>$document_uri</code> ： 与<code>$uri</code>相同。<br>例：<code>http://www.cherrpy.net:83/tmp?url=http://www.baidu.com</code><br><figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$host</span>：www.cherrpy.net</span><br><span class="line"><span class="variable">$server</span>_port：<span class="number">83</span></span><br><span class="line"><span class="variable">$request</span>_uri：/tmp?url=http://www.baidu.com</span><br><span class="line"><span class="variable">$document</span>_uri：/tmp</span><br></pre></td></tr></table></figure></p>
+<h4 id="u5E38_u7528_u6B63_u5219"><a href="#u5E38_u7528_u6B63_u5219" class="headerlink" title="常用正则"></a>常用正则</h4><p><code>.</code> ： 匹配除换行符以外的任意字符<br><code>?</code> ： 重复0次或1次<br><code>+</code> ： 重复1次或更多次<br><code>*</code> ： 重复0次或更多次<br><code>\d</code> ：匹配数字<br><code>^</code> ： 匹配字符串的开始<br><code>$</code> ： 匹配字符串的介绍<br><code>{n}</code> ： 重复n次<br><code>{n,}</code> ： 重复n次或更多次<br><code>[c]</code> ： 匹配单个字符c<br><code>[a-z]</code> ： 匹配a-z小写字母的任意一个<br>小括号<code>()</code>之间匹配的内容，可以在后面通过<code>$1</code>来引用，<code>$2</code>表示的是前面第二个<code>()</code>里的内容。正则里面容易让人困惑的是<code>\</code>转义特殊字符。</p>
+<p>将url中以/wap/开头的请求转发到后台对应的某台server上可以再Nginx里设置一个变量，来临时保存/wap/后面的路径信息<br><figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">location ^~ /wap/</span><br><span class="line">&#123;</span><br><span class="line">if (<span class="variable">$request</span>_uri ~ /wap/(\d+)/(.+))</span><br><span class="line">&#123;</span><br><span class="line">set <span class="variable">$bucketid</span> <span class="variable">$1</span>;</span><br><span class="line">set <span class="variable">$params</span> <span class="variable">$2</span>;</span><br><span class="line">&#125;</span><br><span class="line">proxy_pass http://mx<span class="variable">$bucketid</span>.test.com:<span class="number">6601</span>/<span class="variable">$params</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="u95EE_u9898"><a href="#u95EE_u9898" class="headerlink" title="问题"></a>问题</h4><p><a href="http://stackoverflow.com/questions/17685674/nginx-proxy-pass-with-remote-addr" target="_blank" rel="external">no resolver defined to resolve解决方案</a><br>在nginx的配置文件中的http{}部分添加一行resolver 8.8.8.8;即可<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">location</span><span class="regexp"> ^~</span> /freegeoip/ &#123;</span><br><span class="line">  <span class="comment">#use google as dns</span></span><br><span class="line">  <span class="title">resolver</span> <span class="number">8.8.8.8</span>;</span><br><span class="line">  <span class="title">proxy_pass</span> <span class="url">http://freegeoip.net/json/<span class="variable">$remote_addr</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/02/09/vsftpd/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">vsftpd</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="nginx-regular" data-title="nginx正则和反向代理配置" data-url="http://www.cherrypy.net:82/2017/03/09/nginx-regular/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"cherrish"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 Mr Ren
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

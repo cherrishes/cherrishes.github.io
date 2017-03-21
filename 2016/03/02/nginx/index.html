@@ -4,28 +4,28 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>Ubuntu搭建nginx服务器 | 那些你不知道的事</title>
+  <title>nginx服务器安装与配置 | 那些你不知道的事</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="这里简单通过nginx配置访问一个静态网页，首先更新软件源1sudo apt-get update
+  <meta name="description" content="ubuntu下安装nginx这里简单通过nginx配置访问一个静态网页，首先更新软件源1sudo apt-get update
 安装nginx1sudo apt-get install nginx
 默认安装nginx配置文件在/etc/nginx/nginx.conf启动nginx1sudo service nginx start
-访问IP地址，默认已经监听80端口，本地直接访问127.0.0.1就可以看到欢迎页面编辑配置文">
+访问IP地址，默认已经监听80端口，本地直接访问127.0.0.1">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Ubuntu搭建nginx服务器">
+<meta property="og:title" content="nginx服务器安装与配置">
 <meta property="og:url" content="http://www.cherrypy.net:82/2016/03/02/nginx/index.html">
 <meta property="og:site_name" content="那些你不知道的事">
-<meta property="og:description" content="这里简单通过nginx配置访问一个静态网页，首先更新软件源1sudo apt-get update
+<meta property="og:description" content="ubuntu下安装nginx这里简单通过nginx配置访问一个静态网页，首先更新软件源1sudo apt-get update
 安装nginx1sudo apt-get install nginx
 默认安装nginx配置文件在/etc/nginx/nginx.conf启动nginx1sudo service nginx start
-访问IP地址，默认已经监听80端口，本地直接访问127.0.0.1就可以看到欢迎页面编辑配置文">
+访问IP地址，默认已经监听80端口，本地直接访问127.0.0.1">
 <meta property="og:image" content="http://7xq1xx.com1.z0.glb.clouddn.com/nginx.png">
-<meta property="og:updated_time" content="2016-03-02T02:49:11.985Z">
+<meta property="og:updated_time" content="2017-03-09T11:07:31.508Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Ubuntu搭建nginx服务器">
-<meta name="twitter:description" content="这里简单通过nginx配置访问一个静态网页，首先更新软件源1sudo apt-get update
+<meta name="twitter:title" content="nginx服务器安装与配置">
+<meta name="twitter:description" content="ubuntu下安装nginx这里简单通过nginx配置访问一个静态网页，首先更新软件源1sudo apt-get update
 安装nginx1sudo apt-get install nginx
 默认安装nginx配置文件在/etc/nginx/nginx.conf启动nginx1sudo service nginx start
-访问IP地址，默认已经监听80端口，本地直接访问127.0.0.1就可以看到欢迎页面编辑配置文">
+访问IP地址，默认已经监听80端口，本地直接访问127.0.0.1">
   
     <link rel="alternative" href="/atom.xml" title="那些你不知道的事" type="application/atom+xml">
   
@@ -120,7 +120,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Bit/" style="font-size: 10px;">Bit</a> <a href="/tags/H5/" style="font-size: 10px;">H5</a> <a href="/tags/IT/" style="font-size: 10px;">IT</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/apscheduler/" style="font-size: 10px;">apscheduler</a> <a href="/tags/celery/" style="font-size: 10px;">celery</a> <a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/clothing/" style="font-size: 10px;">clothing</a> <a href="/tags/cloud/" style="font-size: 10px;">cloud</a> <a href="/tags/coney/" style="font-size: 10px;">coney</a> <a href="/tags/django/" style="font-size: 10px;">django</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/imagemagick/" style="font-size: 10px;">imagemagick</a> <a href="/tags/linux-python/" style="font-size: 10px;">linux,python</a> <a href="/tags/locale/" style="font-size: 10px;">locale</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mosquitto-mqtt/" style="font-size: 10px;">mosquitto,mqtt</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/nginx/" style="font-size: 15px;">nginx</a> <a href="/tags/pycharm/" style="font-size: 10px;">pycharm</a> <a href="/tags/pyenv/" style="font-size: 10px;">pyenv</a> <a href="/tags/pyleus/" style="font-size: 10px;">pyleus</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/python-yield/" style="font-size: 10px;">python yield</a> <a href="/tags/random/" style="font-size: 10px;">random</a> <a href="/tags/rdesktop/" style="font-size: 10px;">rdesktop</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/requests/" style="font-size: 10px;">requests</a> <a href="/tags/thrift/" style="font-size: 10px;">thrift</a> <a href="/tags/tips/" style="font-size: 10px;">tips</a> <a href="/tags/tunnello/" style="font-size: 10px;">tunnello</a> <a href="/tags/ubuntu/" style="font-size: 15px;">ubuntu</a> <a href="/tags/wiznote/" style="font-size: 10px;">wiznote</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/产品，知乎，心得/" style="font-size: 10px;">产品，知乎，心得</a> <a href="/tags/优酷/" style="font-size: 10px;">优酷</a> <a href="/tags/文件上传进度条/" style="font-size: 10px;">文件上传进度条</a> <a href="/tags/消息验证/" style="font-size: 10px;">消息验证</a> <a href="/tags/终结/" style="font-size: 10px;">终结</a>
+						<a href="/tags/Bit/" style="font-size: 10px;">Bit</a> <a href="/tags/H5/" style="font-size: 10px;">H5</a> <a href="/tags/IT/" style="font-size: 10px;">IT</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/apscheduler/" style="font-size: 10px;">apscheduler</a> <a href="/tags/celery/" style="font-size: 10px;">celery</a> <a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/clothing/" style="font-size: 10px;">clothing</a> <a href="/tags/cloud/" style="font-size: 10px;">cloud</a> <a href="/tags/coney/" style="font-size: 10px;">coney</a> <a href="/tags/django/" style="font-size: 10px;">django</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/imagemagick/" style="font-size: 10px;">imagemagick</a> <a href="/tags/linux-python/" style="font-size: 10px;">linux,python</a> <a href="/tags/locale/" style="font-size: 10px;">locale</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mosquitto-mqtt/" style="font-size: 10px;">mosquitto,mqtt</a> <a href="/tags/mysql/" style="font-size: 13.33px;">mysql</a> <a href="/tags/nginx/" style="font-size: 16.67px;">nginx</a> <a href="/tags/nginx正则/" style="font-size: 10px;">nginx正则</a> <a href="/tags/pycharm/" style="font-size: 10px;">pycharm</a> <a href="/tags/pyenv/" style="font-size: 10px;">pyenv</a> <a href="/tags/pyleus/" style="font-size: 10px;">pyleus</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/python-yield/" style="font-size: 10px;">python yield</a> <a href="/tags/random/" style="font-size: 10px;">random</a> <a href="/tags/rdesktop/" style="font-size: 10px;">rdesktop</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/requests/" style="font-size: 10px;">requests</a> <a href="/tags/thrift/" style="font-size: 10px;">thrift</a> <a href="/tags/tips/" style="font-size: 10px;">tips</a> <a href="/tags/tunnello/" style="font-size: 10px;">tunnello</a> <a href="/tags/ubuntu/" style="font-size: 13.33px;">ubuntu</a> <a href="/tags/wiznote/" style="font-size: 10px;">wiznote</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/产品，知乎，心得/" style="font-size: 10px;">产品，知乎，心得</a> <a href="/tags/优酷/" style="font-size: 10px;">优酷</a> <a href="/tags/文件上传进度条/" style="font-size: 10px;">文件上传进度条</a> <a href="/tags/消息验证/" style="font-size: 10px;">消息验证</a> <a href="/tags/终结/" style="font-size: 10px;">终结</a>
 					</div>
 				</section>
 				
@@ -203,7 +203,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Ubuntu搭建nginx服务器
+      nginx服务器安装与配置
     </h1>
   
 
@@ -223,7 +223,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>这里简单通过nginx配置访问一个静态网页，首先更新软件源<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure></p>
+        <h3 id="ubuntu_u4E0B_u5B89_u88C5nginx"><a href="#ubuntu_u4E0B_u5B89_u88C5nginx" class="headerlink" title="ubuntu下安装nginx"></a>ubuntu下安装nginx</h3><p>这里简单通过nginx配置访问一个静态网页，首先更新软件源<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure></p>
 <p>安装nginx<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install nginx</span><br></pre></td></tr></table></figure></p>
 <p>默认安装nginx配置文件在<code>/etc/nginx/nginx.conf</code><br>启动nginx<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service nginx start</span><br></pre></td></tr></table></figure></p>
 <p>访问IP地址，默认已经监听80端口，本地直接访问127.0.0.1就可以看到欢迎页面<br><img src="http://7xq1xx.com1.z0.glb.clouddn.com/nginx.png" alt=""><br>编辑配置文件,其中server_name是配置一个访问网址，root是配置一个访问根目录，默认是访问根目录下的index.html<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">rdy@cherry:~$  sudo vim /etc/nginx/sites-available/test.conf</span><br><span class="line">server &#123;</span><br><span class="line">    listen        <span class="number">80</span>;</span><br><span class="line">    server_name   www.domain.com;</span><br><span class="line">    charset       utf8;</span><br><span class="line">    index         index.html;</span><br><span class="line">    root          /home/user/vhost/www.domain.com/;		<span class="comment">#确保这个目录nginx的运行用户有访问权限，要么用root用户运行nginx</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
@@ -231,7 +231,10 @@
 <p>然后就是测试配置是否正确了：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nginx -t</span><br></pre></td></tr></table></figure></p>
 <p>如果输出OK等提示就可以重启nginx<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service nginx restart</span><br></pre></td></tr></table></figure></p>
 <p>本地配置Host就可以访问了。</p>
-
+<h3 id="centos_u4E0B_u5B89_u88C5"><a href="#centos_u4E0B_u5B89_u88C5" class="headerlink" title="centos下安装"></a>centos下安装</h3><h4 id="u7F16_u8BD1_u5B89_u88C5"><a href="#u7F16_u8BD1_u5B89_u88C5" class="headerlink" title="编译安装"></a>编译安装</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># &#23433;&#35013;&#30456;&#20851;&#20381;&#36182;&#10;yum -y groupinstall &#34;Development tools&#34;&#10;yum -y install zlib zlib-devel pcre  pcre-devel bzip2-devel openssl openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel&#10;&#10;&#10;wget http://nginx.org/download/nginx-1.6.2.tar.gz&#10;tar -zxvf nginx-1.6.2.tar.gz&#10;cd nginx-1.6.2&#10;&#10;#&#20462;&#25913;Server&#20449;&#24687;&#10;vi src/core/nginx.h&#10;#define NGINX_VERSION      &#34;1.6.2&#34;&#10;#define NGINX_VER          &#34;CherryWS/&#34; NGINX_VERSION&#10;&#10;&#37197;&#32622;&#30456;&#20851;&#20449;&#24687;&#10;./configure \&#10;  --user=www\&#10;  --group=www\&#10;  --prefix=/etc/nginx\&#10;  --sbin-path=/etc/nginx/sbin/nginx\&#10;  --conf-path=/etc/nginx/conf/nginx.conf\&#10;  --with-http_stub_status_module\&#10;  --with-http_ssl_module&#10;#&#32534;&#35793;nginx&#10;make &#38;&#38;  make install</span><br></pre></td></tr></table></figure>
+<h4 id="u521D_u59CB_u914D_u7F6E"><a href="#u521D_u59CB_u914D_u7F6E" class="headerlink" title="初始配置"></a>初始配置</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/nginx/conf&#10;&#10;# &#20462;&#25913;&#19978;&#20256;&#25991;&#20214;&#22823;&#23567;&#38480;&#21046;&#10;vim nginx.conf&#10;# &#22312;nginx.conf&#20013;&#30340;&#8220;http&#123;&#8221;&#19979;&#22686;&#21152;&#22914;&#19979;&#35821;&#21477;(&#20801;&#35768;&#19978;&#20256;&#25991;&#20214;&#30340;&#22823;&#23567;&#20026;300M)&#10;client_max_body_size 300m;&#10;&#10;&#10;# &#28155;&#21152;apk&#25991;&#20214;&#12289;ejs&#25991;&#20214;&#30340;MIME&#31867;&#22411;&#10;vim mime.types&#10;application/vnd.android.package-archive apk;&#10;text/html   ejs;&#10;&#10;&#10;# &#23558;conf/nginx.conf&#20013;&#30340;&#39318;&#34892;user nobody&#30340;&#27880;&#37322;&#21435;&#25481;&#26082;&#21487;&#10;# &#21019;&#24314;www&#29992;&#25143;&#21644;&#29992;&#25143;&#32452;&#10;/usr/sbin/groupadd -f www&#10;/usr/sbin/useradd -g www www -s /sbin/nologin</span><br></pre></td></tr></table></figure>
+<h4 id="u521B_u5EFA_u5F00_u673A_u542F_u52A8"><a href="#u521B_u5EFA_u5F00_u673A_u542F_u52A8" class="headerlink" title="创建开机启动"></a>创建开机启动</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#&#22312;linux&#31995;&#32479;&#30340;/etc/init.d/&#30446;&#24405;&#19979;&#21019;&#24314;nginx&#25991;&#20214;&#10;vi /etc/init.d/nginx&#10;&#10;&#10;&#10;&#10;nginxd=/etc/nginx/sbin/nginx&#10;nginx_config=/etc/nginx/conf/nginx.conf&#10;nginx_pid=/var/run/nginx.pid&#10;RETVAL=0&#10;prog=&#34;nginx&#34;&#10;# Source function library.&#10;. /etc/rc.d/init.d/functions&#10;# Source networking configuration.&#10;. /etc/sysconfig/network&#10;# Check that networking is up.&#10;[ $&#123;NETWORKING&#125; = &#34;no&#34; ] &#38;&#38; exit 0&#10;[ -x $nginxd ] || exit 0&#10;# Start nginx daemons functions.&#10;start() &#123;&#10;if [ -e $nginx_pid ];then&#10;   echo &#34;nginx already running....&#34;&#10;   exit 1&#10;fi&#10;   echo -n $&#34;Starting $prog: &#34;&#10;   daemon $nginxd -c $&#123;nginx_config&#125;&#10;   RETVAL=$?&#10;   echo&#10;   [ $RETVAL = 0 ] &#38;&#38; touch /var/lock/subsys/nginx&#10;   return $RETVAL&#10;&#125;&#10;# Stop nginx daemons functions.&#10;stop() &#123;&#10;        echo -n $&#34;Stopping $prog: &#34;&#10;        killproc $nginxd&#10;        RETVAL=$?&#10;        echo&#10;        [ $RETVAL = 0 ] &#38;&#38; rm -f /var/lock/subsys/nginx /var/run/nginx.pid&#10;&#125;&#10;# reload nginx service functions.&#10;reload() &#123;&#10;    echo -n $&#34;Reloading $prog: &#34;&#10;    #kill -HUP `cat $&#123;nginx_pid&#125;`&#10;    killproc $nginxd -HUP&#10;    RETVAL=$?&#10;    echo&#10;&#125;&#10;# See how we were called.&#10;case &#34;$1&#34; in&#10;start)&#10;        start&#10;        ;;&#10;stop)&#10;        stop&#10;        ;;&#10;reload)&#10;        reload&#10;        ;;&#10;restart)&#10;        stop&#10;        start&#10;        ;;&#10;status)&#10;        status $prog&#10;        RETVAL=$?&#10;        ;;&#10;*)&#10;        echo $&#34;Usage: $prog &#123;start|stop|restart|reload|status|help&#125;&#34;&#10;        exit 1&#10;esac&#10;exit $RETVAL&#10;&#10;&#10;#&#25509;&#30528;&#65292;&#35774;&#32622;&#25991;&#20214;&#30340;&#35775;&#38382;&#26435;&#38480;(a+x&#21442;&#25968;&#34920;&#31034; ==&#62; all user can execute  &#25152;&#26377;&#29992;&#25143;&#21487;&#25191;&#34892;)&#10;chmod a+x /etc/init.d/nginx&#10;&#10;#&#26368;&#21518;&#23558;ngix&#21152;&#20837;&#21040;rc.local&#25991;&#20214;&#20013;&#65292;&#36825;&#26679;&#24320;&#26426;&#30340;&#26102;&#20505;nginx&#23601;&#40664;&#35748;&#21551;&#21160;&#20102;&#10;vi /etc/rc.local&#10;# &#28155;&#21152;&#10;/etc/init.d/nginx start</span><br></pre></td></tr></table></figure>
+<h4 id="u5E38_u7528_u547D_u4EE4"><a href="#u5E38_u7528_u547D_u4EE4" class="headerlink" title="常用命令"></a>常用命令</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#&#28982;&#21518;&#23601;&#21487;&#20197;&#36825;&#26679;&#26469;&#37325;&#21551;&#20102;&#10;/etc/init.d/nginx restart&#10;#&#25110;&#32773;&#30452;&#25509;&#36890;&#36807;service&#26469;&#25805;&#20316;&#10;service nginx start&#10;service nginx stop&#10;service nginx restart&#10;#&#37325;&#26032;&#21152;&#36733;&#10;service nginx reload&#10;&#10;#&#37325;&#21551;nginx&#10;./nginx -s reload&#10;# &#21551;&#21160;&#10;./nginx&#10;# &#20851;&#38381;&#10;killall nginx</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -286,7 +289,7 @@
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="nginx" data-title="Ubuntu搭建nginx服务器" data-url="http://www.cherrypy.net:82/2016/03/02/nginx/"></div>
+	<div class="ds-thread" data-thread-key="nginx" data-title="nginx服务器安装与配置" data-url="http://www.cherrypy.net:82/2016/03/02/nginx/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
