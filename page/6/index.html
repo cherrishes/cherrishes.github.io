@@ -177,6 +177,89 @@
 
       <div class="body-wrap">
   
+    <article id="post-thrift-use" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/03/16/thrift-use/" class="article-date">
+  	<time datetime="2016-03-16T01:50:52.000Z" itemprop="datePublished">2016-03-16</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/03/16/thrift-use/">Apache Thrift的简单使用</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Thrift是Facebook的一个开源项目，主要是一个跨语言的服务开发框架。它有一个代码生成器来对它所定义的IDL定义文件自动生成服务代码框架。用户只要在其之前进行二次开发就行，对于底层的RPC通讯等都是透明的。目前它支持的语言有C++, Java, Python, PHP, Ruby, Erlang, Perl, Haskell, C#, Cocoa, Smalltalk, and OCaml.</p>
+<h4 id="u4E0B_u8F7D_u5B89_u88C5"><a href="#u4E0B_u8F7D_u5B89_u88C5" class="headerlink" title="下载安装"></a>下载安装</h4><p>可以在<a href="http://www.apache.org/dyn/closer.cgi?path=/thrift/0.9.3/thrift-0.9.3.tar.gz" target="_blank" rel="external">http://www.apache.org/dyn/closer.cgi?path=/thrift/0.9.3/thrift-0.9.3.tar.gz</a> 去下载新版本<br>在安装thrift之前有一些依赖要先安装</p>
+<ul>
+<li>libssl-dev</li>
+<li>automake </li>
+<li>libtool</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install libssl-dev automake libtool</span><br></pre></td></tr></table></figure>
+<p>ubuntu系统下使用以上命令即可安装，接下来可以进行编译,安装<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">./bootstrap.sh</span><br><span class="line">./configure</span><br><span class="line">make</span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure></p>
+<p>安装过程的一些问题</p>
+<ol>
+<li><p>flex: command not found</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">solution: sudo apt-get install flex</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>yacc: command not found</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">solution: sudo apt-get install byacc</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>安装完成可以用以下命令查看thrift版本<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(pyleus27Env)rdy@cherry:~/thrift-work/gen-py$ thrift -version</span><br><span class="line">Thrift version <span class="number">0.9</span>.<span class="number">3</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="u4E00_u4E2A_u5C0F_u5217_u5B50"><a href="#u4E00_u4E2A_u5C0F_u5217_u5B50" class="headerlink" title="一个小列子"></a>一个小列子</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vim helloworld.thrift</span><br><span class="line">service HelloWorld &#123;</span><br><span class="line">    string getservtime(<span class="number">1</span>:string clientname)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight thrift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">thrift -r --gen py helloworld.thrift <span class="comment">// -r对其中include的文件也生成服务代码 -gen是生成服务代码的语言</span></span><br></pre></td></tr></table></figure>
+<p>生成的代码在gen-py目录下。<br>创建server.py文件<br>server.py<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line">sys.path.append(<span class="string">'./gen-py'</span>)</span><br><span class="line"> </span><br><span class="line"><span class="keyword">from</span> helloworld <span class="keyword">import</span> HelloWorld</span><br><span class="line"><span class="keyword">from</span> helloworld.ttypes <span class="keyword">import</span> *</span><br><span class="line"> </span><br><span class="line"><span class="keyword">from</span> thrift.transport <span class="keyword">import</span> TSocket</span><br><span class="line"><span class="keyword">from</span> thrift.transport <span class="keyword">import</span> TTransport</span><br><span class="line"><span class="keyword">from</span> thrift.protocol <span class="keyword">import</span> TBinaryProtocol</span><br><span class="line"><span class="keyword">from</span> thrift.server <span class="keyword">import</span> TServer</span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HelloWorldHandler</span>:</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">getservtime</span><span class="params">(self, clientname)</span>:</span>   </span><br><span class="line">    <span class="keyword">return</span> time.strftime( <span class="string">'%Y-%m-%d %H:%M:%S'</span>, time.localtime() )</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">handler = HelloWorldHandler()</span><br><span class="line">processor = HelloWorld.Processor(handler)</span><br><span class="line">transport = TSocket.TServerSocket(<span class="string">"localhost"</span>, <span class="number">9090</span>)</span><br><span class="line">tfactory = TTransport.TBufferedTransportFactory()</span><br><span class="line">pfactory = TBinaryProtocol.TBinaryProtocolFactory()</span><br><span class="line"> </span><br><span class="line">server = TServer.TSimpleServer(processor, transport, tfactory, pfactory)</span><br><span class="line"> </span><br><span class="line"><span class="keyword">print</span> <span class="string">"Starting thrift server in python..."</span></span><br><span class="line">server.serve()</span><br><span class="line"><span class="keyword">print</span> <span class="string">"done!"</span></span><br></pre></td></tr></table></figure></p>
+<p>client.py<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">sys.path.append(<span class="string">'./gen-py'</span>)</span><br><span class="line"> </span><br><span class="line"><span class="keyword">from</span> helloworld <span class="keyword">import</span> HelloWorld</span><br><span class="line"> </span><br><span class="line"><span class="keyword">from</span> thrift <span class="keyword">import</span> Thrift</span><br><span class="line"><span class="keyword">from</span> thrift.transport <span class="keyword">import</span> TSocket</span><br><span class="line"><span class="keyword">from</span> thrift.transport <span class="keyword">import</span> TTransport</span><br><span class="line"><span class="keyword">from</span> thrift.protocol <span class="keyword">import</span> TBinaryProtocol</span><br><span class="line"> </span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">  transport = TSocket.TSocket(<span class="string">'localhost'</span>, <span class="number">9090</span>)</span><br><span class="line">  transport = TTransport.TBufferedTransport(transport)</span><br><span class="line">  protocol = TBinaryProtocol.TBinaryProtocol(transport)</span><br><span class="line">  client = HelloWorld.Client(protocol)</span><br><span class="line">  transport.open()</span><br><span class="line"> </span><br><span class="line">  <span class="keyword">print</span> <span class="string">"client - get serv time"</span></span><br><span class="line">  <span class="keyword">print</span> <span class="string">"server - "</span> + client.getservtime(<span class="string">'testclient'</span>)</span><br><span class="line">  transport.close()</span><br><span class="line"> </span><br><span class="line"><span class="keyword">except</span> Thrift.TException, ex:</span><br><span class="line">  <span class="keyword">print</span> <span class="string">"%s"</span> % (ex.message)</span><br></pre></td></tr></table></figure></p>
+<p>这里主要用到了python的thrift库，目前支持python2.X<br>切换运行环境<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> /home/rdy/virtualENv/pyleus27Env/bin/activate</span><br><span class="line">(pyleus27Env)rdy@cherry:~/thrift-work/gen-py$</span><br></pre></td></tr></table></figure></p>
+<p>执行服务端代码<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(pyleus27Env)rdy@cherry:~/thrift-work/gen-py$ python server.py </span><br><span class="line">Starting thrift server <span class="keyword">in</span> python...</span><br></pre></td></tr></table></figure></p>
+<p>执行客户端程序<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(pyleus27Env)rdy@cherry:~/thrift-work/gen-py$ python client.py </span><br><span class="line">client - get serv time</span><br><span class="line">server - <span class="number">2016</span>-<span class="number">03</span>-<span class="number">16</span> <span class="number">10</span>:<span class="number">57</span>:<span class="number">01</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="u5176_u4ED6_u4EE3_u7801_u5B9E_u73B0"><a href="#u5176_u4ED6_u4EE3_u7801_u5B9E_u73B0" class="headerlink" title="其他代码实现"></a>其他代码实现</h4><p>在thrift源码tutorial目录中有其它代码的例子，如erl,java,c++,perl,ruby等。</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/apache/">apache</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/thrift/">thrift</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-python-zookeeper" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -469,123 +552,6 @@
       
 	<div class="article-tag tagcloud">
 		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux-python/">linux,python</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-mqtt-use" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/02/03/mqtt-use/" class="article-date">
-  	<time datetime="2016-02-03T11:31:28.000Z" itemprop="datePublished">2016-02-03</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/02/03/mqtt-use/">MQTT基础知识</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>MQTT是基于二进制消息的发布/订阅编程模式的消息协议，最早由IBM提出的，如今已经成为OASIS规范。</p>
-<h3 id="u57FA_u7840_u5185_u5BB9"><a href="#u57FA_u7840_u5185_u5BB9" class="headerlink" title="基础内容"></a>基础内容</h3><p>MQTT的固定头部包含以下信息</p>
-<h4 id="MessageType"><a href="#MessageType" class="headerlink" title="MessageType"></a>MessageType</h4><p>消息类型，使用4位二进制标示，共16种消息类型，其中0和15位做保留待用，实际使用共14种消息事件类型</p>
-<ol>
-<li>CONNECT：客户端连接到MQTT代理</li>
-<li>CONNACK：连接确认</li>
-<li>PUBLISH：新发布消息</li>
-<li>PUBACK：新发布消息确认，是QoS 1给PUBLISH消息的回复</li>
-<li>PUBREC：QoS 2消息流的第一部分，表示消息发布已记录</li>
-<li>PUBREL：QoS 2消息流的第二部分，表示消息发布已释放</li>
-<li>PUBCOMP：QoS 2消息流的第三部分，表示消息发布完成</li>
-<li>SUBSCRIBE：客户端订阅某个主题</li>
-<li>SUBACK：对于SUBSCRIBE消息的确认</li>
-<li>UNSUBSCRIBE：客户端终止订阅的消息</li>
-<li>UNSUBACK：对于UNSUBSCRIBE消息的确认</li>
-<li>PINGREQ：心跳</li>
-<li>PINGRESP：确认心跳</li>
-<li>DISCONNECT：客户端终止连接前优雅地通知MQTT代理</li>
-</ol>
-<h4 id="QoS_level"><a href="#QoS_level" class="headerlink" title="QoS level"></a>QoS level</h4><p>为了满足不同的场景，MQTT支持三种不同级别的服务质量（Quality of Service，QoS）为不同场景提供消息可靠性，由两个二进制位标示</p>
-<ul>
-<li>0：至多一次,尽力而为。消息发送者会想尽办法发送消息，但是遇到意外并不会重试。</li>
-<li>1：至少一次。消息接收者如果没有知会或者知会本身丢失，消息发送者会再次发送以保证消息接收者至少会收到一次，当然可能造成重复消息。</li>
-<li>2：只有一次。保证这种语义肯待会减少并发或者增加延时，不过丢失或者重复消息是不可接受的时候，级别2是最合适的。</li>
-<li>3：保留</li>
-</ul>
-<h4 id="RETAIN"><a href="#RETAIN" class="headerlink" title="RETAIN"></a>RETAIN</h4><p>是否对PUBLISH消息进行持久化</p>
-<ul>
-<li>1：标示需要持久化， 当新订阅者出现时，会收到最新一个持久化消息</li>
-<li>2：标示不需要持久化，推送仅对当前订阅者<br>当RETAIN=1，Payload=NULL时标示删除该Topic的持久化PUBLISH消息，新连接者将不会收到持久化的消息</li>
-</ul>
-<h4 id="Topic_u901A_u914D_u7B26"><a href="#Topic_u901A_u914D_u7B26" class="headerlink" title="Topic通配符"></a>Topic通配符</h4><p>/：用来表示层次，比如a/b，a/b/c。</p>
-<p>#：表示匹配&gt;=0个层次，比如a/#就匹配a/，a/b，a/b/c。</p>
-<p>单独的一个#表示匹配所有。</p>
-<p>不允许 a#和a/#/c。</p>
-<p>+：表示匹配一个层次，例如a/+匹配a/b，a/c，不匹配a/b/c。</p>
-<p>单独的一个+是允许的，a+不允许，a/+/b不允许</p>
-<h4 id="u5FC3_u8DF3_PINGREQ/PINGRES"><a href="#u5FC3_u8DF3_PINGREQ/PINGRES" class="headerlink" title="心跳 PINGREQ/PINGRES"></a>心跳 PINGREQ/PINGRES</h4><p>Client告知Server其心跳间隔KeepAliveTime，Client需要在该时长内发送PINGREQ，Server收到后返回PINGRES确认以保持Client与Server的长链接。</p>
-<p>Server在1.5个时长内未收到PINGREQ，就断开连接</p>
-<p>Client在1个时长内未收到Server的PINGRES，就断开连接</p>
-<p>时间最长为18hours，0标示不断开</p>
-<h4 id="DISCONNECT"><a href="#DISCONNECT" class="headerlink" title="DISCONNECT"></a>DISCONNECT</h4><p>客户端主动发送disconnect消息到服务器端，表明即将关闭TCP/IP连接。此时要求服务器要完整、干净的进行断开处理，不能仅仅类似于关闭连接描述符类似草草处理之<br>服务器在接收到客户端发送的DISCONNECT消息之后，需要主动关闭TCP/IP连接，由此看来服务器无法主动断开某个链接，除非客户端主动发起请求<br>PS：服务器端无法主动提出断开某个链接，不过可以和客户端约定，比如收到某个消息就主动发起断开链接的请求</p>
-<h4 id="MQTT_u4EE3_u7406"><a href="#MQTT_u4EE3_u7406" class="headerlink" title="MQTT代理"></a>MQTT代理</h4><p>市面上有相当多的高质量MQTT代理，其中mosquitto是一个开源的轻量级的C实现，完全兼容了MQTT 3.1和MQTT 3.1.1。<br>安装mosquitto以及搭配的客户端<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install mosquitto</span><br></pre></td></tr></table></figure></p>
-<p>订阅和发布消息<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mosquitto_sub -h host -p <span class="number">8883</span> -t <span class="string">'topic'</span></span><br><span class="line">mosquitto_pub -h host -p <span class="number">8883</span> -t <span class="string">'topic'</span> -m <span class="string">'15'</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="u5B89_u5168"><a href="#u5B89_u5168" class="headerlink" title="安全"></a>安全</h3><p>MQTT是基于TCP的，默认情况通讯并不加密。如果你需要传输敏感信息或者对设备进行反控，使用TSL是几乎是必须的。</p>
-<h4 id="u7528_u6237_u540D_u548C_u5BC6_u7801"><a href="#u7528_u6237_u540D_u548C_u5BC6_u7801" class="headerlink" title="用户名和密码"></a>用户名和密码</h4><p>MQTT协议支持通过CONNECT消息的username和password字段发送用户名和密码。<br>用户名密码的认证使用起来非常方便，不过再强调一下，由于用户名密码是以明文形式传输，在通过互联网时使用TSL加密是必须的。<br>Mosquitto支持用户名/密码认证方式，只要确保/etc/mosquitto/mosquitto.conf有如下设置：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">password_file /etc/mosquitto/passwd</span><br><span class="line">allow_anonymous <span class="literal">false</span></span><br></pre></td></tr></table></figure></p>
-<p>其中passwd文件是用来保存用户名和密码的，可以通过mosquitto_passwd来维护用户名密码</p>
-<h4 id="u6388_u6743"><a href="#u6388_u6743" class="headerlink" title="授权"></a>授权</h4><p>授权是对资源的访问权限。继续拿机场做例子，在使用护照认证了用户之后，系统会根据预定决定用户可以上特定时间和班次的飞机，这就是授权。<br>对MQTT而言意味着对主题的订阅和发布权限。Mosquitto内置了基本的授权，那就是基于Access Control List的授权。<br>由于ACL是基于特定用户的，所以需要使用用户名密码认证方式。然后，在/etc/mosquitto/mosquitto.conf中指定ACL文件：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">acl_file /etc/mosquitto/acl</span><br></pre></td></tr></table></figure></p>
-<p>在这个ACL文件便可以指定用户的读写权限，比如下面便可以授权用户tom读写指定主题的权限：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">user tom</span><br><span class="line">topic readwrite company/building/floor/<span class="comment">#</span></span><br></pre></td></tr></table></figure></p>
-<p>Mosquitto只提供了基本的基于ACL的授权，更高级的基于RBAC的授权可能需要通过插件的形式自行开发了。</p>
-<h4 id="u5BA2_u6237_u6807_u8BC6"><a href="#u5BA2_u6237_u6807_u8BC6" class="headerlink" title="客户标识"></a>客户标识</h4><ul>
-<li>用户可以使用最多65535个字符作为客户标识（Client Identifier）</li>
-<li>使用客户标识来认证并不可靠，因为client_id可能会重复</li>
-</ul>
-<h3 id="u4F18_u52BF"><a href="#u4F18_u52BF" class="headerlink" title="优势"></a>优势</h3><ul>
-<li>MQTT的设计思想是开源、可靠、轻巧、简单</li>
-<li>如果客户端意外掉线，可以使用“遗愿”发布一条消息，同时支持持久订阅</li>
-<li>可靠传输。MQTT可以保证消息可靠安全的传输，并可以与企业应用简易集成</li>
-<li>消息推送。支持消息实时通知、丰富的推送内容、灵活的Pub-Sub以及消息存储和过滤。</li>
-<li>低带宽、低耗能、低成本。占用移动应用程序带宽小，并且带宽利用率高，耗电量较少</li>
-</ul>
-<h3 id="MQTT_u5BA2_u6237_u7AEF_u5DE5_u5177"><a href="#MQTT_u5BA2_u6237_u7AEF_u5DE5_u5177" class="headerlink" title="MQTT客户端工具"></a>MQTT客户端工具</h3>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mosquitto-mqtt/">mosquitto,mqtt</a></li></ul>
 	</div>
 
       
