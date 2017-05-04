@@ -177,123 +177,6 @@
 
       <div class="body-wrap">
   
-    <article id="post-mqtt-use" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/02/03/mqtt-use/" class="article-date">
-  	<time datetime="2016-02-03T11:31:28.000Z" itemprop="datePublished">2016-02-03</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/02/03/mqtt-use/">MQTT基础知识</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>MQTT是基于二进制消息的发布/订阅编程模式的消息协议，最早由IBM提出的，如今已经成为OASIS规范。</p>
-<h3 id="u57FA_u7840_u5185_u5BB9"><a href="#u57FA_u7840_u5185_u5BB9" class="headerlink" title="基础内容"></a>基础内容</h3><p>MQTT的固定头部包含以下信息</p>
-<h4 id="MessageType"><a href="#MessageType" class="headerlink" title="MessageType"></a>MessageType</h4><p>消息类型，使用4位二进制标示，共16种消息类型，其中0和15位做保留待用，实际使用共14种消息事件类型</p>
-<ol>
-<li>CONNECT：客户端连接到MQTT代理</li>
-<li>CONNACK：连接确认</li>
-<li>PUBLISH：新发布消息</li>
-<li>PUBACK：新发布消息确认，是QoS 1给PUBLISH消息的回复</li>
-<li>PUBREC：QoS 2消息流的第一部分，表示消息发布已记录</li>
-<li>PUBREL：QoS 2消息流的第二部分，表示消息发布已释放</li>
-<li>PUBCOMP：QoS 2消息流的第三部分，表示消息发布完成</li>
-<li>SUBSCRIBE：客户端订阅某个主题</li>
-<li>SUBACK：对于SUBSCRIBE消息的确认</li>
-<li>UNSUBSCRIBE：客户端终止订阅的消息</li>
-<li>UNSUBACK：对于UNSUBSCRIBE消息的确认</li>
-<li>PINGREQ：心跳</li>
-<li>PINGRESP：确认心跳</li>
-<li>DISCONNECT：客户端终止连接前优雅地通知MQTT代理</li>
-</ol>
-<h4 id="QoS_level"><a href="#QoS_level" class="headerlink" title="QoS level"></a>QoS level</h4><p>为了满足不同的场景，MQTT支持三种不同级别的服务质量（Quality of Service，QoS）为不同场景提供消息可靠性，由两个二进制位标示</p>
-<ul>
-<li>0：至多一次,尽力而为。消息发送者会想尽办法发送消息，但是遇到意外并不会重试。</li>
-<li>1：至少一次。消息接收者如果没有知会或者知会本身丢失，消息发送者会再次发送以保证消息接收者至少会收到一次，当然可能造成重复消息。</li>
-<li>2：只有一次。保证这种语义肯待会减少并发或者增加延时，不过丢失或者重复消息是不可接受的时候，级别2是最合适的。</li>
-<li>3：保留</li>
-</ul>
-<h4 id="RETAIN"><a href="#RETAIN" class="headerlink" title="RETAIN"></a>RETAIN</h4><p>是否对PUBLISH消息进行持久化</p>
-<ul>
-<li>1：标示需要持久化， 当新订阅者出现时，会收到最新一个持久化消息</li>
-<li>2：标示不需要持久化，推送仅对当前订阅者<br>当RETAIN=1，Payload=NULL时标示删除该Topic的持久化PUBLISH消息，新连接者将不会收到持久化的消息</li>
-</ul>
-<h4 id="Topic_u901A_u914D_u7B26"><a href="#Topic_u901A_u914D_u7B26" class="headerlink" title="Topic通配符"></a>Topic通配符</h4><p>/：用来表示层次，比如a/b，a/b/c。</p>
-<p>#：表示匹配&gt;=0个层次，比如a/#就匹配a/，a/b，a/b/c。</p>
-<p>单独的一个#表示匹配所有。</p>
-<p>不允许 a#和a/#/c。</p>
-<p>+：表示匹配一个层次，例如a/+匹配a/b，a/c，不匹配a/b/c。</p>
-<p>单独的一个+是允许的，a+不允许，a/+/b不允许</p>
-<h4 id="u5FC3_u8DF3_PINGREQ/PINGRES"><a href="#u5FC3_u8DF3_PINGREQ/PINGRES" class="headerlink" title="心跳 PINGREQ/PINGRES"></a>心跳 PINGREQ/PINGRES</h4><p>Client告知Server其心跳间隔KeepAliveTime，Client需要在该时长内发送PINGREQ，Server收到后返回PINGRES确认以保持Client与Server的长链接。</p>
-<p>Server在1.5个时长内未收到PINGREQ，就断开连接</p>
-<p>Client在1个时长内未收到Server的PINGRES，就断开连接</p>
-<p>时间最长为18hours，0标示不断开</p>
-<h4 id="DISCONNECT"><a href="#DISCONNECT" class="headerlink" title="DISCONNECT"></a>DISCONNECT</h4><p>客户端主动发送disconnect消息到服务器端，表明即将关闭TCP/IP连接。此时要求服务器要完整、干净的进行断开处理，不能仅仅类似于关闭连接描述符类似草草处理之<br>服务器在接收到客户端发送的DISCONNECT消息之后，需要主动关闭TCP/IP连接，由此看来服务器无法主动断开某个链接，除非客户端主动发起请求<br>PS：服务器端无法主动提出断开某个链接，不过可以和客户端约定，比如收到某个消息就主动发起断开链接的请求</p>
-<h4 id="MQTT_u4EE3_u7406"><a href="#MQTT_u4EE3_u7406" class="headerlink" title="MQTT代理"></a>MQTT代理</h4><p>市面上有相当多的高质量MQTT代理，其中mosquitto是一个开源的轻量级的C实现，完全兼容了MQTT 3.1和MQTT 3.1.1。<br>安装mosquitto以及搭配的客户端<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install mosquitto</span><br></pre></td></tr></table></figure></p>
-<p>订阅和发布消息<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mosquitto_sub -h host -p <span class="number">8883</span> -t <span class="string">'topic'</span></span><br><span class="line">mosquitto_pub -h host -p <span class="number">8883</span> -t <span class="string">'topic'</span> -m <span class="string">'15'</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="u5B89_u5168"><a href="#u5B89_u5168" class="headerlink" title="安全"></a>安全</h3><p>MQTT是基于TCP的，默认情况通讯并不加密。如果你需要传输敏感信息或者对设备进行反控，使用TSL是几乎是必须的。</p>
-<h4 id="u7528_u6237_u540D_u548C_u5BC6_u7801"><a href="#u7528_u6237_u540D_u548C_u5BC6_u7801" class="headerlink" title="用户名和密码"></a>用户名和密码</h4><p>MQTT协议支持通过CONNECT消息的username和password字段发送用户名和密码。<br>用户名密码的认证使用起来非常方便，不过再强调一下，由于用户名密码是以明文形式传输，在通过互联网时使用TSL加密是必须的。<br>Mosquitto支持用户名/密码认证方式，只要确保/etc/mosquitto/mosquitto.conf有如下设置：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">password_file /etc/mosquitto/passwd</span><br><span class="line">allow_anonymous <span class="literal">false</span></span><br></pre></td></tr></table></figure></p>
-<p>其中passwd文件是用来保存用户名和密码的，可以通过mosquitto_passwd来维护用户名密码</p>
-<h4 id="u6388_u6743"><a href="#u6388_u6743" class="headerlink" title="授权"></a>授权</h4><p>授权是对资源的访问权限。继续拿机场做例子，在使用护照认证了用户之后，系统会根据预定决定用户可以上特定时间和班次的飞机，这就是授权。<br>对MQTT而言意味着对主题的订阅和发布权限。Mosquitto内置了基本的授权，那就是基于Access Control List的授权。<br>由于ACL是基于特定用户的，所以需要使用用户名密码认证方式。然后，在/etc/mosquitto/mosquitto.conf中指定ACL文件：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">acl_file /etc/mosquitto/acl</span><br></pre></td></tr></table></figure></p>
-<p>在这个ACL文件便可以指定用户的读写权限，比如下面便可以授权用户tom读写指定主题的权限：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">user tom</span><br><span class="line">topic readwrite company/building/floor/<span class="comment">#</span></span><br></pre></td></tr></table></figure></p>
-<p>Mosquitto只提供了基本的基于ACL的授权，更高级的基于RBAC的授权可能需要通过插件的形式自行开发了。</p>
-<h4 id="u5BA2_u6237_u6807_u8BC6"><a href="#u5BA2_u6237_u6807_u8BC6" class="headerlink" title="客户标识"></a>客户标识</h4><ul>
-<li>用户可以使用最多65535个字符作为客户标识（Client Identifier）</li>
-<li>使用客户标识来认证并不可靠，因为client_id可能会重复</li>
-</ul>
-<h3 id="u4F18_u52BF"><a href="#u4F18_u52BF" class="headerlink" title="优势"></a>优势</h3><ul>
-<li>MQTT的设计思想是开源、可靠、轻巧、简单</li>
-<li>如果客户端意外掉线，可以使用“遗愿”发布一条消息，同时支持持久订阅</li>
-<li>可靠传输。MQTT可以保证消息可靠安全的传输，并可以与企业应用简易集成</li>
-<li>消息推送。支持消息实时通知、丰富的推送内容、灵活的Pub-Sub以及消息存储和过滤。</li>
-<li>低带宽、低耗能、低成本。占用移动应用程序带宽小，并且带宽利用率高，耗电量较少</li>
-</ul>
-<h3 id="MQTT_u5BA2_u6237_u7AEF_u5DE5_u5177"><a href="#MQTT_u5BA2_u6237_u7AEF_u5DE5_u5177" class="headerlink" title="MQTT客户端工具"></a>MQTT客户端工具</h3>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mosquitto-mqtt/">mosquitto,mqtt</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
     <article id="post-redis-use" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -687,6 +570,118 @@ pip3.4 install redis
       
 	<div class="article-category tagcloud">
 	<a class="article-category-link" href="/categories/工具/">工具</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-mysql-foreign-key" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/01/07/mysql-foreign-key/" class="article-date">
+  	<time datetime="2016-01-07T02:54:43.000Z" itemprop="datePublished">2016-01-07</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/01/07/mysql-foreign-key/">mysql相关操作</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="mysql_u6DFB_u52A0_u5916_u952E"><a href="#mysql_u6DFB_u52A0_u5916_u952E" class="headerlink" title="mysql添加外键"></a>mysql添加外键</h3><pre><code>为已经添加好的数据表添加外键:
+语法:alter table `表名` add constraint FK_ID foreign key(你的外键字段名) REFERENCES `外表表名(对应的表的主键字段名)`;
+例: alter table tb_active add constraint FK_ID foreign key(user_id) REFERENCES tb_user(id)
+</code></pre><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">//FK_ID是外键的名称</span><br><span class="line">/*</span><br><span class="line">CREATE TABLE `tb_active` (</span><br><span class="line"> `id` int(<span class="number">11</span>) NOT NULL AUTO_INCREMENT,</span><br><span class="line"> `title` varchar(<span class="number">100</span>) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,</span><br><span class="line"> `content` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,</span><br><span class="line"> `user_id` int(<span class="number">11</span>) NOT NULL,</span><br><span class="line"> PRIMARY KEY (`id`),</span><br><span class="line"> KEY `user_id` (`user_id`),</span><br><span class="line"> KEY `user_id_2` (`user_id`),</span><br><span class="line"> CONSTRAINT `FK_ID` FOREIGN KEY (`user_id`) REFERENCES `tb_user` (`id`)</span><br><span class="line">) ENGINE=InnoDB DEFAULT CHARSET=latin1</span><br><span class="line">*/</span><br></pre></td></tr></table></figure>
+<pre><code>删除外键
+语法： ALTER TABLE table-name DROP FOREIGN KEY key-id;
+例：   ALTER TABLE `tb_active` DROP FOREIGN KEY `FK_ID`
+</code></pre><p>自动键更新和删除：</p>
+<p>外键可以保证新插入的记录的完整性，但是，如果在REFERENCES从句中已命名的表删除记录会怎么样？在使用同样的值作为外键的辅助表中会发生什么?<br>很明显，那些记录也应该被删除，否则在数据库中就会有很多无意义的孤立记录，MYSQL可以通过向FOREIGN KEY…REFERENCES修饰符添加一个ON DELETE 或ON UPDATE子句简化任务，它告诉了数据库在这种情况如何处理孤立任务</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">关键字</th>
+<th style="text-align:center">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">CASCADE</td>
+<td style="text-align:center">删除包含与已删除键值有参照关系的所有记录</td>
+</tr>
+<tr>
+<td style="text-align:center">SET NULL</td>
+<td style="text-align:center">修改包含与已删除键值有参照关系的所有记录，使用NULL值替换（只能用于已标记为NOT NULL的字段）</td>
+</tr>
+<tr>
+<td style="text-align:center">RESTRICT</td>
+<td style="text-align:center">拒绝删除要求，直到使用删除键值的辅助表被手工删除，并且没有参照时(这是默认设置，也是最安全的设置)</td>
+</tr>
+<tr>
+<td style="text-align:center">NO ACTION</td>
+<td style="text-align:center">啥也不做</td>
+</tr>
+</tbody>
+</table>
+<p> 请注意，通过<code>ON UPDATE</code> 和 <code>ON DELETE</code>规则，设置MYSQL能够实现自动操作时，如果键的关系没有设置好，可能会导致严重的数据破坏，<br> 例如：如果一系列的表通过外键关系和<code>ON DELETE CASCADE</code> 规则连接时，任意一个主表的变化都会导致甚至只和原始删除有一些将要联系的记录在没有警告的情况被删除，所以，我们在操作之前还要检查这些规则的，操作之后还要再次检查.</p>
+<h3 id="u5E38_u89C1_u9519_u8BEF"><a href="#u5E38_u89C1_u9519_u8BEF" class="headerlink" title="常见错误"></a>常见错误</h3><p>创建数据库关联外键时提示 “duplicate key” 主要是要设置好<code>FK_ID</code>不要重复。</p>
+<h4 id="mysql__u6570_u636E_u5E93__u5907_u4EFD_u8FD8_u539F_u547D_u4EE4"><a href="#mysql__u6570_u636E_u5E93__u5907_u4EFD_u8FD8_u539F_u547D_u4EE4" class="headerlink" title="mysql 数据库 备份还原命令"></a>mysql 数据库 备份还原命令</h4><ol>
+<li>用 mysqldump 命令进行备份: <pre><code>在命令提示符窗口(注意不是 MySQL 的 MySQL Command Line Client 窗口,直接在Linux终端)中输入：
+mysqldump -h localhost -u root -proot  temp &gt; temp_2011.sql 
+也可以在命令里指定想要存放的目录：比如存放到根目录下，命令如下：
+mysqldump -h localhost -u root -proot  temp &gt; temp_2011.sql &gt; /2011.sql
+</code></pre>其中-h,-u两个参数名与参数值之间可用或不用空格分隔,但-p参数的参数名与参数值之间是一定不能加空格的,也可以这样输入: <pre><code>mysqldump -hlocalhost -uroot -p temp &gt; temp_2011.sql 
+Enter password: root 
+</code></pre> 在后面再输入密码也可以成功.<br> -h指出备份的数据库在本机,-u指出用户名,-p指出密码,temp为数据库名,后面可具体指定备份的数据表.<br> 结果生成的 temp_2011.sql 文件会自动存在指定目录下. <pre><code>mysqldump -hlocalhost -uroot -p temp table1 &gt; temp_2011.sql 
+</code></pre></li>
+<li><p>用mysql 命令进行恢复: </p>
+<p> mysql  -hlocalhost  -uroot  -proot          temp  &lt; temp_20071106.sql </p>
+<p>输入此命令后,数据库中的数据将恢复到备份时的数据. </p>
+<p>注意:恢复时, temp 必须存在,数据库可空.恢复时会自动删除要恢复的表,再重新创建,插入数据. </p>
+</li>
+</ol>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/软件/">软件</a>
 	</div>
 
 
