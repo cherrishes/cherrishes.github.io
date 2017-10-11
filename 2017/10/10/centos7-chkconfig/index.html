@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Linux_CentOS7自定义开机启动服务 | 那些你不知道的事</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Centos系统服务脚本目录1/usr/lib/systemd/
+有系统（system）和用户（user）之分如需要开机没有登录情况下就能运行的程序，存在系统服务（system）里，即：1/usr/lib/systemd/system/
+反之，用户登陆后才能运行的程序，存在用户（user）里服务以xx.service结尾
+以nginx开机运行为例建立服务文件1vim /usr/lib/system">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux_CentOS7自定义开机启动服务">
+<meta property="og:url" content="http://www.cherrypy.net:82/2017/10/10/centos7-chkconfig/index.html">
+<meta property="og:site_name" content="那些你不知道的事">
+<meta property="og:description" content="Centos系统服务脚本目录1/usr/lib/systemd/
+有系统（system）和用户（user）之分如需要开机没有登录情况下就能运行的程序，存在系统服务（system）里，即：1/usr/lib/systemd/system/
+反之，用户登陆后才能运行的程序，存在用户（user）里服务以xx.service结尾
+以nginx开机运行为例建立服务文件1vim /usr/lib/system">
+<meta property="og:image" content="http://7xq1xx.com1.z0.glb.clouddn.com/firewall.JPEG">
+<meta property="og:updated_time" content="2017-10-11T10:39:19.279Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux_CentOS7自定义开机启动服务">
+<meta name="twitter:description" content="Centos系统服务脚本目录1/usr/lib/systemd/
+有系统（system）和用户（user）之分如需要开机没有登录情况下就能运行的程序，存在系统服务（system）里，即：1/usr/lib/systemd/system/
+反之，用户登陆后才能运行的程序，存在用户（user）里服务以xx.service结尾
+以nginx开机运行为例建立服务文件1vim /usr/lib/system">
+  
+    <link rel="alternative" href="/atom.xml" title="那些你不知道的事" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/img/me.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Mr Ren</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">你不知道我为什么离开你</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>標籤</li>
+						
+						
+						<li>關於</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/tags/python">随笔</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/cherrishes" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="/#" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Bit/" style="font-size: 10px;">Bit</a> <a href="/tags/CentOS/" style="font-size: 10px;">CentOS</a> <a href="/tags/Centos7/" style="font-size: 10px;">Centos7</a> <a href="/tags/Chkconfig/" style="font-size: 10px;">Chkconfig</a> <a href="/tags/FTP/" style="font-size: 10px;">FTP</a> <a href="/tags/FileZilla/" style="font-size: 10px;">FileZilla</a> <a href="/tags/Gunicorn/" style="font-size: 10px;">Gunicorn</a> <a href="/tags/H5/" style="font-size: 10px;">H5</a> <a href="/tags/IT/" style="font-size: 10px;">IT</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/Node-Js/" style="font-size: 10px;">Node.Js</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Webpack/" style="font-size: 10px;">Webpack</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/apscheduler/" style="font-size: 10px;">apscheduler</a> <a href="/tags/celery/" style="font-size: 10px;">celery</a> <a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/clothing/" style="font-size: 10px;">clothing</a> <a href="/tags/cloud/" style="font-size: 10px;">cloud</a> <a href="/tags/coney/" style="font-size: 10px;">coney</a> <a href="/tags/django/" style="font-size: 10px;">django</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/imagemagick/" style="font-size: 10px;">imagemagick</a> <a href="/tags/linux-python/" style="font-size: 10px;">linux,python</a> <a href="/tags/locale/" style="font-size: 10px;">locale</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mongodb/" style="font-size: 10px;">mongodb</a> <a href="/tags/mosquitto-mqtt/" style="font-size: 10px;">mosquitto,mqtt</a> <a href="/tags/mysql/" style="font-size: 16.67px;">mysql</a> <a href="/tags/mysql-cluster/" style="font-size: 10px;">mysql cluster</a> <a href="/tags/nginx/" style="font-size: 16.67px;">nginx</a> <a href="/tags/nginx正则/" style="font-size: 10px;">nginx正则</a> <a href="/tags/pycharm/" style="font-size: 10px;">pycharm</a> <a href="/tags/pyenv/" style="font-size: 10px;">pyenv</a> <a href="/tags/pyleus/" style="font-size: 10px;">pyleus</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/python-yield/" style="font-size: 10px;">python yield</a> <a href="/tags/random/" style="font-size: 10px;">random</a> <a href="/tags/rdesktop/" style="font-size: 10px;">rdesktop</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/requests/" style="font-size: 10px;">requests</a> <a href="/tags/thrift/" style="font-size: 10px;">thrift</a> <a href="/tags/tips/" style="font-size: 10px;">tips</a> <a href="/tags/tunnello/" style="font-size: 10px;">tunnello</a> <a href="/tags/ubuntu/" style="font-size: 13.33px;">ubuntu</a> <a href="/tags/wiznote/" style="font-size: 10px;">wiznote</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/产品，知乎，心得/" style="font-size: 10px;">产品，知乎，心得</a> <a href="/tags/优酷/" style="font-size: 10px;">优酷</a> <a href="/tags/数据导出/" style="font-size: 10px;">数据导出</a> <a href="/tags/文件上传进度条/" style="font-size: 10px;">文件上传进度条</a> <a href="/tags/消息验证/" style="font-size: 10px;">消息验证</a> <a href="/tags/索引/" style="font-size: 13.33px;">索引</a> <a href="/tags/终结/" style="font-size: 10px;">终结</a> <a href="/tags/网页书签/" style="font-size: 10px;">网页书签</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">我就是我，是颜色不一样的烟火…</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Mr Ren</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/img/me.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Mr Ren</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">你不知道我为什么离开你</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/tags/python">随笔</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/cherrishes" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="/#" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-centos7-chkconfig" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/10/10/centos7-chkconfig/" class="article-date">
+  	<time datetime="2017-10-10T10:48:40.000Z" itemprop="datePublished">2017-10-10</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Linux_CentOS7自定义开机启动服务
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CentOS/">CentOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Chkconfig/">Chkconfig</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Centos系统服务脚本目录<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/lib/systemd/</span><br></pre></td></tr></table></figure></p>
+<p>有系统（system）和用户（user）之分<br>如需要开机没有登录情况下就能运行的程序，存在系统服务（system）里，即：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/lib/systemd/system/</span><br></pre></td></tr></table></figure></p>
+<p>反之，用户登陆后才能运行的程序，存在用户（user）里<br>服务以<code>xx.service</code>结尾</p>
+<h4 id="u4EE5nginx_u5F00_u673A_u8FD0_u884C_u4E3A_u4F8B"><a href="#u4EE5nginx_u5F00_u673A_u8FD0_u884C_u4E3A_u4F8B" class="headerlink" title="以nginx开机运行为例"></a>以nginx开机运行为例</h4><p>建立服务文件<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /usr/lib/systemd/system/nginx.service</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=nginx</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=forking</span><br><span class="line">PIDFile=/etc/nginx/logs/nginx.pid</span><br><span class="line">ExecStartPre=/etc/nginx/sbin/nginx -c /etc/nginx/conf/nginx.conf -t</span><br><span class="line">ExecStart=/etc/nginx/sbin/nginx -c /etc/nginx/conf/nginx.conf</span><br><span class="line">ExecReload=/bin/<span class="built_in">kill</span> <span class="operator">-s</span> HUP <span class="variable">$MAINPID</span></span><br><span class="line">ExecStop=/bin/<span class="built_in">kill</span> <span class="operator">-s</span> QUIT <span class="variable">$MAINPID</span></span><br><span class="line">PrivateTmp=<span class="literal">true</span></span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+<p>Description:描述服务<br>After:描述服务类别<br>[Service]服务运行参数的设置<br>Type=forking是后台运行的形式<br>ExecStart为服务的具体运行命令<br>ExecReload为重启命令<br>ExecStop为停止命令<br>PrivateTmp=True表示给服务分配独立的临时空间</p>
+<ul>
+<li>注意：[Service]的启动、重启、停止命令全部要求使用绝对路径</li>
+</ul>
+<p>[Install]服务安装的相关设置，可设置为多用户</p>
+<h4 id="u8BBE_u7F6E_u5F00_u673A_u81EA_u542F_u52A8"><a href="#u8BBE_u7F6E_u5F00_u673A_u81EA_u542F_u52A8" class="headerlink" title="设置开机自启动"></a>设置开机自启动</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> nginx.service</span><br></pre></td></tr></table></figure>
+<h4 id="u5176_u4ED6_u6307_u4EE4"><a href="#u5176_u4ED6_u6307_u4EE4" class="headerlink" title="其他指令"></a>其他指令</h4><table>
+<thead>
+<tr>
+<th>任务</th>
+<th>旧指令</th>
+<th>新指令</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>使某服务自动启动</td>
+<td>chkconfig –level 3 httpd  on</td>
+<td>systemctl enable httpd.service</td>
+</tr>
+<tr>
+<td>使某服务不自动启动</td>
+<td>chkconfig –level 3 httpd off</td>
+<td>systemctl disable httpd.service</td>
+</tr>
+<tr>
+<td>检查服务状态</td>
+<td>service httpd status</td>
+<td>systemctl status httpd.service （服务详细信息）systemctl is-active httpd.service （仅显示是否 Active)</td>
+</tr>
+<tr>
+<td>显示所有已启动的服务</td>
+<td>chkconfig –list</td>
+<td>systemctl list-units –type=service</td>
+</tr>
+<tr>
+<td>启动某服务</td>
+<td>service httpd start</td>
+<td>systemctl start httpd.service</td>
+</tr>
+<tr>
+<td>停止某服务</td>
+<td>service httpd stop</td>
+<td>systemctl stop httpd.service</td>
+</tr>
+<tr>
+<td>重启某服务</td>
+<td>service httpd restart</td>
+<td>systemctl restart httpd.service</td>
+</tr>
+</tbody>
+</table>
+<h4 id="u542F_u52A8nginx_u670D_u52A1"><a href="#u542F_u52A8nginx_u670D_u52A1" class="headerlink" title="启动nginx服务"></a>启动nginx服务</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl start nginx.service</span><br></pre></td></tr></table></figure>
+<h4 id="u547D_u4EE4_u8BF4_u660E"><a href="#u547D_u4EE4_u8BF4_u660E" class="headerlink" title="命令说明"></a>命令说明</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">启动nginx服务</span><br><span class="line">systemctl start nginx.service</span><br><span class="line">设置开机自启动</span><br><span class="line">systemctl <span class="built_in">enable</span> nginx.service</span><br><span class="line">停止开机自启动</span><br><span class="line">systemctl <span class="built_in">disable</span> nginx.service</span><br><span class="line">查看服务当前状态</span><br><span class="line">systemctl status nginx.service</span><br><span class="line">重新启动服务</span><br><span class="line">systemctl restart nginx.service</span><br><span class="line">查看所有已启动的服务</span><br><span class="line">systemctl list-units --type=service</span><br></pre></td></tr></table></figure>
+<h3 id="centos_7__u9632_u706B_u5899_u64CD_u4F5C"><a href="#centos_7__u9632_u706B_u5899_u64CD_u4F5C" class="headerlink" title="centos 7 防火墙操作"></a>centos 7 防火墙操作</h3><h4 id="firewall-cmd_u547D_u4EE4"><a href="#firewall-cmd_u547D_u4EE4" class="headerlink" title="firewall-cmd命令"></a>firewall-cmd命令</h4><p>参考<a href="http://www.mamicode.com/info-detail-1800517.html" target="_blank" rel="external">centos7的firewalld的命令高级应用</a><br>firewalld是centos7的一大特性，最大好处有两个：</p>
+<ol>
+<li>支持动态更新，不用重启服务</li>
+<li>引入了防火墙的<code>zone</code>概念，简单来说就是为用户预先准备了几套防火墙策略模板，然可根据不同场景选择相应策略，类似于Windows下的电源管理计划</li>
+</ol>
+<p>常见的zone区域名称及应用</p>
+<table>
+<thead>
+<tr>
+<th>zone名称</th>
+<th>应用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>trusted</td>
+<td>信任所有连接</td>
+</tr>
+<tr>
+<td>public</td>
+<td>允许指定的进入连接</td>
+</tr>
+<tr>
+<td>external</td>
+<td>同public，对伪装的进入连接，一般用于路由转发</td>
+</tr>
+<tr>
+<td>block</td>
+<td>拒绝所有外部发起的连接，允许内部发起的连接</td>
+</tr>
+<tr>
+<td>dmz</td>
+<td>允许受限制的进入连接</td>
+</tr>
+<tr>
+<td>work</td>
+<td>允许受信任的计算机被限制的进入连接，类似workgroup</td>
+</tr>
+<tr>
+<td>home</td>
+<td>同work，类似homegroup</td>
+</tr>
+<tr>
+<td>internal</td>
+<td>同work，范围针对所有互联网用户</td>
+</tr>
+</tbody>
+</table>
+<p>过滤规则</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>规则</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>source</td>
+<td>根据源地址过滤</td>
+</tr>
+<tr>
+<td>interface</td>
+<td>根据网卡过滤</td>
+</tr>
+<tr>
+<td>service</td>
+<td>根据服务过滤</td>
+</tr>
+<tr>
+<td>port</td>
+<td>根据端口过滤</td>
+</tr>
+<tr>
+<td>icmp-block</td>
+<td>icmp报文过滤，按照icmp类型配置</td>
+</tr>
+<tr>
+<td>masquerade</td>
+<td>ip地址伪装</td>
+</tr>
+<tr>
+<td>forward</td>
+<td>端口转发</td>
+</tr>
+</tbody>
+</table>
+<p>其中，过滤规则的优先级遵循如下顺序：<code>source&gt;interface&gt;firewalld.conf</code></p>
+<h4 id="firewalld_u548Ciptables_u7684_u5173_u7CFB"><a href="#firewalld_u548Ciptables_u7684_u5173_u7CFB" class="headerlink" title="firewalld和iptables的关系"></a>firewalld和iptables的关系</h4><p>firewalld自身并不具备防火墙的功能，而是和iptables一样需要通过内核的netfilter来实现，也就是说firewalld和iptables一样，他们的作用都是用于维护规则，而真正使用规则干活的是内核的netfilter，只不过firewalld和iptables的结构以及使用方法不一样罢了。<br><img src="http://7xq1xx.com1.z0.glb.clouddn.com/firewall.JPEG" alt=""></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 启用区域中的一种服务即给某个区域开机某个服务</span></span><br><span class="line">firewall-cmc  --zone=区域名称  --add-service=服务名称</span><br><span class="line"><span class="comment"># 禁用区域中的某个服务即关闭某个服务</span></span><br><span class="line">firewall-cmd  --zone=区域名称  --remove-service=服务名称</span><br><span class="line"><span class="comment"># 查询区域中是否启用了特定的服务</span></span><br><span class="line">firewall-cmd  --zone=区域名称  --query-service=服务名称</span><br><span class="line"><span class="comment"># 启用区域端口和协议组合</span></span><br><span class="line">firewall-cmd   --zone=区域名称  --add-port=端口号/协议</span><br><span class="line"><span class="comment"># 禁用端口和协议</span></span><br><span class="line">firewall-cmd  --zone=区域名称  --remove-port=端口号/协议</span><br><span class="line"><span class="comment"># 查询区域中是否启用可端口和协议组合</span></span><br><span class="line">firewall-cmd  --zone=区域名称  --query-port=端口号/协议</span><br><span class="line"><span class="comment"># 启用区域中的ip地址伪装</span></span><br><span class="line">firewall-cmd   --zone=区域名称  --add-masquerade    该操作只针对ipv4有效</span><br><span class="line"><span class="comment"># 禁用区域中的ip地址伪装</span></span><br><span class="line">firewall-cmd   --zone=区域名称  --remove-masquerade</span><br><span class="line"><span class="comment"># 启用区域中的icmp阻塞功能</span></span><br><span class="line">firewall-cmd   --zone=区域名称  --add-icmp-block=icmp类型    [<span class="built_in">echo</span>-request和<span class="built_in">echo</span>-reply]</span><br><span class="line"><span class="comment"># 禁用区域中的icmp阻塞功能</span></span><br><span class="line">firewall-cmd   --zone=区域名称  --remove-icmp-block=icmp类型</span><br><span class="line"><span class="comment"># 在区域中启用端口转发功能</span></span><br><span class="line">firewall-cmd   --zone=区域名称  --add-forward-port=port=端口号：proto=协议：toaddr=目标地址</span><br></pre></td></tr></table></figure>
+<p>处理永久区域<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取永久选项所支持的服务</span></span><br><span class="line">firewall-cmd --permannet    --get-services</span><br><span class="line"><span class="comment"># 配置防火墙在public区域打开http协议，并保存，以致生效</span></span><br><span class="line">firewall-cmd --permannet  --zone=public  --add-service=http</span><br><span class="line"><span class="comment"># 防火墙开放8000端口在public区域</span></span><br><span class="line">firewall-cmd --permannet --zone=public --add-port=<span class="number">8000</span>/tcp</span><br><span class="line"><span class="comment"># 命令行配置富规则</span></span><br><span class="line"><span class="comment"># 查看富规则：</span></span><br><span class="line">firewall-cmd --list-rich-rules</span><br><span class="line"><span class="comment"># 创建富规则:</span></span><br><span class="line">firewall-cmd --add-rich-rule ‘rule family=ipv4 <span class="built_in">source</span> address=源地址  service name=服务名称  <span class="built_in">log</span> prefix=<span class="string">"fpt"</span> level=info  accept‘  --permannet</span><br><span class="line"><span class="comment"># 允许管理员在172.31.1.2主机通过ssh远程管理内网的192.168.31.83主机（所用端口为23456)</span></span><br><span class="line">firewall-cmd --add-rich-rule ‘rule family=ipv4 <span class="built_in">source</span> address=<span class="number">172.31</span>.<span class="number">1.2</span> forward-port port=<span class="number">23456</span> protocol=tcp  to-port=<span class="number">10211</span>  to-addr=<span class="number">192.168</span>.<span class="number">31.83</span>‘ --permanent  --zone=external</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/10/11/centos7-filezilla/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Centos7 FTP FileZilla连接问题
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/10/09/mysql-cluster/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">mysql集群</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="centos7-chkconfig" data-title="Linux_CentOS7自定义开机启动服务" data-url="http://www.cherrypy.net:82/2017/10/10/centos7-chkconfig/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"cherrish"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 Mr Ren
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

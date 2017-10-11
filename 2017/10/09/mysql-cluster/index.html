@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>mysql集群 | 那些你不知道的事</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="架构图
+环境软件
+centos6.7 Final x64
+mysql-cluster-gpl-7.4.7-linux-glibc2.5-x86_64.tar.gz">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql集群">
+<meta property="og:url" content="http://www.cherrypy.net:82/2017/10/09/mysql-cluster/index.html">
+<meta property="og:site_name" content="那些你不知道的事">
+<meta property="og:description" content="架构图
+环境软件
+centos6.7 Final x64
+mysql-cluster-gpl-7.4.7-linux-glibc2.5-x86_64.tar.gz">
+<meta property="og:image" content="http://7xq1xx.com1.z0.glb.clouddn.com/mysql_cluster.png">
+<meta property="og:updated_time" content="2017-10-09T08:57:52.863Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mysql集群">
+<meta name="twitter:description" content="架构图
+环境软件
+centos6.7 Final x64
+mysql-cluster-gpl-7.4.7-linux-glibc2.5-x86_64.tar.gz">
+  
+    <link rel="alternative" href="/atom.xml" title="那些你不知道的事" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/img/me.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Mr Ren</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">你不知道我为什么离开你</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>標籤</li>
+						
+						
+						<li>關於</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/tags/python">随笔</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/cherrishes" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="/#" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Bit/" style="font-size: 10px;">Bit</a> <a href="/tags/CentOS/" style="font-size: 10px;">CentOS</a> <a href="/tags/Centos7/" style="font-size: 10px;">Centos7</a> <a href="/tags/Chkconfig/" style="font-size: 10px;">Chkconfig</a> <a href="/tags/FTP/" style="font-size: 10px;">FTP</a> <a href="/tags/FileZilla/" style="font-size: 10px;">FileZilla</a> <a href="/tags/Gunicorn/" style="font-size: 10px;">Gunicorn</a> <a href="/tags/H5/" style="font-size: 10px;">H5</a> <a href="/tags/IT/" style="font-size: 10px;">IT</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/Node-Js/" style="font-size: 10px;">Node.Js</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Webpack/" style="font-size: 10px;">Webpack</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/apscheduler/" style="font-size: 10px;">apscheduler</a> <a href="/tags/celery/" style="font-size: 10px;">celery</a> <a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/clothing/" style="font-size: 10px;">clothing</a> <a href="/tags/cloud/" style="font-size: 10px;">cloud</a> <a href="/tags/coney/" style="font-size: 10px;">coney</a> <a href="/tags/django/" style="font-size: 10px;">django</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/imagemagick/" style="font-size: 10px;">imagemagick</a> <a href="/tags/linux-python/" style="font-size: 10px;">linux,python</a> <a href="/tags/locale/" style="font-size: 10px;">locale</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mongodb/" style="font-size: 10px;">mongodb</a> <a href="/tags/mosquitto-mqtt/" style="font-size: 10px;">mosquitto,mqtt</a> <a href="/tags/mysql/" style="font-size: 16.67px;">mysql</a> <a href="/tags/mysql-cluster/" style="font-size: 10px;">mysql cluster</a> <a href="/tags/nginx/" style="font-size: 16.67px;">nginx</a> <a href="/tags/nginx正则/" style="font-size: 10px;">nginx正则</a> <a href="/tags/pycharm/" style="font-size: 10px;">pycharm</a> <a href="/tags/pyenv/" style="font-size: 10px;">pyenv</a> <a href="/tags/pyleus/" style="font-size: 10px;">pyleus</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/python-yield/" style="font-size: 10px;">python yield</a> <a href="/tags/random/" style="font-size: 10px;">random</a> <a href="/tags/rdesktop/" style="font-size: 10px;">rdesktop</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/requests/" style="font-size: 10px;">requests</a> <a href="/tags/thrift/" style="font-size: 10px;">thrift</a> <a href="/tags/tips/" style="font-size: 10px;">tips</a> <a href="/tags/tunnello/" style="font-size: 10px;">tunnello</a> <a href="/tags/ubuntu/" style="font-size: 13.33px;">ubuntu</a> <a href="/tags/wiznote/" style="font-size: 10px;">wiznote</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/产品，知乎，心得/" style="font-size: 10px;">产品，知乎，心得</a> <a href="/tags/优酷/" style="font-size: 10px;">优酷</a> <a href="/tags/数据导出/" style="font-size: 10px;">数据导出</a> <a href="/tags/文件上传进度条/" style="font-size: 10px;">文件上传进度条</a> <a href="/tags/消息验证/" style="font-size: 10px;">消息验证</a> <a href="/tags/索引/" style="font-size: 13.33px;">索引</a> <a href="/tags/终结/" style="font-size: 10px;">终结</a> <a href="/tags/网页书签/" style="font-size: 10px;">网页书签</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">我就是我，是颜色不一样的烟火…</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Mr Ren</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/img/me.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Mr Ren</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">你不知道我为什么离开你</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/tags/python">随笔</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/cherrishes" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="/#" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-mysql-cluster" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/10/09/mysql-cluster/" class="article-date">
+  	<time datetime="2017-10-09T03:36:30.000Z" itemprop="datePublished">2017-10-09</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      mysql集群
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql-cluster/">mysql cluster</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="u67B6_u6784_u56FE"><a href="#u67B6_u6784_u56FE" class="headerlink" title="架构图"></a>架构图</h3><p><img src="http://7xq1xx.com1.z0.glb.clouddn.com/mysql_cluster.png" alt=""></p>
+<h3 id="u73AF_u5883_u8F6F_u4EF6"><a href="#u73AF_u5883_u8F6F_u4EF6" class="headerlink" title="环境软件"></a>环境软件</h3><ol>
+<li>centos6.7 Final x64</li>
+<li>mysql-cluster-gpl-7.4.7-linux-glibc2.5-x86_64.tar.gz<a id="more"></a>
+</li>
+</ol>
+<h3 id="u5B89_u88C5_u6B65_u9AA4"><a href="#u5B89_u88C5_u6B65_u9AA4" class="headerlink" title="安装步骤"></a>安装步骤</h3><h4 id="u8BF4_u660E"><a href="#u8BF4_u660E" class="headerlink" title="说明"></a>说明</h4><p>总共使用5台服务器来部署</p>
+<ul>
+<li>服务器A(192.168.10.71)</li>
+<li>服务器B(192.168.10.72)</li>
+<li>服务器C(192.168.10.73)</li>
+<li>服务器D(192.168.10.74)</li>
+<li>服务器E(192.168.10.87)</li>
+</ul>
+<p>建立有5个节点的MySQL Cluster体系，因此需要用到5台机器，分别做如下用途：</p>
+<table>
+<thead>
+<tr>
+<th>节点用途</th>
+<th>IP地址标识</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>管理节点(MGM)</td>
+<td>192.168.10.87(服务器E)</td>
+</tr>
+<tr>
+<td>数据节点1(NDBD1)</td>
+<td>192.168.10.71(服务器A)</td>
+</tr>
+<tr>
+<td>数据节点2(NDBD2)</td>
+<td>192.168.10.72(服务器B)</td>
+</tr>
+<tr>
+<td>SQL节点1(SQL1)</td>
+<td>192.168.10.73(服务器C)</td>
+</tr>
+<tr>
+<td>SQL节点2(SQL2)</td>
+<td>192.168.10.74(服务器D)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="u5B89_u88C5_u7BA1_u7406_u8282_u70B9"><a href="#u5B89_u88C5_u7BA1_u7406_u8282_u70B9" class="headerlink" title="安装管理节点"></a>安装管理节点</h4><p>在服务器E进行如下配置：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">tar -C /usr/<span class="built_in">local</span> -xzvf mysql-cluster-gpl-<span class="number">7.4</span>.<span class="number">7</span>-linux-glibc2.<span class="number">5</span>-x86_64.tar.gz</span><br><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/mysql-cluster-gpl-<span class="number">7.4</span>.<span class="number">7</span>-linux-glibc2.<span class="number">5</span>-x86_64</span><br><span class="line">cp bin/ndb_mgm* /usr/<span class="built_in">local</span>/bin</span><br><span class="line"><span class="comment"># 添加权限</span></span><br><span class="line">chmod +x /usr/<span class="built_in">local</span>/bin/ndb_mgm*</span><br></pre></td></tr></table></figure></p>
+<h4 id="u5B89_u88C5_u6570_u636E_u8282_u70B9"><a href="#u5B89_u88C5_u6570_u636E_u8282_u70B9" class="headerlink" title="安装数据节点"></a>安装数据节点</h4><p>在服务器A、服务器B进行如下配置：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">tar -C /usr/<span class="built_in">local</span> -xzvf mysql-cluster-gpl-<span class="number">7.4</span>.<span class="number">7</span>-linux-glibc2.<span class="number">5</span>-x86_64.tar.gz</span><br><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/mysql-cluster-gpl-<span class="number">7.4</span>.<span class="number">7</span>-linux-glibc2.<span class="number">5</span>-x86_64</span><br><span class="line"><span class="comment"># 将Data Node需要的程序复制到相关目录，这两个文件复制到bin目录后，其它的文件夹和压缩文件都没用了</span></span><br><span class="line">cp bin/ndbd /usr/<span class="built_in">local</span>/bin/ndbd</span><br><span class="line">cp bin/ndbmtd /usr/<span class="built_in">local</span>/bin/ndbmtd</span><br><span class="line"><span class="comment"># 添加执行权限</span></span><br><span class="line">chmod +x /usr/<span class="built_in">local</span>/bin/ndb*</span><br></pre></td></tr></table></figure></p>
+<h4 id="u5B89_u88C5SQL_u8282_u70B9"><a href="#u5B89_u88C5SQL_u8282_u70B9" class="headerlink" title="安装SQL节点"></a>安装SQL节点</h4><p>在服务器C、服务器D进行如下配置：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">tar -C /usr/<span class="built_in">local</span> -xzvf mysql-cluster-gpl-<span class="number">7.4</span>.<span class="number">7</span>-linux-glibc2.<span class="number">5</span>-x86_64.tar.gz</span><br><span class="line">mv /usr/<span class="built_in">local</span>/mysql /usr/<span class="built_in">local</span>/mysql-bak</span><br><span class="line"><span class="comment"># 建立软链</span></span><br><span class="line">ln <span class="operator">-s</span> /usr/<span class="built_in">local</span>/mysql-cluster-gpl-<span class="number">7.4</span>.<span class="number">7</span>-linux-glibc2.<span class="number">5</span>-x86_64 /usr/<span class="built_in">local</span>/mysql</span><br><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/mysql</span><br><span class="line"><span class="comment"># 添加mysql组和用户</span></span><br><span class="line">groupadd mysql</span><br><span class="line">useradd -g mysql mysql</span><br><span class="line"><span class="comment"># 安装相关依赖</span></span><br><span class="line">yum -y install libaio.x86_64</span><br><span class="line"><span class="comment"># 安装mysql系统数据库</span></span><br><span class="line">mkdir -p /home/data/mysql-cluster/data</span><br><span class="line">chown -R mysql:mysql /home/data/mysql-cluster/</span><br><span class="line">scripts/mysql_install_db --basedir=/usr/<span class="built_in">local</span>/mysql --datadir=/home/data/mysql-cluster/data --user=mysql</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改相关权限</span></span><br><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/mysql</span><br><span class="line">chown -R root .</span><br><span class="line">chown -R mysql data</span><br><span class="line">chgrp -R mysql .</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置开机启动项</span></span><br><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/mysql</span><br><span class="line">cp support-files/mysql.server /etc/rc.d/init.d/</span><br><span class="line">chmod +x /etc/rc.d/init.d/mysql.server</span><br><span class="line">chkconfig --add mysql.server</span><br></pre></td></tr></table></figure></p>
+<h3 id="u914D_u7F6E_u96C6_u7FA4"><a href="#u914D_u7F6E_u96C6_u7FA4" class="headerlink" title="配置集群"></a>配置集群</h3><h4 id="u914D_u7F6E_u7BA1_u7406_u8282_u70B9"><a href="#u914D_u7F6E_u7BA1_u7406_u8282_u70B9" class="headerlink" title="配置管理节点"></a>配置管理节点</h4><p>在服务器E进行如下配置：<br>详细配置参考这篇文章<a href="http://blog.csdn.net/chenxingzhen001/article/details/7620300" target="_blank" rel="external">MySQL Cluster 详细配置文件(config.ini)</a><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 开放1186端口</span></span><br><span class="line">iptables -I INPUT <span class="operator">-s</span> <span class="number">192.168</span>.<span class="number">10.71</span>/<span class="number">255.255</span>.<span class="number">255.0</span> -p tcp --dport <span class="number">1186</span> -j ACCEPT</span><br><span class="line">/etc/rc.d/init.d/iptables save</span><br><span class="line"></span><br><span class="line">mkdir -p /home/data/mysql-cluster</span><br><span class="line">vi /home/data/mysql-cluster/config.ini</span><br></pre></td></tr></table></figure></p>
+<p>具体配置文件如下<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">[ndbd default]</span><br><span class="line"><span class="comment"># Options affecting ndbd processes on all data nodes:</span></span><br><span class="line">NoOfReplicas=<span class="number">2</span>    <span class="comment"># Number of replicas</span></span><br><span class="line">DataMemory=<span class="number">5</span>G    <span class="comment"># How much memory to allocate for data storage</span></span><br><span class="line">IndexMemory=<span class="number">5</span>G   <span class="comment"># How much memory to allocate for index storage</span></span><br><span class="line">                  <span class="comment"># For DataMemory and IndexMemory, we have used the</span></span><br><span class="line">                  <span class="comment"># default values. Since the "world" database takes up</span></span><br><span class="line">                  <span class="comment"># only about 500KB, this should be more than enough for</span></span><br><span class="line">                  <span class="comment"># this example Cluster setup.</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 以下这几个很重要哦，否则表结构都创建不了</span></span><br><span class="line">MaxNoOfOrderedIndexes=<span class="number">1280</span></span><br><span class="line">MaxNoOfUniqueHashIndexes=<span class="number">640</span></span><br><span class="line">MaxNoOfAttributes=<span class="number">10000</span></span><br><span class="line"></span><br><span class="line">[tcp default]</span><br><span class="line"><span class="comment"># TCP/IP options:</span></span><br><span class="line">portnumber=<span class="number">2202</span>   <span class="comment"># This the default; however, you can use any</span></span><br><span class="line">                  <span class="comment"># port that is free for all the hosts in the cluster</span></span><br><span class="line">                  <span class="comment"># Note: It is recommended that you do not specify the port</span></span><br><span class="line">                  <span class="comment"># number at all and simply allow the default value to be used</span></span><br><span class="line">                  <span class="comment"># instead</span></span><br><span class="line"></span><br><span class="line">[ndb_mgmd]</span><br><span class="line"><span class="comment"># Management process options:</span></span><br><span class="line">hostname=<span class="number">192.168</span>.<span class="number">10.87</span>           <span class="comment"># Hostname or IP address of MGM node</span></span><br><span class="line">datadir=/home/data/mysql-cluster  <span class="comment"># Directory for MGM node log files</span></span><br><span class="line"></span><br><span class="line">[ndbd]</span><br><span class="line"><span class="comment"># Options for data node "A":</span></span><br><span class="line">                                <span class="comment"># (one [ndbd] section per data node)</span></span><br><span class="line">hostname=<span class="number">192.168</span>.<span class="number">10.71</span>           <span class="comment"># Hostname or IP address</span></span><br><span class="line">datadir=/home/data/mysql-cluster/data   <span class="comment"># Directory for this data node's data files</span></span><br><span class="line"></span><br><span class="line">[ndbd]</span><br><span class="line"><span class="comment"># Options for data node "B":</span></span><br><span class="line">hostname=<span class="number">192.168</span>.<span class="number">10.72</span>           <span class="comment"># Hostname or IP address</span></span><br><span class="line">datadir=/home/data/mysql-cluster/data   <span class="comment"># Directory for this data node's data files</span></span><br><span class="line"></span><br><span class="line">[mysqld]</span><br><span class="line"><span class="comment"># SQL node options:</span></span><br><span class="line">hostname=<span class="number">192.168</span>.<span class="number">10.73</span>          <span class="comment"># Hostname or IP address</span></span><br><span class="line">                                <span class="comment"># (additional mysqld connections can be</span></span><br><span class="line">                                <span class="comment"># specified for this node for various</span></span><br><span class="line">                                <span class="comment"># purposes such as running ndb_restore)</span></span><br><span class="line">[mysqld]</span><br><span class="line"><span class="comment"># SQL node options:</span></span><br><span class="line">hostname=<span class="number">192.168</span>.<span class="number">10.74</span>          <span class="comment"># Hostname or IP address</span></span><br><span class="line">                                <span class="comment"># (additional mysqld connections can be</span></span><br><span class="line">                                <span class="comment"># specified for this node for various</span></span><br><span class="line">                                <span class="comment"># purposes such as running ndb_restore)</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="u914D_u7F6E_u6570_u636E_u8282_u70B9"><a href="#u914D_u7F6E_u6570_u636E_u8282_u70B9" class="headerlink" title="配置数据节点"></a>配置数据节点</h4><p>在服务器A、服务器B进行如下配置：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 开放防火墙端口</span></span><br><span class="line">iptables -I INPUT <span class="operator">-s</span> <span class="number">192.168</span>.<span class="number">10.71</span>/<span class="number">255.255</span>.<span class="number">255.0</span> -p tcp --dport <span class="number">2202</span> -j ACCEPT</span><br><span class="line">/etc/rc.d/init.d/iptables save</span><br><span class="line"></span><br><span class="line">mv /etc/my.cnf /etc/my.cnf.bak</span><br><span class="line">vi /etc/my.cnf</span><br></pre></td></tr></table></figure></p>
+<p>具体配置文件如下<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[mysqld]</span><br><span class="line">tmp_table_size = <span class="number">256</span>M</span><br><span class="line">max_heap_table_size = <span class="number">256</span>M</span><br><span class="line"><span class="comment"># Options for mysqld process:</span></span><br><span class="line">ndbcluster                      <span class="comment"># run NDB storage engine</span></span><br><span class="line"></span><br><span class="line">[mysql_cluster]</span><br><span class="line"><span class="comment"># Options for MySQL Cluster processes:</span></span><br><span class="line">ndb-connectstring=<span class="number">192.168</span>.<span class="number">10.87</span>  <span class="comment"># location of management server</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="SQL_u8282_u70B9_u914D_u7F6E"><a href="#SQL_u8282_u70B9_u914D_u7F6E" class="headerlink" title="SQL节点配置"></a>SQL节点配置</h4><p>在服务器C、服务器D进行如下配置：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 开放防火墙端口</span></span><br><span class="line">iptables -I INPUT -p tcp --dport <span class="number">3306</span> -j DROP</span><br><span class="line">iptables -I INPUT <span class="operator">-s</span> <span class="number">101.68</span>.<span class="number">70.14</span> -p tcp --dport <span class="number">3306</span> -j ACCEPT</span><br><span class="line">iptables -I INPUT <span class="operator">-s</span> <span class="number">127.0</span>.<span class="number">0.1</span> -p tcp --dport <span class="number">3306</span> -j ACCEPT</span><br><span class="line">iptables -I INPUT <span class="operator">-s</span> <span class="number">192.168</span>.<span class="number">10.71</span>/<span class="number">255.255</span>.<span class="number">255.0</span> -p tcp --dport <span class="number">3306</span> -j ACCEPT</span><br><span class="line">/etc/rc.d/init.d/iptables save</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">mv /etc/my.cnf /etc/my.cnf.bak</span><br><span class="line">vi /etc/my.cnf</span><br></pre></td></tr></table></figure></p>
+<p>具体配置文件如下<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[mysqld]</span><br><span class="line">tmp_table_size = <span class="number">256</span>M</span><br><span class="line">max_heap_table_size = <span class="number">256</span>M</span><br><span class="line"><span class="comment"># Options for mysqld process:</span></span><br><span class="line">ndbcluster                      <span class="comment"># run NDB storage engine</span></span><br><span class="line"></span><br><span class="line">[mysql_cluster]</span><br><span class="line"><span class="comment"># Options for MySQL Cluster processes:</span></span><br><span class="line">ndb-connectstring=<span class="number">192.168</span>.<span class="number">10.87</span>  <span class="comment"># location of management server</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="u542F_u52A8_u96C6_u7FA4"><a href="#u542F_u52A8_u96C6_u7FA4" class="headerlink" title="启动集群"></a>启动集群</h3><h4 id="u542F_u52A8_u987A_u5E8F"><a href="#u542F_u52A8_u987A_u5E8F" class="headerlink" title="启动顺序"></a>启动顺序</h4><p>启动管理节点–&gt;数据节点–&gt;SQL节点<br>关闭顺序与之相反</p>
+<h4 id="u542F_u52A8_u7BA1_u7406_u8282_u70B9"><a href="#u542F_u52A8_u7BA1_u7406_u8282_u70B9" class="headerlink" title="启动管理节点"></a>启动管理节点</h4><p>在服务器E上操作（端口号：1186）<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建相关目录</span></span><br><span class="line">ndb_mgmd <span class="operator">-f</span> /home/data/mysql-cluster/config.ini</span><br><span class="line"><span class="comment"># 修改配置后用初始化命令</span></span><br><span class="line">ndb_mgmd <span class="operator">-f</span> /home/data/mysql-cluster/config.ini --initial</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重启集群</span></span><br><span class="line">ndb_mgmd <span class="operator">-f</span> /home/data/mysql-cluster/config.ini --reload</span><br></pre></td></tr></table></figure></p>
+<h4 id="u542F_u52A8_u6570_u636E_u8282_u70B9"><a href="#u542F_u52A8_u6570_u636E_u8282_u70B9" class="headerlink" title="启动数据节点"></a>启动数据节点</h4><p>分别在A、B机器上执行,端口号：2202<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建相关目录</span></span><br><span class="line">mkdir -p /home/data/mysql-cluster/data</span><br><span class="line">ndbd</span><br></pre></td></tr></table></figure></p>
+<h4 id="u542F_u52A8SQL_u8282_u70B9"><a href="#u542F_u52A8SQL_u8282_u70B9" class="headerlink" title="启动SQL节点"></a>启动SQL节点</h4><p>分别在C、D机器上执行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /home/data/mysql-cluster/data</span><br><span class="line"><span class="comment"># 修改权限</span></span><br><span class="line">chown -R mysql /home/data/mysql-cluster/data</span><br><span class="line"><span class="comment"># 强制结束之前的mysql进程</span></span><br><span class="line">killall mysqld</span><br><span class="line"><span class="comment"># 启动</span></span><br><span class="line">service mysql.server start</span><br><span class="line"><span class="comment"># 如果启动失败，查看“/home/data/mysql-cluster/data”是否有相关的mysql数据库等</span></span><br><span class="line"><span class="comment"># 可将“/etc/rc.d/init.d/mysql.server”中的数据库存储位置改为指定的位置</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="u68C0_u67E5_u96C6_u7FA4_u662F_u5426_u542F_u52A8_u5B8C_u6210"><a href="#u68C0_u67E5_u96C6_u7FA4_u662F_u5426_u542F_u52A8_u5B8C_u6210" class="headerlink" title="检查集群是否启动完成"></a>检查集群是否启动完成</h4><p>直接管理服务器上，启动命令行执行如下指令<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在管理服务器查看集群是否启动成功，可以查看具体是否连接过来</span></span><br><span class="line">shell&gt; ndb_mgm</span><br><span class="line">ndb_mgm&gt; show</span><br><span class="line"><span class="comment"># 或者用如下命令</span></span><br><span class="line">ndb_mgm <span class="operator">-e</span> show</span><br></pre></td></tr></table></figure></p>
+<h3 id="u521B_u5EFA_u6570_u636E_u5E93_u548C_u8868"><a href="#u521B_u5EFA_u6570_u636E_u5E93_u548C_u8868" class="headerlink" title="创建数据库和表"></a>创建数据库和表</h3><h4 id="u8BF4_u660E-1"><a href="#u8BF4_u660E-1" class="headerlink" title="说明"></a>说明</h4><ol>
+<li>创建表时，存储引擎一定要选择<code>“NDBCLUSTER”</code>或者<code>“NDB”</code>(否则表结构是不会自动同步到不同SQL服务器的)，<code>“CREATE TABLE tbl_name (col_name column_definitions) ENGINE=NDBCLUSTER;”</code></li>
+<li>对已有的表修改引擎<code>“ALTER TABLE tbl_name ENGINE=NDBCLUSTER;”</code>，每个表都必须要有主键</li>
+</ol>
+<h4 id="u521D_u59CB_u5316_u64CD_u4F5C"><a href="#u521D_u59CB_u5316_u64CD_u4F5C" class="headerlink" title="初始化操作"></a>初始化操作</h4><p>创建密码<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/usr/<span class="built_in">local</span>/mysql/bin/mysql -uroot</span><br><span class="line"><span class="built_in">set</span> password=password(<span class="string">'111111'</span>);</span><br><span class="line">GRANT ALL PRIVILEGES ON *.* TO <span class="string">'root'</span>@<span class="string">'%'</span> IDENTIFIED BY <span class="string">'111111'</span> WITH GRANT OPTION;</span><br></pre></td></tr></table></figure></p>
+<p>查看数据节点内存使用情况<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ndb_mgm <span class="operator">-e</span> <span class="string">"ALL REPORT MEMORYUSAGE"</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="u5173_u95ED_u96C6_u7FA4"><a href="#u5173_u95ED_u96C6_u7FA4" class="headerlink" title="关闭集群"></a>关闭集群</h3><p>在管理节点（服务器E）上执行命令<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ndb_mgm <span class="operator">-e</span> shutdown</span><br></pre></td></tr></table></figure></p>
+<p>关闭SQL节点<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/usr/<span class="built_in">local</span>/mysql/bin/mysqladmin -uroot -p shutdown</span><br><span class="line"><span class="comment"># 或者</span></span><br><span class="line">service mysql.server stop</span><br></pre></td></tr></table></figure></p>
+<h3 id="u5E38_u7528_u547D_u4EE4"><a href="#u5E38_u7528_u547D_u4EE4" class="headerlink" title="常用命令"></a>常用命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在管理节点执行一下命令</span></span><br><span class="line">ndb_mgmd <span class="operator">-f</span> /home/data/mysql-cluster/config.ini --reload</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在管理节点重启其它节点，2为节点ID，先要输入ndb_mgm命令进入控制台</span></span><br><span class="line"><span class="number">2</span> RESTART</span><br></pre></td></tr></table></figure>
+<h4 id="u6570_u636E_u8282_u70B9_u670D_u52A1_u5668_u91CD_u542F_u540E_u7684_u547D_u4EE4_21_21_21_21_21_21_21_21_21_21_21_21_21_21_21"><a href="#u6570_u636E_u8282_u70B9_u670D_u52A1_u5668_u91CD_u542F_u540E_u7684_u547D_u4EE4_21_21_21_21_21_21_21_21_21_21_21_21_21_21_21" class="headerlink" title="数据节点服务器重启后的命令!!!!!!!!!!!!!!!"></a>数据节点服务器重启后的命令!!!!!!!!!!!!!!!</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 关闭集群</span></span><br><span class="line">ndb_mgm <span class="operator">-e</span> shutdown</span><br><span class="line"></span><br><span class="line"><span class="comment"># 关闭sql节点1</span></span><br><span class="line">service mysql.server stop</span><br><span class="line"></span><br><span class="line"><span class="comment"># 关闭sql节点2</span></span><br><span class="line">service mysql.server stop</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开启管理节点（重启）</span></span><br><span class="line">ndb_mgmd <span class="operator">-f</span> /home/data/mysql-cluster/config.ini --reload</span><br><span class="line"></span><br><span class="line"><span class="comment"># 先连接正常的数据节点</span></span><br><span class="line">ndbd</span><br><span class="line"></span><br><span class="line"><span class="comment"># 然后在出问题的数据节点执行,重要！！！</span></span><br><span class="line">ndbd --initial</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动sql节点1</span></span><br><span class="line">service mysql.server restart</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动sql节点2</span></span><br><span class="line">service mysql.server restart</span><br></pre></td></tr></table></figure>
+<h3 id="u8FD0_u7EF4"><a href="#u8FD0_u7EF4" class="headerlink" title="运维"></a>运维</h3><h4 id="u52A8_u6001_u6DFB_u52A0_u6570_u636E_u8282_u70B9"><a href="#u52A8_u6001_u6DFB_u52A0_u6570_u636E_u8282_u70B9" class="headerlink" title="动态添加数据节点"></a>动态添加数据节点</h4><p>相关参考资料<br><a href="http://blog.csdn.net/chengfei112233/article/details/7706275" target="_blank" rel="external">MySQL Cluster （五） — 动态增加数据节点配置步骤</a></p>
+<h4 id="u6CE8_u610F"><a href="#u6CE8_u610F" class="headerlink" title="注意"></a>注意</h4><p>s74的数据库结构数据保存在以下目录中，因为 在 <code>/etc/my.conf</code>中没有配置相关数据文件目录<br><code>/usr/local/mysql-cluster-gpl-7.4.7-linux-glibc2.5-x86_64/</code></p>
+<h3 id="u603B_u7ED3"><a href="#u603B_u7ED3" class="headerlink" title="总结"></a>总结</h3><ol>
+<li>集群是不需要安装mysql server的</li>
+<li>数据节点和sql节点都需要my.conf的配置文件</li>
+<li>管理节点需要config.ini来告诉它有多少分片、sql节点和数据节点在哪等</li>
+<li>集群没启动起来之前，不要随便修改表结构和插入数据</li>
+<li>由管理节点来协调数据节点、SQL节点之间的调用</li>
+<li>集群最重要的部分就是管理节点，管理节点挂掉了整个集群就不可用了</li>
+<li>mysql集群的启动顺序是很有讲究的，要先启动管理节点，然后再启动数据节点、最后再启动SQL节点</li>
+</ol>
+<h3 id="u7591_u96BE_u95EE_u9898"><a href="#u7591_u96BE_u95EE_u9898" class="headerlink" title="疑难问题"></a>疑难问题</h3><h4 id="5BErr_5D_1114_-_The_table__u2018_u2019_is_full"><a href="#5BErr_5D_1114_-_The_table__u2018_u2019_is_full" class="headerlink" title="[Err] 1114 - The table ‘’ is full"></a>[Err] 1114 - The table ‘’ is full</h4><p>问题描述</p>
+<p>创建表结构时，剩下最后两张表无法创建，然后删除其它表后可以创建</p>
+<p>解决方法<br>参考<a href="http://dba.stackexchange.com/questions/47060/mysql-cluster-table-is-full-error-1114-while-still-creating-tables" target="_blank" rel="external">MySQL Cluster - Table is full [Error 1114] while still creating tables</a><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 原因是以下3个个默认值太小了，可以放大一些</span></span><br><span class="line">MaxNoOfOrderedIndexes=<span class="number">1280</span></span><br><span class="line">MaxNoOfUniqueHashIndexes=<span class="number">640</span></span><br><span class="line">MaxNoOfAttributes=<span class="number">10000</span></span><br><span class="line"><span class="comment"># 编辑config.ini,添加到“[ndbd default]”节点下，然后关闭再初始化即可</span></span><br><span class="line">ndb_mgm <span class="operator">-e</span> shutdown</span><br><span class="line">ndb_mgmd <span class="operator">-f</span> /home/data/mysql-cluster/config.ini --initial</span><br></pre></td></tr></table></figure></p>
+<h4 id="u67D0_u4E00_u4E2A_u8868_u5361_u6B7B"><a href="#u67D0_u4E00_u4E2A_u8868_u5361_u6B7B" class="headerlink" title="某一个表卡死"></a>某一个表卡死</h4><p>问题描述<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用如下sql语句修改表结构时，造成navicat客户端能连上但无法进入数据库，53iq后台无法访问ebt_device表中的数据，一直处于请求状态</span></span><br><span class="line">alter table ebt_device add ebf_device_secret varchar(<span class="number">512</span>) after ebf_device_property;</span><br><span class="line">update ebt_device <span class="built_in">set</span> ebf_device_secret=ebf_device_property <span class="built_in">where</span> <span class="number">1</span>=<span class="number">1</span>;</span><br><span class="line">解决方法：</span><br><span class="line"></span><br><span class="line"><span class="comment"># 先重启出问题的那个SQL节点即可，如果不行再重启整个集群</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 重启集群</span></span><br><span class="line">ndb_mgmd <span class="operator">-f</span> /home/data/mysql-cluster/config.ini --reload</span><br><span class="line"><span class="comment"># sql语句改造，且两句分开执行</span></span><br><span class="line">alter table ebt_device add column ebf_device_secret text COMMENT <span class="string">'注册标识信息'</span>;</span><br><span class="line"><span class="comment"># 一起执行可能会卡死</span></span><br><span class="line">update ebt_device <span class="built_in">set</span> ebf_device_secret=ebf_device_property <span class="built_in">where</span> <span class="number">1</span>=<span class="number">1</span>;</span><br></pre></td></tr></table></figure></p>
+<h4 id="Got_temporary_error_233__u2018Out_of_operation_records_in_transaction_coordinator__28increase_MaxNoOfConcurrentOperations_29_u2019_from_NDBCLUSTER"><a href="#Got_temporary_error_233__u2018Out_of_operation_records_in_transaction_coordinator__28increase_MaxNoOfConcurrentOperations_29_u2019_from_NDBCLUSTER" class="headerlink" title="Got temporary error 233 ‘Out of operation records in transaction coordinator (increase MaxNoOfConcurrentOperations)’ from NDBCLUSTER"></a>Got temporary error 233 ‘Out of operation records in transaction coordinator (increase MaxNoOfConcurrentOperations)’ from NDBCLUSTER</h4><p>问题描述<br>在用navicat还原数据库时，表创建完，恢复到数据时报这个错误</p>
+<p>解决方法：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 修改管理节点的配置文件</span></span><br><span class="line">vim /home/data/mysql-cluster/config.ini</span><br><span class="line"><span class="comment"># 在 [ndbd default] 模块下添加以下语句（默认值太小为32k）</span></span><br><span class="line">MaxNoOfConcurrentOperations=<span class="number">1</span>M</span><br><span class="line"></span><br><span class="line"><span class="comment"># 然后先关闭集群，再重启集群</span></span><br><span class="line"><span class="comment"># 第1步，在管理节点执行</span></span><br><span class="line">ndb_mgm <span class="operator">-e</span> shutdown</span><br><span class="line"><span class="comment"># 第2步，在SQL节点中关闭mysql</span></span><br><span class="line">service mysql.server stop</span><br><span class="line">killall mysqld</span><br><span class="line"></span><br><span class="line"><span class="comment"># 然后再重新打开集群</span></span><br><span class="line"><span class="comment"># 第1步，在管理节点执行</span></span><br><span class="line">ndb_mgmd <span class="operator">-f</span> /home/data/mysql-cluster/config.ini --initial</span><br><span class="line">ndb_mgmd <span class="operator">-f</span> /home/data/mysql-cluster/config.ini --reload</span><br><span class="line"><span class="comment"># 第2步，在数据节点执行</span></span><br><span class="line">ndbd</span><br><span class="line"><span class="comment"># 第3步，在SQL节点执行（大概需要3分钟以上的时间）</span></span><br><span class="line">service mysql.server start</span><br></pre></td></tr></table></figure></p>
+<h4 id="u8282_u70B9_u65E0_u6CD5_u542F_u52A8_u7684_u95EE_u9898"><a href="#u8282_u70B9_u65E0_u6CD5_u542F_u52A8_u7684_u95EE_u9898" class="headerlink" title="节点无法启动的问题"></a>节点无法启动的问题</h4><ol>
+<li>随着数据的增多，节点的启动时间会变成，一般数据节点启动之后，再启动SQL节点。启动SQL节点的时间一般需要两三分钟以上</li>
+<li>只要启动顺序没问题就行了</li>
+</ol>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/10/10/centos7-chkconfig/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Linux_CentOS7自定义开机启动服务
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/10/07/webpack/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Webpack模块打包机</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="mysql-cluster" data-title="mysql集群" data-url="http://www.cherrypy.net:82/2017/10/09/mysql-cluster/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"cherrish"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 Mr Ren
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
